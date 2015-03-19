@@ -1,0 +1,11 @@
+pitaks_kicker_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: pitaksKickerBundle:Default:index }
+
+index:
+    path:     /
+    defaults: { _controller: pitaksKickerBundle:Profile:index }
+
+edit:
+    path:     /edit
+    defaults: { _controller: pitaksKickerBundle:Profile:edit }

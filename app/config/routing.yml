@@ -1,0 +1,4 @@
+pitaks_kicker:
+    resource: "@pitaksKickerBundle/Resources/config/routing.yml"
+    prefix:   /
+
