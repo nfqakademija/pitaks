@@ -9,3 +9,23 @@ index:
 edit:
     path:     /edit
     defaults: { _controller: pitaksKickerBundle:Profile:edit }
+
+readEvent:
+    path:     /readEvent
+    defaults: { _controller: pitaksKickerBundle:Table:readEvent }
+
+setEventsID:
+    path:     /setEventsID
+    defaults: { _controller: pitaksKickerBundle:Table:setEventsID }
+
+createTable:
+    path:     /createTable
+    defaults: { _controller: pitaksKickerBundle:Table:createTable }
+
+getTableEventsAction:
+    path:     /getTableEvents
+    defaults: { _controller: pitaksKickerBundle:Table:getTableEvents }
+
+getLastEventAction:
+    path:     /getLastEvent
+    defaults: { _controller: pitaksKickerBundle:Table:getLastEvent }
