@@ -1,9 +1,9 @@
 pitaks_kicker_homepage:
-    path:     /hello/{name}
+    path:     /
     defaults: { _controller: pitaksKickerBundle:Default:index }
 
 index:
-    path:     /
+    path:     /hello/{name}
     defaults: { _controller: pitaksKickerBundle:Profile:index }
 
 edit:

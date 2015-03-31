@@ -1,1 +1,60 @@
-Hello {{ name }}!
+{% extends "::base.html.twig" %}
+
+{% block title %}Pagrindinis{% endblock %}
+
+{% block body %}
+
+    <aside id="topbar">
+        Search/filter & login form will be here
+    </aside>
+
+    <main class="row">
+
+        <section id="tables-list" class="col-sm-8 col-md-8 col-lg-9">
+
+            <header>
+                <h1>Stalų sąrašas</h1>
+            </header>
+
+            <section class="list-group">
+
+                <article class="list-group-item table">
+                    <header class="table-name">
+                        <h3>Stalas1</h3>
+                    </header>
+                    <button class="btn btn-default" type="button">Rezervuoti</button>
+                </article>
+
+                <article class="list-group-item table">
+                    <header class="table-name">
+                        <h3>Stalas2</h3>
+                    </header>
+                    <button class="btn btn-default" type="button">Rezervuoti</button>
+                </article>
+
+                <article class="list-group-item table">
+                    <header class="table-name">
+                        <h3>Stalas3</h3>
+                    </header>
+                    <button class="btn btn-default" type="button">Rezervuoti</button>
+                </article>
+
+            </section>
+
+        </section>
+
+        <aside id="result" class="col-sm-4 col-md-4 col-lg-3">
+
+            <header>
+                <h2>Rezultatas</h2>
+            </header>
+
+            <h2>
+                <strong>5 : 2</strong>
+            </h2>
+
+        </aside>
+
+    </main>
+
+{% endblock %}
