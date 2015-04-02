@@ -1,6 +1,7 @@
 <?php
 
 namespace pitaks\KickerBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,16 +28,35 @@ class Tables
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=60)
+     * @Assert\Length(min=3)
      */
     private $name;
 
     /**
      * @var string
-     *
+     *  @Assert\Url()
      * @ORM\Column(name="api_url", type="string", length=255)
      *
      */
     private $apiUrl;
+
+    /**
+     * @var string
+     * @Assert\Length(min=3)
+     * @ORM\Column(name="user_Name", type="string", length=255)
+     */
+    private $userName;
+
+    /**
+     * @var string
+     * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\Length(min=5)
+     */
+    private $password;
+
+    function __construct()
+    {
+    }
 
 
     /**
@@ -93,5 +113,51 @@ class Tables
     public function getApiUrl()
     {
         return $this->apiUrl;
+    }
+
+    /**
+     * Set userName
+     *
+     * @param string $userName
+     * @return Tables
+     */
+    public function setUserName($userName)
+    {
+        $this->userName = $userName;
+
+        return $this;
+    }
+
+    /**
+     * Get userName
+     *
+     * @return string 
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Tables
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 }
