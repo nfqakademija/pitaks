@@ -4,4 +4,33 @@
 
 {% block body %}
 <h1>Welcome to the Table:createTable page</h1>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div>
+        {{ form_label(form.name) }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <div>
+        {{ form_label(form.ApiUrl) }}
+        {{ form_errors(form.ApiUrl) }}
+        {{ form_widget(form.ApiUrl) }}
+    </div>
+    <div>
+        {{ form_label(form.username) }}
+        {{ form_errors(form.username) }}
+        {{ form_widget(form.username) }}
+    </div>
+    <div>
+        {{ form_label(form.password) }}
+        {{ form_errors(form.password) }}
+        {{ form_widget(form.password) }}
+    </div>
+
+    <div>
+        {{ form_widget(form.save) }}
+    </div>
+
+    {{ form_end(form) }}
 {% endblock %}

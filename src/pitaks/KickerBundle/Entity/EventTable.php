@@ -41,6 +41,16 @@ class EventTable
      */
     protected $table_id;
 
+    function __construct($id, $timeSec, $usec, $type, $data, $table_id)
+    {
+        $this->id = $id;
+        $this->timeSec = $timeSec;
+        $this->usec = $usec;
+        $this->type = $type;
+        $this->data = $data;
+        $this->table_id = $table_id;
+    }
+
 
     /**
      * Set id

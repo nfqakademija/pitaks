@@ -32,7 +32,6 @@ class TablesRepository extends EntityRepository
         if (empty($criteria)) {
             return $this->findAll();
         }
-
         return $this->findBy($criteria, $orderBy, $limit, $offset);
     }
 
@@ -44,6 +43,18 @@ class TablesRepository extends EntityRepository
         $em = $this->getEntityManager();
         $em->persist($table);
         $em->flush();
+    }
+
+    /**
+     * @param $id
+     * @return Tables
+     */
+    public function findByID($id){
+        return $this->find($id);
+    }
+
+    public function checkTableId($id){
+        return $this->find($id)?true:false;
     }
 
 
