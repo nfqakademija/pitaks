@@ -3,8 +3,34 @@
 {% block title %}pitaksKickerBundle:Table:index{% endblock %}
 
 {% block body %}
-   {% if form.delete is defined %}
-       Are you sure you want to delete the news page: {{ form.vars.value.name }} ?
-   {% endif %}
-    {{ form(form) }}
+
+    <h2> Stalu sarasas Redagavimui</h2>
+
+    <table style="width:50%">
+
+        <tr>
+            <th>Table name</th>
+            <th>Api url</th>
+            <th>Actions</th>
+
+        </tr>
+    {% for table in tables %}
+
+        <tr>
+            <td> {{ table.name }}</td>
+            <td> {{ table.apiUrl }}</td>
+            <td> <a href="{{ path('editTable', {'id': table.id  }) }}">edit </a>
+                <a href="{{ path('editTable', {'id': table.id  }) }}">delete </a>
+
+            </td>
+
+
+        </tr>
+
+
+
+    {% endfor %}
+
+    </table>
+    <p> Add new Table: <a href="{{ path('createTable') }}" > New </a></p>
 {% endblock %}

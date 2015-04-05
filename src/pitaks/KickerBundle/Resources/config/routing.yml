@@ -11,13 +11,16 @@ edit:
     defaults: { _controller: pitaksKickerBundle:Profile:edit }
 
 createTable:
-    path:     /createTable
+    path:     table/createTable
     defaults: { _controller: pitaksKickerBundle:Table:new }
 
 editTable:
-    path:     /editTable/{id}
+    path:     table/editTable/{id}
     defaults: { _controller: pitaksKickerBundle:Table:editTable }
 
 daleteTable:
-        path:     /deleteTable/{id}
+        path:  table/deleteTable/{id}
         defaults: { _controller: pitaksKickerBundle:Table:delete }
+tableList:
+      path: /table/list
+      defaults: { _controller: pitaksKickerBundle:Table:index }

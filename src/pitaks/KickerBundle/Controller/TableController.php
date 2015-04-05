@@ -20,9 +20,15 @@ class TableController extends Controller
      */
     public function indexAction()
     {
-        return array(
-                // ...
-            );
+        $em = $this->getDoctrine()->getManager();
+        $tables = $em->getRepository('pitaksKickerBundle:Tables')->findAll();
+
+        //return table list
+
+        return $this->render(
+            'pitaksKickerBundle:Table:index.html.twig',
+            array('tables' => $tables)
+        );
     }
 
     public function newAction(Request $request)
