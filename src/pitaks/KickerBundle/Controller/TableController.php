@@ -25,17 +25,6 @@ class TableController extends Controller
             );
     }
 
-    public function setEventsIDAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $events = $em->getRepository('pitaksKickerBundle:EventTable')->findALL();
-        foreach ($events as $event) {
-            $event->setTableId(1);
-            $em->flush();
-        }
-        return new Response('<html><body>Pakeisti Duomenys</body></html>');
-    }
-
     public function newAction(Request $request)
     {
         $table = new Tables();
@@ -76,11 +65,36 @@ class TableController extends Controller
             return new Response('News updated successfully');
         }
 
-       // $build['form'] = $form->createView();
         return $this->render('pitaksKickerBundle:Table:createTable.html.twig', array(
             'form' => $form->createView(),));
     }
 
+    public function deleteAction($id, Request $request)
+    {
 
+        $em = $this->getDoctrine()->getManager();
+        $table = $em->getRepository('pitaksKickerBundle:Tables')->find($id);
+        if (!$table) {
+            throw $this->createNotFoundException(
+                'No table found for id ' . $id
+            );
+        }
+
+        $form = $this->createFormBuilder($table)
+            ->add('delete', 'submit')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em->remove($table);
+            $em->flush();
+            return new Response('Table deleted successfully');
+        }
+
+        return $this->render('pitaksKickerBundle:Table:deleteTable.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 
 }

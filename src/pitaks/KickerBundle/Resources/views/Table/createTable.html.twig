@@ -3,6 +3,9 @@
 {% block title %}pitaksKickerBundle:Table:createTable{% endblock %}
 
 {% block body %}
+    {% if form.delete is defined %}
+        Are you sure you want to delete the news page: {{ form.vars.value.name }} ?
+    {% endif %}
 <h1>Welcome to the Table:createTable page</h1>
     {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -33,4 +36,6 @@
     </div>
 
     {{ form_end(form) }}
+
+
 {% endblock %}

@@ -10,22 +10,14 @@ edit:
     path:     /edit
     defaults: { _controller: pitaksKickerBundle:Profile:edit }
 
-setEventsID:
-    path:     /setEventsID
-    defaults: { _controller: pitaksKickerBundle:Table:setEventsID }
-
 createTable:
     path:     /createTable
     defaults: { _controller: pitaksKickerBundle:Table:new }
 
-getTableEventsAction:
-    path:     /getTableEvents
-    defaults: { _controller: pitaksKickerBundle:Table:getTableEvents }
-
-getLastEventAction:
-    path:     /getLastEvent
-    defaults: { _controller: pitaksKickerBundle:Table:getLastEvent }
-
 editTable:
     path:     /editTable/{id}
     defaults: { _controller: pitaksKickerBundle:Table:editTable }
+
+daleteTable:
+        path:     /deleteTable/{id}
+        defaults: { _controller: pitaksKickerBundle:Table:delete }
