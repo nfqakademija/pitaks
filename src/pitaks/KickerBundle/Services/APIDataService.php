@@ -68,7 +68,7 @@ class APIDataService extends ContainerAware {
              //we go
              foreach ($records as $record) {
                  //create new event record
-                 $event = new EventTable($record['id'],$record["timeSec"],$record["usec"],$record["type"],$record["data"],$taleID);
+                 $event = new EventTable($record['id'],$record["timeSec"],$record["usec"],$record["type"],$record["data"],$table);
                  //no brand found. So, persist the new one:
                  $this->getEm()->persist($event);
                  /*Ideda objekta*/

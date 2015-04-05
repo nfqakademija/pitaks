@@ -24,3 +24,19 @@ daleteTable:
 tableList:
       path: /table/list
       defaults: { _controller: pitaksKickerBundle:Table:index }
+
+new_reservation:
+    path:     table/{tableId}/newReservation
+    defaults: { _controller: pitaksKickerBundle:Reservation:newReservation }
+
+delete_reservation:
+    path:     table/{tableId}/deleteReservation/{id}
+    defaults: { _controller: pitaksKickerBundle:Reservation:deleteReservation }
+
+edit_reservation:
+    path:     table/{tableId}/editReservation/{id}
+    defaults: { _controller: pitaksKickerBundle:Reservation:editReservation }
+
+reservationList:
+  path:  table/{tableId}/reservations
+  defaults: { _controller: pitaksKickerBundle:Reservation:reservationList }

@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}pitaksKickerBundle:Reservation:index{% endblock %}
+
+{% block body %}
+<h1>Welcome to the {{ table.name }} table reservation menu</h1>
+<h3> Table reservations: </h3>
+
+    <table style="width:50%">
+    <tr>
+        <th>Order Data</th>
+        <th>Reservation Data</th>
+        <th>Duration </th>
+        <th> Actions </th>
+    </tr>
+
+        {% for record in reservations %}
+            <tr>
+                <td> {{ record.date|date('Y-m-d h:m:sa') }}</td>
+                <td> {{ record.reservationStart|date('Y-m-d  h:m:sa') }}</td>
+                <td> {{ record.reservatioDuration }} h </td>
+                <td> <a href="{{ path('edit_reservation', { 'tableId': table.id, 'id': record.id}) }}"> edit</a>  </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p> Add new Reservation: <a href="{{ path('new_reservation',{'tableId': table.id})   }}" > New </a></p>
+{% endblock %}

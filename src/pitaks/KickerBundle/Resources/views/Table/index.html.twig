@@ -19,7 +19,7 @@
             <td> {{ table.apiUrl }}</td>
             <td> <a href="{{ path('editTable', {'id': table.id  }) }}">edit </a>
                 <a href="{{ path('editTable', {'id': table.id  }) }}">delete </a>
-
+                <a href="{{ path('reservationList', {'tableId': table.id}) }}">RESERVATIONS</a>
             </td>
         </tr>
     {% endfor %}

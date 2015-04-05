@@ -2,28 +2,22 @@
 
 namespace pitaks\KickerBundle\Controller;
 
-use Doctrine\ORM\Mapping\Table;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use pitaks\KickerBundle\Entity\Tables;
 use pitaks\KickerBundle\Form\Type\TableType;
-use pitaks\KickerBundle\Entity\EventTable;
 
 class TableController extends Controller
 {
+
     /**
-     * @Route("/index")
-     * @Template()
+     * @return Response
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $tables = $em->getRepository('pitaksKickerBundle:Tables')->findAll();
-
-        //return table list
 
         return $this->render(
             'pitaksKickerBundle:Table:index.html.twig',
@@ -31,6 +25,10 @@ class TableController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function newAction(Request $request)
     {
         $table = new Tables();
@@ -75,6 +73,11 @@ class TableController extends Controller
             'form' => $form->createView(),));
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return Response
+     */
     public function deleteAction($id, Request $request)
     {
 

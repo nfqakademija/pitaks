@@ -1,6 +1,7 @@
 <?php
 
 namespace pitaks\KickerBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -19,8 +20,6 @@ class Tables
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\OneToMany(targetEntity="EventTable", mappedBy="table_id")
-     *
      */
     private $id;
 
@@ -54,9 +53,25 @@ class Tables
      */
     private $password;
 
-    function __construct()
+    /**
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="tableId")
+     */
+    protected $reservations;
+
+    /**
+ * @ORM\OneToMany(targetEntity="EventTable", mappedBy="table_id")
+ *
+ */
+    protected $events;
+
+    public function __construct()
     {
+        $this->events = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
+
+
+
 
 
     /**
@@ -159,5 +174,71 @@ class Tables
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Add reservations
+     *
+     * @param \pitaks\KickerBundle\Entity\Reservation $reservations
+     * @return Tables
+     */
+    public function addReservation(\pitaks\KickerBundle\Entity\Reservation $reservations)
+    {
+        $this->reservations[] = $reservations;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservations
+     *
+     * @param \pitaks\KickerBundle\Entity\Reservation $reservations
+     */
+    public function removeReservation(\pitaks\KickerBundle\Entity\Reservation $reservations)
+    {
+        $this->reservations->removeElement($reservations);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Add events
+     *
+     * @param \pitaks\KickerBundle\Entity\EventTable $events
+     * @return Tables
+     */
+    public function addEvent(\pitaks\KickerBundle\Entity\EventTable $events)
+    {
+        $this->events[] = $events;
+
+        return $this;
+    }
+
+    /**
+     * Remove events
+     *
+     * @param \pitaks\KickerBundle\Entity\EventTable $events
+     */
+    public function removeEvent(\pitaks\KickerBundle\Entity\EventTable $events)
+    {
+        $this->events->removeElement($events);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvents()
+    {
+        return $this->events;
     }
 }

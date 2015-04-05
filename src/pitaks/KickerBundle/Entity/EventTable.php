@@ -35,9 +35,9 @@ class EventTable
     protected $data;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="Tables", inversedBy="id")
-     *@ORM\JoinColumn(name="table_id", referencedColumnName="id")
+     *
+     * @ORM\ManyToOne(targetEntity="Tables", inversedBy="events")
+     * @ORM\JoinColumn(name="table_id", referencedColumnName="id")
      */
     protected $table_id;
 

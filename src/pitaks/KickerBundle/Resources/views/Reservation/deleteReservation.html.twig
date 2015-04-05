@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}pitaksKickerBundle:Reservation:deleteReservation{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Reservation:deleteReservation page</h1>
+    {% if form.delete is defined %}
+        Are you sure you want to delete reservation which starts at : {{ form.vars.value.reservationStart }} ?
+    {% endif %}
+    {{ form(form) }}
+{% endblock %}
