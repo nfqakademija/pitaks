@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h2> Stalu sarasas Redagavimui</h2>
+    <h2> Table list and actions </h2>
 
     <table style="width:50%">
 
@@ -12,10 +12,8 @@
             <th>Table name</th>
             <th>Api url</th>
             <th>Actions</th>
-
         </tr>
     {% for table in tables %}
-
         <tr>
             <td> {{ table.name }}</td>
             <td> {{ table.apiUrl }}</td>
@@ -23,12 +21,7 @@
                 <a href="{{ path('editTable', {'id': table.id  }) }}">delete </a>
 
             </td>
-
-
         </tr>
-
-
-
     {% endfor %}
 
     </table>
