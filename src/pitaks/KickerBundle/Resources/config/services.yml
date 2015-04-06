@@ -2,6 +2,9 @@ services:
   api_data:
    class: pitaks\KickerBundle\Services\APIDataService
    arguments: ["@doctrine.orm.entity_manager"]
-#    pitaks_kicker.example:
-#        class: pitaks\KickerBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+
+  api_listener:
+    class: pitaks\KickerBundle\EventListener\ApiEventListener
+    tags:
+        - { name: kernel.event_listener, event: api_success, method: onApiSuccess }
+        - { name: kernel.event_listener, event: api_failed, method: onApiError }
