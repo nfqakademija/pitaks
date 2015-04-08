@@ -5,8 +5,16 @@ services:
    calls:
            - [setContainer, ['@service_container']]
 
-  api_listener:
-    class: pitaks\KickerBundle\EventListener\ApiEventListener
-    tags:
-        - { name: kernel.event_listener, event: api_success, method: onApiSuccess }
-        - { name: kernel.event_listener, event: api_failed, method: onApiError }
+
+  api_success_listener:
+      class: pitaks\KickerBundle\EventListener\ApiSuccessListener
+      tags:
+          - { name: kernel.event_listener, event: api_success, method: onApiSuccess }
+  api_error_listener:
+      class: pitaks\KickerBundle\EventListener\ApiErrorListener
+      tags:
+         - { name: kernel.event_listener, event: api_failed, method: onApiError }
+  api_query_listener:
+      class: pitaks\KickerBundle\EventListener\ApiQueryListener
+      tags:
+          - { name: kernel.event_listener, event: , method: onChange }

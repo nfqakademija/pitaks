@@ -12,10 +12,10 @@
  use GuzzleHttp\Client;
  use pitaks\KickerBundle\Entity\Tables;
  use pitaks\KickerBundle\Entity\EventTable;
- use pitaks\KickerBundle\Event\ApiEvents;
+ use pitaks\KickerBundle\Event\ApiErrorEvent;
+ use pitaks\KickerBundle\Event\ApiSuccessEvent;
  use Symfony\Component\Config\Definition\Exception\Exception;
  use Symfony\Component\DependencyInjection\ContainerAware;
- use pitaks\KickerBundle\EventListener\ApiEventListener;
  use Symfony\Component\EventDispatcher\EventDispatcher;
 
  class APIDataService extends ContainerAware {
@@ -63,23 +63,24 @@
         $results= null;
 
         $dispatcher= $this->container->get('event_dispatcher');
-        $event = new ApiEvents();
+        $successEvent = new ApiSuccessEvent();
+        $errorEvent = new ApiErrorEvent();
 
         try {
             if (!$fromID) {
                 $results = $client->
                 get($table->getApiUrl() . 'rows=' . $rows, ['auth' => [$table->getUserName(), $table->getPassword()]]);
-                $dispatcher->dispatch('api_success', $event); }
+                $dispatcher->dispatch('api_success', $successEvent); }
             else {
                 $results = $client->
                 get($table->getApiUrl() . 'rows=' . $rows . '&from-id=' . $fromID, ['auth' => [$table->getUserName(), $table->getPassword()]]);
-                $dispatcher->dispatch('api_success', $event);
+                $dispatcher->dispatch('api_success', $successEvent);
             }
 
         }
         catch(Exception $e){
             echo 'Caught exceptions: ',  $e->getMessage(), "\n";
-            $dispatcher->dispatch('api_failed', $event);
+            $dispatcher->dispatch('api_failed', $errorEvent);
         }
         return $results->json();
     }
