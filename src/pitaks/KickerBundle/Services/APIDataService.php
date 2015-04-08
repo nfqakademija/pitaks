@@ -51,7 +51,6 @@
         {
             return $this->getJsonFromTableApi($table,1);
         }
-
      /**
       * @param Tables $table
       * @param $rows
