@@ -60,30 +60,48 @@
     public function getJsonFromTableApi($table, $rows, $fromID = null)
     {
         $client = new Client();
+        $params = new ApiParams();
+
+        $params->setUrl($table->getApiUrl())->setAuth([$table->getUserName(), $table->getPassword()]);
+
         $results= null;
 
-        $dispatcher= $this->container->get('event_dispatcher');
+        /**
+         * @var EventDispatcherInterface $dispatcher
+         */
+        $dispatcher = $this->container->get('event_dispatcher');
         $successEvent = new ApiSuccessEvent();
         $errorEvent = new ApiErrorEvent();
 
         try {
             if (!$fromID) {
-                $results = $client->
-                get($table->getApiUrl() . 'rows=' . $rows, ['auth' => [$table->getUserName(), $table->getPassword()]]);
-                $dispatcher->dispatch('api_success', $successEvent); }
-            else {
-                $results = $client->
-                get($table->getApiUrl() . 'rows=' . $rows . '&from-id=' . $fromID, ['auth' => [$table->getUserName(), $table->getPassword()]]);
+                $params->setParam('row', $rows);
+                $queryChangeEvent = new ApiQueryChangeEvent();
+                $queryChangeEvent->setParams($params);
+//                echo sprintf("Rows at begining: %d\n", $params->getParam('row'));
+//                var_dump($params->getQueryString());
+                $dispatcher->dispatch(ApiQueryChangeEvent::API_QUERY_EVENT, $queryChangeEvent);
+//                echo sprintf("Rows after dispatched event: %d\n", $params->getParam('row'));
+//                var_dump($params->getQueryString());
+                $results = $client->get($params->getQueryString(), ['auth' => $params->getAuth()]);
+                $dispatcher->dispatch('api_success', $successEvent);
+//                die;
+            } else {
+                $results = $client
+                    ->get($params->setParams([
+                        'rows' => $rows,
+                        'from-id' => $fromID,
+                    ])
+                        ->getQueryString());
                 $dispatcher->dispatch('api_success', $successEvent);
             }
-
         }
         catch(Exception $e){
             echo 'Caught exceptions: ',  $e->getMessage(), "\n";
             $dispatcher->dispatch('api_failed', $errorEvent);
         }
         return $results->json();
-    }
+     }
     /**
      * @param $taleID
      */
