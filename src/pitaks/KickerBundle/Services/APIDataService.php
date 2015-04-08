@@ -61,17 +61,25 @@
     {
         $client = new Client();
         $results= null;
+
+        $dispatcher= $this->container->get('event_dispatcher');
+        $event = new ApiEvents();
+
         try {
             if (!$fromID) {
                 $results = $client->
                 get($table->getApiUrl() . 'rows=' . $rows, ['auth' => [$table->getUserName(), $table->getPassword()]]);
-            } else {
+                $dispatcher->dispatch('api_success', $event); }
+            else {
                 $results = $client->
                 get($table->getApiUrl() . 'rows=' . $rows . '&from-id=' . $fromID, ['auth' => [$table->getUserName(), $table->getPassword()]]);
+                $dispatcher->dispatch('api_success', $event);
             }
+
         }
         catch(Exception $e){
-
+            echo 'Caught exceptions: ',  $e->getMessage(), "\n";
+            $dispatcher->dispatch('api_failed', $event);
         }
         return $results->json();
     }
@@ -81,19 +89,13 @@
     public function  getData($taleID)
     {
        /** need to check if id exits */
-     if($this->getEm()->getRepository('pitaksKickerBundle:Tables')->checkTableId($taleID)) {
+      if($this->getEm()->getRepository('pitaksKickerBundle:Tables')->checkTableId($taleID)) {
          //we will execute code where:
          set_time_limit (0);
          $table =$this->getEm()->getRepository('pitaksKickerBundle:Tables')->findByID($taleID);
          $fromID=$this->getEm()->getRepository('pitaksKickerBundle:EventTable')->getLastEvent($taleID);
          $data = $this->getLastActiveTableApiJson($table);
-         $dispatcher = new EventDispatcher();
-         $apiEvent = new ApiEvents();
-        /* if(!$results){
-            $dispatcher->dispatch($apiEvent::API_FAILED_EVENT, $apiEvent);
-         }
-         $dispatcher->dispatch($apiEvent::API_SUCCESS_EVENT, $apiEvent);
-*/
+
          $lastID= $data['records'][0]['id'];
          while($fromID<$lastID)
          {

@@ -3,5 +3,49 @@
 {% block title %}pitaksKickerBundle:Reservation:editReservation{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Reservation:editReservation page</h1>
+    <h1>Welcome to the Reservation:editReservation page</h1>
+    <button type="submit" id="mygtukas"> Spausk </button>
+    <div id="va"> asdasd </div>
+    <p> sadadasd</p>
+    <p id="laukas"> : </p>
+    <input id="datetimepicker" type="text" >
+    <script>
+
+        $('#mygtukas').click(function(){
+                var verte = $('#datetimepicker').val();
+                $('#laukas').text(verte);
+                    $.ajax({
+                        url:  "{{path('ajaxj')}}",
+                        type: "post",
+                        data: ({dateValue: verte, tableId: 1}),
+                        success: function(data){
+                            alert('success');
+                            $("#laukas").append(data);
+                        },
+                        error:function(){
+                            alert("failure");
+                            $("#laukas").html('There is error while submit');
+                        }
+                    });
+                }
+        );
+        $('#datetimepicker').datetimepicker({
+            lang:'lt',
+            format:'Y-m-d',
+            minTime:0,
+            minDate:0,
+            timepickerScrollbar:false,
+            allowTimes:[
+                '09:00',
+                '11:00',
+                '12:00',
+                '21:00'
+            ]
+        });
+
+
+
+
+
+    </script>
 {% endblock %}

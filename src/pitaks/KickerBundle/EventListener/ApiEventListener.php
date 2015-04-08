@@ -15,11 +15,11 @@ class ApiEventListener {
 
     public function onApiSuccess (ApiEvents $event)
     {
-
+        echo "Ok";
     }
     public function onApiError (ApiEvents $event)
     {
-        throw new NotFoundHttpException('Wrong api url');
+        echo "Fail";
     }
 
 }

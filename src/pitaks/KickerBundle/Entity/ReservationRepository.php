@@ -12,4 +12,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class ReservationRepository extends EntityRepository
 {
+
+ public function findByTableReservationData($tableId)
+ {
+     $qb = $this->createQueryBuilder('r');
+     $r=$qb->select('r')->where('r.tableId='.$tableId)->getQuery()->getResult();
+     return $r;
+
+ }
+    public function findByDate($tableId, $date)
+    {
+        $qb = $this->createQueryBuilder('r');
+        $r=
+        $qb->select('r')->
+        where(
+            $qb->expr()->like('r.reservationStart', ':date'),
+            ('r.tableId='.$tableId)
+        )
+            ->setParameter('date','%'.$date.'%')
+            ->getQuery()
+            ->getResult();
+//  where->getQuery()->getResult();
+        return $r;
+    }
 }

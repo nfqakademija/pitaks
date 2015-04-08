@@ -40,11 +40,12 @@ class EventTableRepository extends EntityRepository
     /**
      * @return array
      */
-    public function getLastEvent()
+    public function getLastEvent($tableId)
     {
         /*SELECT MAX(id) FROM tablename*/
         $query= $this->getQueryBulder()
             ->select('MAX(et.id)')
+            ->where('et.table_id='.$tableId)
         ->getQuery();
         //return max id
         return intval($query->getResult()[0][1]);

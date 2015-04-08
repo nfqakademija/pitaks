@@ -40,3 +40,11 @@ edit_reservation:
 reservationList:
   path:  table/{tableId}/reservations
   defaults: { _controller: pitaksKickerBundle:Reservation:reservationList }
+
+viewRes:
+    path:  view
+    defaults: { _controller: pitaksKickerBundle:Reservation:view }
+
+ajaxj:
+    path:  ajax
+    defaults: { _controller: pitaksKickerBundle:Reservation:ajax }

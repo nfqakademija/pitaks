@@ -3,20 +3,76 @@
 namespace pitaks\KickerBundle\Controller;
 
 use pitaks\KickerBundle\Entity\Reservation;
+use pitaks\KickerBundle\Event\ApiEvents;
 use pitaks\KickerBundle\Form\Type\ReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use pitaks\KickerBundle\Entity\Tables;
 
+
+
 class ReservationController extends Controller
 {
+    /**
+     * @return Response
+     */
+    public function viewAction()
+    {
+
+
+        return $this->render('pitaksKickerBundle:Reservation:editReservation.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function ajaxAction(Request $request)
+    {
+
+        if ($this->get('request')->isXmlHttpRequest()) {
+
+            $date = $this->get('request')->request->get('dateValue');
+            $tableId=$this->get('request')->request->get('tableId');
+
+            $em = $this->getDoctrine()->getManager();
+            $reservations = $em->getRepository('pitaksKickerBundle:Reservation')->find(1);
+
+            $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+
+            //return table list
+            if (!$table) {
+                throw $this->createNotFoundException(
+                    'No table found for id ' . $tableId
+                );
+            }
+            $data = $em->getRepository('pitaksKickerBundle:Reservation')->findByDate($tableId,$date);
+            return $this->render(
+                'pitaksKickerBundle:Reservation:index.html.twig',
+                array('reservations' => $data, 'table' => $table)
+            );
+
+
+
+
+
+
+        }# endif this is an ajax request
+
+    } #end of the controller.
+
+
+
     /**
      * @param $tableId
      * @return Response
      */
     public function reservationListAction($tableId)
     {
+
         $em = $this->getDoctrine()->getManager();
         $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
 
@@ -40,6 +96,9 @@ class ReservationController extends Controller
      */
     public function newReservationAction(Request $request, $tableId)
     {
+        $dispatcher = new EventDispatcher();
+        $apiEvent = new ApiEvents();
+
         $reservation = new Reservation();
         $em = $this->getDoctrine()->getManager();
         $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
