@@ -14,6 +14,10 @@ use pitaks\KickerBundle\Event\ApiSuccessEvent;
 class ApiSuccessListener {
     public function onApiSuccess (ApiSuccessEvent $event)
     {
-        echo "Ok";
+        echo "OK";
     }
+    protected $logger;
+    public function setLogger($logger)
+    { $this->logger = $logger; }
+
 }

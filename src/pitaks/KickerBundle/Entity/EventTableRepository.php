@@ -38,7 +38,8 @@ class EventTableRepository extends EntityRepository
 
 
     /**
-     * @return array
+     * @param $tableId
+     * @return int
      */
     public function getLastEvent($tableId)
     {

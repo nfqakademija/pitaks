@@ -8,13 +8,17 @@ services:
 
   api_success_listener:
       class: pitaks\KickerBundle\EventListener\ApiSuccessListener
+      calls:
+          - [setLogger, ['@logger']]
       tags:
           - { name: kernel.event_listener, event: api_success, method: onApiSuccess }
   api_error_listener:
       class: pitaks\KickerBundle\EventListener\ApiErrorListener
+      calls:
+            - [setLogger, ['@logger']]
       tags:
          - { name: kernel.event_listener, event: api_failed, method: onApiError }
   api_query_listener:
       class: pitaks\KickerBundle\EventListener\ApiQueryListener
       tags:
-          - { name: kernel.event_listener, event: , method: onChange }
+          - { name: kernel.event_listener, event: api_query, method: onChange }

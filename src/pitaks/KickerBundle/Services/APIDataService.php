@@ -13,7 +13,9 @@
  use pitaks\KickerBundle\Entity\Tables;
  use pitaks\KickerBundle\Entity\EventTable;
  use pitaks\KickerBundle\Event\ApiErrorEvent;
+ use pitaks\KickerBundle\Event\ApiQueryChangeEvent;
  use pitaks\KickerBundle\Event\ApiSuccessEvent;
+ use pitaks\KickerBundle\Module\ApiParams;
  use Symfony\Component\Config\Definition\Exception\Exception;
  use Symfony\Component\DependencyInjection\ContainerAware;
  use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -78,14 +80,14 @@
                 $params->setParam('row', $rows);
                 $queryChangeEvent = new ApiQueryChangeEvent();
                 $queryChangeEvent->setParams($params);
-//                echo sprintf("Rows at begining: %d\n", $params->getParam('row'));
-//                var_dump($params->getQueryString());
+                echo sprintf("Rows at begining: %d\n", $params->getParam('row'));
+                var_dump($params->getQueryString());
                 $dispatcher->dispatch(ApiQueryChangeEvent::API_QUERY_EVENT, $queryChangeEvent);
-//                echo sprintf("Rows after dispatched event: %d\n", $params->getParam('row'));
-//                var_dump($params->getQueryString());
+                echo sprintf("Rows after dispatched event: %d\n", $params->getParam('row'));
+                var_dump($params->getQueryString());
                 $results = $client->get($params->getQueryString(), ['auth' => $params->getAuth()]);
                 $dispatcher->dispatch('api_success', $successEvent);
-//                die;
+                die;
             } else {
                 $results = $client
                     ->get($params->setParams([

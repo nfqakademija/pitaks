@@ -16,5 +16,8 @@ class ApiErrorListener {
     {
         echo "Fail";
     }
+    protected $logger;
+    public function setLogger($logger)
+    { $this->logger = $logger; }
 
 }
