@@ -31,11 +31,10 @@ class ApiCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $id = $input->getArgument('id');
-        $output->writeln("No more records ...");
-        /** need to check if id exits */
-      $api = $this->getContainer()->get('api_data');
 
-       $api->getData($id);
+        /** need to check if id exits */
+        $api = $this->getContainer()->get('api_data');
+        $api->getData($id);
         $output->writeln("No more records ...");
 
     }

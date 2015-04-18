@@ -109,7 +109,7 @@ class ApiParams
      */
     public function getQueryString()
     {
-        return $this->url . '?' . http_build_query($this->params);
+        return $this->url . '' . http_build_query($this->params);
 
     }
 }

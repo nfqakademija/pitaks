@@ -12,7 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class ReservationRepository extends EntityRepository
 {
-
+    /**
+     * @param $tableId
+     * @return array
+     */
  public function findByTableReservationData($tableId)
  {
      $qb = $this->createQueryBuilder('r');
@@ -20,6 +23,12 @@ class ReservationRepository extends EntityRepository
      return $r;
 
  }
+
+    /**
+     * @param $tableId
+     * @param $date
+     * @return array
+     */
     public function findByDate($tableId, $date)
     {
         $qb = $this->createQueryBuilder('r');
@@ -32,7 +41,50 @@ class ReservationRepository extends EntityRepository
             ->setParameter('date','%'.$date.'%')
             ->getQuery()
             ->getResult();
-//  where->getQuery()->getResult();
         return $r;
     }
+
+    //reikia grazinti array su galimom reiksmemis
+    /**
+     * @param $tableId
+     * @param $date
+     * @return array
+     */
+    public function freeTimeArray($tableId, $date)
+    {
+        $reservations = $this->findByDate($tableId, $date);
+        $datos = array();
+        //8:00 iki 22:00
+        $nowDate = new \DateTime();
+        $nowDate->format('Y-m-d');
+        $i=0;
+        if( $nowDate->format('Y-m-d') == $date)
+        {
+            //maybe add +1?
+            $hour = $nowDate->format('H');
+            $i = intval($hour)+2;
+        }
+
+        for ($i; $i < 24; $i = $i + 1) {
+            $yra = false;
+            $time = strtotime("00:00") + 3600 * $i;
+            $time2 = strtotime("00:00") + 3600 * ($i + 1);
+            $laikai = array(
+                "begin" => date('H:i', $time),
+                "end" => date('H:i', $time2));
+            foreach($reservations as $reservation)
+            {
+                if($reservation->getReservationStartHour() == $laikai['begin'])
+                {
+                    $yra = true;
+                }
+            }
+            if(!$yra) {
+                $datos[$i] = $laikai;
+            }
+        }
+        return $datos;
+    }
+
+
 }

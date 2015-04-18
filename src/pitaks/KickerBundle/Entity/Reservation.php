@@ -38,14 +38,14 @@ class Reservation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="reservationEnd", type="datetime")
+     * @ORM\Column(name="reservationEnd", type="datetime",nullable=true)
      */
     private $reservationEnd;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="reservatioDuration", type="integer")
+     * @ORM\Column(name="reservatioDuration", type="integer",nullable=true)
      */
     private $reservatioDuration;
 
@@ -64,6 +64,17 @@ class Reservation
      */
     private $userId;
 
+    /**
+     * @var string
+     * @ORM\Column(name="friendId", type="string", length=255, nullable=true)
+     */
+    private $friendId;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="confirmed", type="boolean")
+     */
+    private $confirmed;
 
     /**
      * Get id
@@ -211,5 +222,57 @@ class Reservation
     public function getUserId()
     {
         return $this->userId;
+    }
+    public function getReservationStartHour()
+    {
+        return $this->reservationStart->format("H:i");
+    }
+
+    /**
+     * Set friendId
+     *
+     * @param string $friendId
+     * @return Reservation
+     */
+    public function setFriendId($friendId)
+    {
+        $this->friendId = $friendId;
+
+        return $this;
+    }
+
+    /**
+     * Get friendId
+     *
+     * @return string 
+     */
+    public function getFriendId()
+    {
+        return $this->friendId;
+    }
+
+
+
+    /**
+     * Set confirmed
+     *
+     * @param boolean $confirmed
+     * @return Reservation
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmed
+     *
+     * @return boolean 
+     */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
     }
 }

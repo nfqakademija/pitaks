@@ -44,7 +44,22 @@ reservationList:
 viewRes:
     path:  view
     defaults: { _controller: pitaksKickerBundle:Reservation:view }
-
 ajaxj:
     path:  ajax
     defaults: { _controller: pitaksKickerBundle:Reservation:ajax }
+show:
+    path: rez
+    defaults: {_controller: pitaksKickerBundle:Table:ShowResult }
+timelist:
+    path: timeList
+    defaults: {_controller: pitaksKickerBundle:Reservation:timeList}
+saveReservation:
+    path: save
+    defaults: {_controller: pitaksKickerBundle:Reservation:saveReservation}
+isTableFree:
+    path: isTableFree/{tableId}
+    defaults: {_controller: pitaksKickerBundle:Reservation:isTableFree}
+
+example:
+    path: example
+    defaults: {_controller: pitaksKickerBundle:Profile:index}

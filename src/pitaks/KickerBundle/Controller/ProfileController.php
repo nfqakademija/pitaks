@@ -11,9 +11,9 @@ use pitaks\KickerBundle\Entity\Tables;
 
 class ProfileController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('pitaksKickerBundle:Profile:index.html.twig', array('name' => $name));
+        return $this->render('pitaksKickerBundle:Default:example.html.twig');
     }
 
     public function editAction()

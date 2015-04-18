@@ -1,0 +1,44 @@
+{% extends "::base.html.twig" %}
+{% block title %}pitaksKickerBundle:Reservation:newReservation{% endblock %}
+{% block body %}
+
+    <table class="table">
+        <tr>
+            <th>TIME</th>
+            <th>action </th>
+        </tr>
+        {% for record in time %}
+            <tr style="font-size: x-large; padding: 0px">
+                <td > {{ record['begin'] }} : {{ record['end'] }}</td>
+                <td > <input type="radio" name="time" value="{{ record['begin'] }}"> </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <script>
+        var verte;
+        $("input[name='time']").change(function(){
+            verte = $(this).val();
+            $("#save").prop("disabled",false);
+            alert( verte );
+        });
+        $('#save').click(function(){
+                    var datele = $('#datetimepicker').val();
+                    $.ajax({
+                        url:  "{{path('saveReservation')}}",
+                        type: "post",
+                        data: ({dateValue: datele, tableId: 1, timeValue: verte }),
+                        success: function(data){
+                            alert(data);
+                            window.location.reload(true);
+                        },
+                        error:function(){
+                            alert("failure");
+                        }
+                    });
+                }
+        );
+
+
+    </script>
+{% endblock %}
+

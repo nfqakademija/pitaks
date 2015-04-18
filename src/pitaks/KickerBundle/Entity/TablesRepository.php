@@ -36,9 +36,9 @@ class TablesRepository extends EntityRepository
     }
 
     /**
-     * @param Table $table
+     * @param Tables $table
      */
-    public function save(Table $table)
+    public function save(Tables $table)
     {
         $em = $this->getEntityManager();
         $em->persist($table);

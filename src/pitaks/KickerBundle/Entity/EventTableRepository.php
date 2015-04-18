@@ -12,7 +12,6 @@ class EventTableRepository extends EntityRepository
     {
         return $this->createQueryBuilder("et");
     }
-
     /**
      * @param array $criteria
      * @return array
@@ -25,7 +24,6 @@ class EventTableRepository extends EntityRepository
 
         return $this->findBy($criteria, $orderBy, $limit, $offset);
     }
-
     /**
      * @param EventTable $event
      */
@@ -35,8 +33,6 @@ class EventTableRepository extends EntityRepository
         $em->persist($event);
         $em->flush();
     }
-
-
     /**
      * @param $tableId
      * @return int

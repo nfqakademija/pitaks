@@ -59,20 +59,28 @@ class Tables
     protected $reservations;
 
     /**
- * @ORM\OneToMany(targetEntity="EventTable", mappedBy="table_id")
- *
- */
+    * @ORM\OneToMany(targetEntity="EventTable", mappedBy="table_id")
+     *
+    */
     protected $events;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Game", mappedBy="tableId")
+     */
+    protected $games;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="isFree", type="boolean")
+     */
+    protected $isFree;
 
     public function __construct()
     {
         $this->events = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->games = new ArrayCollection();
     }
-
-
-
-
 
     /**
      * Get id
@@ -240,5 +248,61 @@ class Tables
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * Set isFree
+     *
+     * @param boolean $isFree
+     * @return Tables
+     */
+    public function setIsFree($isFree)
+    {
+        $this->isFree = $isFree;
+
+        return $this;
+    }
+
+    /**
+     * Get isFree
+     *
+     * @return boolean 
+     */
+    public function getIsFree()
+    {
+        return $this->isFree;
+    }
+
+    /**
+     * Add games
+     *
+     * @param \pitaks\KickerBundle\Entity\Game $games
+     * @return Tables
+     */
+    public function addGame(\pitaks\KickerBundle\Entity\Game $games)
+    {
+        $this->games[] = $games;
+
+        return $this;
+    }
+
+    /**
+     * Remove games
+     *
+     * @param \pitaks\KickerBundle\Entity\Game $games
+     */
+    public function removeGame(\pitaks\KickerBundle\Entity\Game $games)
+    {
+        $this->games->removeElement($games);
+    }
+
+    /**
+     * Get games
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGames()
+    {
+        return $this->games;
     }
 }

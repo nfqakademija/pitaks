@@ -15,6 +15,6 @@ class ApiQueryListener {
     public function onChange(ApiQueryChangeEvent $event)
     {
         $params = $event->getParams();
-        $params->setParam('row', 80);
+        $params->setParam('rows', 80);
     }
 }
