@@ -10,6 +10,7 @@
         <!-- styles -->
         <link type="text/css" rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/mainPage.css') }}">
         {% block styles %}{% endblock %}
 
         <!-- scripts -->
@@ -24,9 +25,12 @@
     </head>
 
     <body>
+    {% include '@pitaksKicker/layouts/header.html.twig' %}
         <div class="container-fluid">
             {% block body %}{% endblock %}
         </div>
+        {% include '@pitaksKicker/layouts/footer.html.twig' %}
         {% block scripts %}{% endblock %}
+
     </body>
 </html>

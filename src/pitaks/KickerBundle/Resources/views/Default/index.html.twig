@@ -4,52 +4,67 @@
 
 {% block body %}
 
-    <aside id="topbar">
-        Search/filter & login form will be here
-    </aside>
 
-    <main class="row">
 
-        <section id="tables-list" class="col-sm-8 col-md-8 col-lg-9">
+<div id="main" class="row">
 
-            <header>
-                <h1>Stalų sąrašas</h1>
-            </header>
-
-            <section class="list-group">
-
-                {% for table in tables %}
-                <article class="list-group-item table">
-                    <header class="table-name">
-                        <h3> {{ table.name }}</h3>
-                        <h4 id="result"> Rezultatas </h4>
-                    </header>
-                    <div id="refreshInfo">
-
-                    </div>
-                    <button id="rezervation" type="button" value="{{ table.id }}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                        Rezervation
-                    </button>
-                <!-- kad ismestu lentute reikia padaryt-->
-                </article>
-                {% endfor %}
-            </section>
-
-        </section>
-
-        <aside id="result" class="col-sm-4 col-md-4 col-lg-3">
-
-            <header>
-                <h2>Rezultatas</h2>
-            </header>
-
-            <h2>
-                <strong>5 : 2</strong>
-            </h2>
-
+    <div class="myPanel col-sm-offset-1 col-sm-10" >
+        <div class="row">
+            <div class="myPanelHeader col-sm-4 col-sm-offset-8">
+                <span class="glyphicon glyphicon-list"></span> Pagrindinis
+            </div>
+        </div><aside id="topbar" class=" col-sm-10">
+            Search/filter & login form will be here
         </aside>
+        <div class="row">
+            <div class="myPanelArea">
+                <div class="myPanelAreaLeft col-sm-6">
+                    <div class="tableList">
+                        <div class="row">
 
-    </main>
+                            {% for table in tables %}
+                                <div class="row">
+
+                                    <div class="col-sm-1">
+                                        <div class="status"></div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{ table.name }}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div id="result" class="scoreSmall">
+                                            5 : 0
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button id="rezervation" type="button" value="{{ table.id }}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                            Rezervation
+                                        </button>
+                                        <div id="refreshInfo">
+                                        </div>
+                                    </div>
+                            </div>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="myPanelAreaLeft col-sm-offset-2 col-sm-4">
+                    <header>
+                        <h2>Rezultatas</h2>
+                    </header>
+
+                    <h2>
+                        <strong>5 : 2</strong>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
