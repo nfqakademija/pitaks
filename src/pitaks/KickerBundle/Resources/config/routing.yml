@@ -2,14 +2,6 @@ pitaks_kicker_homepage:
     path:     /
     defaults: { _controller: pitaksKickerBundle:Default:index }
 
-index:
-    path:     /hello/{name}
-    defaults: { _controller: pitaksKickerBundle:Profile:index }
-
-edit:
-    path:     /edit
-    defaults: { _controller: pitaksKickerBundle:Profile:edit }
-
 createTable:
     path:     table/createTable
     defaults: { _controller: pitaksKickerBundle:Table:new }
