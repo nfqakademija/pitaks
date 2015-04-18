@@ -3,34 +3,34 @@ pitaks_kicker_homepage:
     defaults: { _controller: pitaksKickerBundle:Default:index }
 
 createTable:
-    path:     table/createTable
+    path:     admin/table/createTable
     defaults: { _controller: pitaksKickerBundle:Table:new }
 
 editTable:
-    path:     table/editTable/{id}
+    path:     admin/table/editTable/{id}
     defaults: { _controller: pitaksKickerBundle:Table:editTable }
 
 daleteTable:
-        path:  table/deleteTable/{id}
+        path:  admin/table/deleteTable/{id}
         defaults: { _controller: pitaksKickerBundle:Table:delete }
 tableList:
-      path: /table/list
+      path: admin/table/list
       defaults: { _controller: pitaksKickerBundle:Table:index }
 
 new_reservation:
-    path:     table/{tableId}/newReservation
+    path:     admin/table/{tableId}/newReservation
     defaults: { _controller: pitaksKickerBundle:Reservation:newReservation }
 
 delete_reservation:
-    path:     table/{tableId}/deleteReservation/{id}
+    path:     admin/table/{tableId}/deleteReservation/{id}
     defaults: { _controller: pitaksKickerBundle:Reservation:deleteReservation }
 
 edit_reservation:
-    path:     table/{tableId}/editReservation/{id}
+    path:     admin/table/{tableId}/editReservation/{id}
     defaults: { _controller: pitaksKickerBundle:Reservation:editReservation }
 
 reservationList:
-  path:  table/{tableId}/reservations
+  path:  admin/table/{tableId}/reservations
   defaults: { _controller: pitaksKickerBundle:Reservation:reservationList }
 
 viewRes:
@@ -51,7 +51,6 @@ saveReservation:
 isTableFree:
     path: isTableFree/{tableId}
     defaults: {_controller: pitaksKickerBundle:Reservation:isTableFree}
-
 example:
     path: example
     defaults: {_controller: pitaksKickerBundle:Profile:index}
