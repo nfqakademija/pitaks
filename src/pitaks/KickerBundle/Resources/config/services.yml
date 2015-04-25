@@ -4,8 +4,6 @@ services:
    arguments: ["@doctrine.orm.entity_manager"]
    calls:
            - [setContainer, ['@service_container']]
-
-
   api_success_listener:
       class: pitaks\KickerBundle\EventListener\ApiSuccessListener
       calls:
@@ -22,3 +20,8 @@ services:
       class: pitaks\KickerBundle\EventListener\ApiQueryListener
       tags:
           - { name: kernel.event_listener, event: api_query, method: onChange }
+  reservation_service:
+     class: pitaks\KickerBundle\Services\ReservationService
+     arguments: ["@doctrine.orm.entity_manager"]
+     calls:
+             - [setContainer, ['@service_container']]

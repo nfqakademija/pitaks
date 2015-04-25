@@ -3,6 +3,7 @@
 namespace pitaks\KickerBundle\Controller;
 
 use GuzzleHttp\Client;
+use pitaks\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,6 @@ class TableController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $tables = $em->getRepository('pitaksKickerBundle:Tables')->findAll();
-
         return $this->render(
             'pitaksKickerBundle:Table:index.html.twig',
             array('tables' => $tables)

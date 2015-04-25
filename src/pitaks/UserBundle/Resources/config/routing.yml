@@ -1,0 +1,9 @@
+show_users:
+    path: /allUsers
+    defaults: {_controller: UserBundle:User:showUsers}
+getUsersName:
+    path: /usersList
+    defaults: {_controller: UserBundle:User:autocompleteUserNames}
+userslist:
+    path: /usersTableList
+    defaults: {_controller: UserBundle:User:userList}

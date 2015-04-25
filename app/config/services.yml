@@ -3,7 +3,11 @@
 parameters:
 #    parameter_name: value
 
-services:
+#services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+services:
+  pitaksUserManager:
+    class: pitaks\UserBundle\Entity\UserManager
+    arguments: [@security.encoder_factory, @fos_user.util.username_canonicalizer, @fos_user.util.email_canonicalizer, @fos_user.entity_manager, pitaks\UserBundle\Entity\User]

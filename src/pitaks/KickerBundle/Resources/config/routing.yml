@@ -51,6 +51,3 @@ saveReservation:
 isTableFree:
     path: isTableFree/{tableId}
     defaults: {_controller: pitaksKickerBundle:Reservation:isTableFree}
-example:
-    path: example
-    defaults: {_controller: pitaksKickerBundle:Profile:index}

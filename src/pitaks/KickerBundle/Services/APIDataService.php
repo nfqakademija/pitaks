@@ -299,7 +299,7 @@
                         $scoreTeam2 = 0;
                         $game = $this->createNewGame($table, $records,$record);
                     }
-
+                /*Pakeisti i klases*/
                 } elseif ($record['type'] == "CardSwipe") {
                     //add users to game
                     $player = json_decode($record['data'], true);
@@ -345,7 +345,7 @@
          $game->setScoreTeam1(0);
          $game->setScoreTeam2(0);
 
-
+         /*count vietoj sizeof*/
          if(sizeof($this->getEm()->getRepository('pitaksKickerBundle:Game')->findAll() )<1 ||$lastRecord == null )
          {
              $game->setStartEventId($records[0]['id']);
@@ -358,7 +358,6 @@
              $game->setBeginTime($lastRecord['timeSec']);
              $game->setStartEventId($lastRecord['id']);//turetu uždėti pirmą?
              $game->setLastAddedEventId($lastRecord['id']);
-
              $game->setLastTime($lastRecord['timeSec']);
 
              //tikrinti laiko skirtuma nuo buvusio

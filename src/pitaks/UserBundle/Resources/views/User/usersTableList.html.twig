@@ -1,0 +1,35 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block fos_user_content %}
+    <h2>User list </h2>
+
+    <table  class="table-striped" style="width:50%">
+
+    <tr>
+        <th>User UserName </th>
+        <th>User Name</th>
+        <th>User LastName</th>
+        <th>User Stats</th>
+        <th> CHOOSE </th>
+    </tr>
+    {% for user in users %}
+        <tr>
+            <td> {{ user.username }}</td>
+            <td> {{ user.name }}</td>
+            <td> {{ user.lastName }}</td>
+            <td> not created yet </td>
+            <td> <input type="radio" value="{{ user.id }}" name="users">   </td>
+        </tr>
+    {% endfor %}
+    <script>
+        function selectedUserId(){
+
+            $('input:radio').change(function() {
+                alert(
+                        $("input[type='radio']:checked").val()
+                );
+            });
+
+        }
+        selectedUserId();
+        </script>
+{% endblock fos_user_content %}

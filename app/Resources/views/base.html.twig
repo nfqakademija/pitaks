@@ -15,6 +15,7 @@
 
         <!-- scripts -->
         <script src="{{ asset('js/jquery.js') }}"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/jquery.datetimepicker.js') }}"></script>
         <!--[if lt IE 9]>
@@ -25,12 +26,12 @@
     </head>
 
     <body>
-    {% include '@pitaksKicker/layouts/header.html.twig' %}
-        <div class="container-fluid">
-            {% block body %}{% endblock %}
+    <!--% include '@pitaksKicker/layouts/header.html.twig' %}-->
+        <div class="container-fluid" style="background-color: white; z-index: 50; min-height: 300px ">
+                {% block body %}{% endblock %}
         </div>
-        {% include '@pitaksKicker/layouts/footer.html.twig' %}
-        {% block scripts %}{% endblock %}
 
+        {% block scripts %}{% endblock %}
+    <!--% include '@pitaksKicker/layouts/footer.html.twig' %}-->
     </body>
 </html>

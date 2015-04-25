@@ -24,14 +24,7 @@ class Reservation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
-     */
-    private $date;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="reservationStart", type="datetime")
+     * @ORM\Column(name="reservationStart", type="datetime",nullable=true)
      */
     private $reservationStart;
 
@@ -45,36 +38,27 @@ class Reservation
     /**
      * @var integer
      *
-     * @ORM\Column(name="reservatioDuration", type="integer",nullable=true)
+     * @ORM\Column(name="reservationDuration", type="integer",nullable=true)
      */
-    private $reservatioDuration;
+    private $reservationDuration;
 
     /**
-     *
-     *
      * @ORM\ManyToOne(targetEntity="Tables", inversedBy="reservations")
      * @ORM\JoinColumn(name="tableId", referencedColumnName="id")
      */
     private $tableId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="userId", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="RegisteredReservation", inversedBy="reservations")
+     * @ORM\JoinColumn(name="registeredReservationd", referencedColumnName="id")
      */
-    private $userId;
-
-    /**
-     * @var string
-     * @ORM\Column(name="friendId", type="string", length=255, nullable=true)
-     */
-    private $friendId;
+    private $registeredReservationId;
 
     /**
      * @var boolean
-     * @ORM\Column(name="confirmed", type="boolean")
+     * @ORM\Column(name="isFree", type="boolean" ,nullable=true)
      */
-    private $confirmed;
+    private $isFree;
 
     /**
      * Get id
@@ -84,29 +68,6 @@ class Reservation
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return Reservation
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime 
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**
@@ -156,26 +117,26 @@ class Reservation
     }
 
     /**
-     * Set reservatioDuration
+     * Set reservationDuration
      *
-     * @param integer $reservatioDuration
+     * @param integer $reservationDuration
      * @return Reservation
      */
-    public function setReservatioDuration($reservatioDuration)
+    public function setReservationDuration($reservationDuration)
     {
-        $this->reservatioDuration = $reservatioDuration;
+        $this->reservationDuration = $reservationDuration;
 
         return $this;
     }
 
     /**
-     * Get reservatioDuration
+     * Get reservationDuration
      *
      * @return integer 
      */
-    public function getReservatioDuration()
+    public function getReservationDuration()
     {
-        return $this->reservatioDuration;
+        return $this->reservationDuration;
     }
 
     /**
@@ -200,79 +161,63 @@ class Reservation
     {
         return $this->tableId;
     }
-
+    
     /**
-     * Set userId
-     *
-     * @param string $userId
-     * @return Reservation
+     * @return string
      */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return string 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
     public function getReservationStartHour()
     {
         return $this->reservationStart->format("H:i");
     }
 
+    public function getReservationEndHour(){
+        return $this->reservationEnd->format("H:i");
+    }
+
+
     /**
-     * Set friendId
+     * Set isFree
      *
-     * @param string $friendId
+     * @param boolean $isFree
      * @return Reservation
      */
-    public function setFriendId($friendId)
+    public function setIsFree($isFree)
     {
-        $this->friendId = $friendId;
+        $this->isFree = $isFree;
 
         return $this;
     }
 
     /**
-     * Get friendId
-     *
-     * @return string 
-     */
-    public function getFriendId()
-    {
-        return $this->friendId;
-    }
-
-
-
-    /**
-     * Set confirmed
-     *
-     * @param boolean $confirmed
-     * @return Reservation
-     */
-    public function setConfirmed($confirmed)
-    {
-        $this->confirmed = $confirmed;
-
-        return $this;
-    }
-
-    /**
-     * Get confirmed
+     * Get isFree
      *
      * @return boolean 
      */
-    public function getConfirmed()
+    public function getIsFree()
     {
-        return $this->confirmed;
+        return $this->isFree;
+    }
+
+    /**
+     * Set registeredReservationId
+     *
+     * @param \pitaks\KickerBundle\Entity\RegisteredReservation $registeredReservationId
+     * @return Reservation
+     */
+    public function setRegisteredReservationId(\pitaks\KickerBundle\Entity\RegisteredReservation $registeredReservationId = null)
+    {
+        $this->registeredReservationId = $registeredReservationId;
+
+        return $this;
+    }
+
+    /**
+     * Get registeredReservationId
+     *
+     * @return \pitaks\KickerBundle\Entity\RegisteredReservation 
+     */
+    public function getRegisteredReservationId()
+    {
+        return $this->registeredReservationId;
     }
 }

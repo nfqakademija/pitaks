@@ -1,39 +1,72 @@
-
-    <button type="submit" id="mygtukas"> Spausk </button>
-    <input id="datetimepicker" type="text" >
-    <p id="laukas" style="position: absolute; overflow-y: scroll;padding: 5px; margin: 5px; min-width: 80%; max-height: 250px"> No date seleted</p>
-    <script>
-
-        $('#mygtukas').click(function(){
-                    $("#save").prop("disabled",true);
-                     var verte = $('#datetimepicker').val();
-                    if(verte!=""){
+<div class="container-fluid">
+    <div class="row" >
+        <h4 id="tableName" value={{ table.id }}>{{ table.name }}</h4>
+    </div>
+    <div class="row">
+        <div class=" col-sm-5">
+            <label for="datetimepicker">Data</label>
+            <input class="form-control" id="datetimepicker" type="text" >
+        </div>
+        <div class=" col-sm-5">
+            <label for="timepicker">Select Start Time</label>
+            <input class="form-control" id="timepicker" type="text" >
+        </div>
+        <div class="col-sm-5">
+            <label for="">Select Duration</label>
+            <select id="selectDuration" class="form-control">
+                <option value="900">15 min</option>
+                <option value="1800">30 min</option>
+                <option value="2700">45 min</option>
+                <option value="3600">1 h</option>
+            </select>
+        </div>
+        <button type="submit" id="mygtukas" class="btn btn-info"> Submit </button>
+    </div>
+    <div class="row" style=" overflow-y: scroll;padding: 5px; margin: 5px; min-width: 80%; max-height: 250px">
+        <p id="laukas"> No date seleted</p>
+    </div>
+    </div>
+<script>
+    $('#mygtukas').click(function(){
+                var duration = $('#selectDuration').val();
+                var startTime = $('#timepicker').val();
+                alert(startTime);
+                var tableId =  $('#tableName').attr('value');
+                $("#save").prop("disabled",true);
+                var verte = $('#datetimepicker').val();
+                if(verte!=""){
                     $.ajax({
                         url:  "{{path('timelist')}}",
                         type: "post",
-                        data: ({dateValue: verte, tableId: 1}),
+                        data: ({dateValue: verte, tableId: tableId, startDate: startTime, duration: duration }),
                         success: function(data){
                             alert('success');
                             $("#laukas").html(data);
+                            alert('success');
                         },
                         error:function(){
                             alert("failure");
                             $("#laukas").html('There is error while submit');
                         }
                     });
-                    }
-                    else{
-                        $("#laukas").text("Choose Data from the calendar");
-                    }
                 }
-        );
-        $('#datetimepicker').datetimepicker({
-            defaultDate:0,
-            lang:'lt',
-            format:'Y-m-d',
-            minTime:0,
-            minDate:0,
-            timepicker:false
-        });
+                else{
+                    $("#laukas").text("Choose Data from the calendar");
+                }
+            }
+    );
 
-    </script>
+    $('#datetimepicker').datetimepicker({
+        defaultDate:0,
+        lang:'lt',
+        format:'Y-m-d',
+        minTime:0,
+        minDate:0,
+        timepicker:false
+    });
+    $('#timepicker').datetimepicker({
+        lang:'lt',
+        format:'H:i',
+        datepicker:false
+    });
+</script>

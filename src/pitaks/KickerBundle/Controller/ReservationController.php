@@ -17,33 +17,38 @@ use pitaks\KickerBundle\Entity\Tables;
 class ReservationController extends Controller
 {
     /**
+     * @param Request $request
      * @return Response
      */
-    public function viewAction()
+    public function viewAction(Request $request)
     {
-        return $this->render('pitaksKickerBundle:Reservation:editReservation.html.twig');
+
+        $tableId = $this->get('request')->request->get('tableId');
+        $table = $this->getDoctrine()->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+        return $this->render('pitaksKickerBundle:Reservation:editReservation.html.twig', array(
+            'table' => $table
+        ));
     }
 
 
-    //reiektu gauti data ir pagal data susirast reservacijas ir atsivaizduot
     /**
+     * @param Request $request
      * @return Response
      */
     public function timeListAction(Request $request)
     {
-        if ($this->get('request')->isXmlHttpRequest()) {
+        $date = $this->get('request')->request->get('dateValue');
+        $startTime = $this->get('request')->request->get('startDate');
+        $duration = $this->get('request')->request->get('duration');
+        $tableId = $this->get('request')->request->get('tableId');
 
-            $date = $this->get('request')->request->get('dateValue');
-            $tableId = $this->get('request')->request->get('tableId');
-            $em = $this->getDoctrine()->getManager();
-            $datos = $em->getRepository('pitaksKickerBundle:Reservation')->freeTimeArray($tableId, $date);
-            return $this->render(
-                'pitaksKickerBundle:Reservation:timeList.html.twig', array(
-                    'time' => $datos, 'data' => $date
-                )
+        $reservations = $this->get('reservation_service')->
+        showFreeTableReservations($tableId,$date,$duration,$startTime);
 
-            );
-        }
+        return $this->render('pitaksKickerBundle:Reservation:timeList.html.twig', array(
+                'time' => $reservations, 'data' => $date, 'tableId' => $tableId
+            )
+        );
     }
 
     public function isTableFreeAction($tableId)
@@ -51,7 +56,8 @@ class ReservationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
         $api = $this->get('api_data')->getTableStatusFromApi($table);
-        $game = $this->getDoctrine()->getManager()->getRepository('pitaksKickerBundle:Game')->getLastGame($table->getId());
+        $game = $this->getDoctrine()->getManager()->getRepository('pitaksKickerBundle:Game')->
+        getLastGame($table->getId());
         $game->getScoreTeam1();
         $game->getScoreTeam2();
         if($api == true){
@@ -64,40 +70,12 @@ class ReservationController extends Controller
 
     public function saveReservationAction(Request $request)
     {
-        if ($this->get('request')->isXmlHttpRequest()) {
-
             $date = $this->get('request')->request->get('dateValue');
             $tableId = $this->get('request')->request->get('tableId');
-            $timeValue =  $this->get('request')->request->get('timeValue');
-
-            echo 'gauta data: '.$date.' laikas: '.$timeValue;
-
-          $timeEnd = date('H:i', (strtotime($timeValue) + 3600));
-            $em = $this->getDoctrine()->getManager();
-            $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
-
-            $reservation = new Reservation();
-            $datenow = new \DateTime();
-
-            $reservation->setDate($datenow);
-            $reservation->setTableId($table);
-            $reservation->setUserId(1); //need to make dinamic
-
-
-            $s = $date." ".$timeValue;
-            $b =new \DateTime($s);
-            $s1 = $date." ".$timeEnd;
-            $b1 =new \DateTime($s1);
-            $reservation->setFriendId(1);
-            $reservation->setConfirmed(false);
-            $reservation->setReservationStart( $b);
-            $reservation->setReservationEnd( $b1 );
-            $reservation->setReservatioDuration(1); //need to make dinamic*/
-            $em->persist($reservation);
-            $em->flush();
-
-        }
-        return new Response("patalpinta");
+            $startValue =  $this->get('request')->request->get('startValue');
+            $endValue =  $this->get('request')->request->get('endValue');
+            $this->get('reservation_service')-> saveUserReservation($date, $tableId, $startValue,$endValue);
+       return new Response("patalpinta");
     }
 
     /**

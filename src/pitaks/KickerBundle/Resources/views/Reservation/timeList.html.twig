@@ -1,4 +1,5 @@
-    <table class="table">
+
+   <table id="timesTable" class="table table-hover" value="{{ tableId }}">
         <tr>
             <th>TIME</th>
             <th>action </th>
@@ -6,23 +7,25 @@
         {% for record in time %}
             <tr style="font-size: x-large; padding: 0px">
                 <td > {{ record['begin'] }} : {{ record['end'] }}</td>
-                <td > <input type="radio" name="time" value="{{ record['begin'] }}"> </td>
+                <td value="{{ record['begin'] }}"> <input type="radio" name="timeListValue" value="{{ record['end'] }}"> </td>
             </tr>
         {% endfor %}
     </table>
     <script>
         var verte;
-        $("input[name='time']").change(function(){
-            verte = $(this).val();
+        var verteEnd;
+        $("input[name='timeListValue']").change(function(){
+            verteEnd = $(this).val();
+            verte = $(this).parent().attr('value');
             $("#save").prop("disabled",false);
-            alert( verte );
         });
         $('#save').click(function(){
+                    var tableId= $('#timesTable').attr('value');
                     var datele = $('#datetimepicker').val();
                     $.ajax({
                         url:  "{{path('saveReservation')}}",
                         type: "post",
-                        data: ({dateValue: datele, tableId: 1, timeValue: verte }),
+                        data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
                         success: function(data){
                             alert(data);
                             window.location.reload(true);
