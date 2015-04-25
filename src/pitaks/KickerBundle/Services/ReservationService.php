@@ -171,7 +171,7 @@ class ReservationService extends ContainerAware{
         $freeReservations=$this->getEm()->
         getRepository('pitaksKickerBundle:Reservation')->findFreeDateReservations($tableId,$date);
 
-        $this->createRegisteredReservation($userId, $friendId, $startDate, $endDate);
+        $registeredReservation =$this->createRegisteredReservation($userId, $friendId, $startDate, $endDate);
 
         for($i = 0; $i<count($freeReservations); $i++){
             if($reservation->getId() == $freeReservations[$i]->getId())
@@ -179,7 +179,8 @@ class ReservationService extends ContainerAware{
                 $kiekis = 0;
                 while($kiekis<$step){
                     $freeReservations[$i+$kiekis];
-                    $freeReservations[$i+$kiekis]->setisFree(false);
+                    $freeReservations[$i+$kiekis]->setIsFree(false);
+                    $freeReservations[$i+$kiekis]->setRegisteredReservationId($registeredReservation);
                     $this->getEm()->flush();
                     $kiekis++;
                 }
@@ -193,6 +194,7 @@ class ReservationService extends ContainerAware{
      * @param $friendId
      * @param $startDate
      * @param $endDate
+     * @return int
      */
     function createRegisteredReservation($userId, $friendId, $startDate, $endDate){
         $registeredReservation = new RegisteredReservation();
@@ -204,6 +206,25 @@ class ReservationService extends ContainerAware{
         $registeredReservation->setReservationStart(new \DateTime($startDate));
         $this->getEm()->persist($registeredReservation);
         $this->getEm()->flush();
+        return $registeredReservation;
     }
 
+    /**
+     * @param integer $registeredReservationId
+     */
+    public function deleteRegisteredReservation($registeredReservationId)
+    {
+        $registeredReservation=$this->getEm()->
+        getRepository('pitaksKickerBundle:RegisteredReservation')->find($registeredReservationId);
+
+        $reservations = $registeredReservation->getReservations();
+        foreach($reservations as $reservation)
+        {
+            $reservation->setIsFree(true);
+            $reservation->setRegisteredReservationId(null);
+        }
+        $this->getEm()->flush();
+        $this->getEm()->remove($registeredReservation);
+        $this->getEm()->flush();
+    }
 }

@@ -7,3 +7,9 @@ getUsersName:
 userslist:
     path: /usersTableList
     defaults: {_controller: UserBundle:User:userList}
+userReservationList:
+    path: /UserReservationsList
+    defaults: {_controller: UserBundle:Profile:userRegisteredReservations}
+userDeleteRegisteredReservation:
+    path: /UserDeleteRegisteredReservation
+    defaults: {_controller: UserBundle:Profile:deleteUserReservation}

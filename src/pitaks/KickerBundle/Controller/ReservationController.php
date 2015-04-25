@@ -74,7 +74,7 @@ class ReservationController extends Controller
             $tableId = $this->get('request')->request->get('tableId');
             $startValue =  $this->get('request')->request->get('startValue');
             $endValue =  $this->get('request')->request->get('endValue');
-            $this->get('reservation_service')-> saveUserReservation($date, $tableId, $startValue,$endValue);
+            $this->get('reservation_service')-> saveUserReservation($date, $tableId, $startValue,$endValue,$this->getUser());
        return new Response("patalpinta");
     }
 

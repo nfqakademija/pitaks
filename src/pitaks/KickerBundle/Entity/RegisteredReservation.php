@@ -37,16 +37,16 @@ class RegisteredReservation
     private $reservationEnd;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="userId", type="integer",nullable=true)
+     * @ORM\Column(name="userId", type="string",nullable=true)
      */
     private $userId;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="friendId", type="integer",nullable=true)
+     * @ORM\Column(name="friendId", type="string",nullable=true)
      */
     private $friendId;
 
@@ -89,7 +89,7 @@ class RegisteredReservation
     /**
      * Set userId
      *
-     * @param integer $userId
+     * @param string $userId
      * @return RegisteredReservation
      */
     public function setUserId($userId)
@@ -102,7 +102,7 @@ class RegisteredReservation
     /**
      * Get userId
      *
-     * @return integer 
+     * @return string
      */
     public function getUserId()
     {
@@ -110,9 +110,9 @@ class RegisteredReservation
     }
 
     /**
-     * Set friendId
+     * Set string
      *
-     * @param integer $friendId
+     * @param string $friendId
      * @return RegisteredReservation
      */
     public function setFriendId($friendId)
@@ -125,7 +125,7 @@ class RegisteredReservation
     /**
      * Get friendId
      *
-     * @return integer 
+     * @return string
      */
     public function getFriendId()
     {
