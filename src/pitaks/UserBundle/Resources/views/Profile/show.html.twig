@@ -2,4 +2,39 @@
 
 {% block fos_user_content %}
 {% include "FOSUserBundle:Profile:show_content.html.twig" %}
+    <div id="userUnconfirmedReservationsList">
+
+    </div>
+    <div id="userReservationsList">
+
+    </div>
+ <script>
+     function showList(){
+         $.ajax({
+             url:  "{{path('userReservationList')}}",
+             type: "get",
+             success: function(data){
+                 $('#userReservationsList').html(data);
+             },
+             error:function(){
+                 $('#userReservationsList').html("Where was some errors while loading your reservations");
+             }
+         });
+     }
+     showList();
+
+     function showUnconfirmedList(){
+         $.ajax({
+             url:  "{{path('userUnconfirmedReservationList')}}",
+             type: "get",
+             success: function(data){
+                 $('#userUnconfirmedReservationsList').html(data);
+             },
+             error:function(){
+                 $('#userUnconfirmedReservationsList').html("Where was some errors while loading your unconfirmed reservations");
+             }
+         });
+     }
+     showUnconfirmedList();
+ </script>
 {% endblock fos_user_content %}

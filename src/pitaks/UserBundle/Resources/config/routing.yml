@@ -13,3 +13,9 @@ userReservationList:
 userDeleteRegisteredReservation:
     path: /UserDeleteRegisteredReservation
     defaults: {_controller: UserBundle:Profile:deleteUserReservation}
+userUnconfirmedReservationList:
+    path: /userUnconfirmedReservationList
+    defaults: {_controller: UserBundle:Profile:userUnconfirmedRegisteredReservations}
+userConfirmRegisteredReservation:
+    path: /userConfirmRegisteredReservation
+    defaults: {_controller: UserBundle:Profile:acceptUserReservation}

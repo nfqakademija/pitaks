@@ -35,7 +35,66 @@ class ProfileController extends BaseController{
         $em=$this->getDoctrine();
         $user=  $this->getUser();
         $username=  $user->getUsername();
-        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('userId' => $username ));
+        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('userId' => $username),array('reservationStart'=>'ASC'));
+        $userReservations= array();
+        foreach($reservations as $reservation)
+        {
+            $tableId=$em->getRepository('pitaksKickerBundle:Reservation')->
+            findOneBy(array('registeredReservationId'=>$reservation->getId()))->getTableId();
+            $tableName = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId)->getName();
+            $record = array(
+                "id" => $reservation->getId(),
+                "tableName" =>$tableName,
+                "startDate" =>$reservation->getReservationStart()->format('Y-m-d H:i'),
+                "endDate" =>$reservation->getReservationEnd()->format('Y-m-d H:i'),
+                "tableId" =>$tableId,
+                "friend" =>$reservation->getFriendId(),
+                "confirmed" =>$reservation->getIsConfirmed()
+            );
+            $userReservations[]=$record;
+        }
+
+        $reservations2 = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('friendId' => $username, 'isConfirmed'=>true),array('reservationStart'=>'ASC'));
+        foreach($reservations2 as $reservation)
+        {
+            $friend = $this->get('fos_user.user_manager')->findUserByUsername($reservation->getFriendId());
+            $tableId=$em->getRepository('pitaksKickerBundle:Reservation')->
+            findOneBy(array('registeredReservationId'=>$reservation->getId()))->getTableId();
+            $tableName = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId)->getName();
+            $record = array(
+                "id" => $reservation->getId(),
+                "tableName" =>$tableName,
+                "startDate" =>$reservation->getReservationStart()->format('Y-m-d H:i'),
+                "endDate" =>$reservation->getReservationEnd()->format('Y-m-d H:i'),
+                "tableId" =>$tableId,
+                "friend" =>$reservation->getUserId(),
+                "confirmed" =>$reservation->getIsConfirmed()
+            );
+            $userReservations[]=$record;
+        }
+        return $this->render('@User/Reservations/userReservationsList.html.twig', array(
+            'reservations' => $userReservations, 'user'=>$user
+        ));
+
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function deleteUserReservationAction()
+    {
+        $reservationId = $this->get('request')->request->get('reservationId');
+        $this->get('reservation_service')->deleteRegisteredReservation($reservationId);
+        return new JsonResponse( "Reservation was deleted ".$reservationId );
+    }
+
+
+    public function userUnconfirmedRegisteredReservationsAction()
+    {
+        $em=$this->getDoctrine();
+        $user=  $this->getUser();
+        $username=  $user->getUsername();
+        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('friendId' => $username,'isConfirmed' =>false ));
         $userReservations= array();
         foreach($reservations as $reservation)
         {
@@ -49,26 +108,24 @@ class ProfileController extends BaseController{
                 "startDate" =>$reservation->getReservationStart()->format('Y-m-d H:i'),
                 "endDate" =>$reservation->getReservationEnd()->format('Y-m-d H:i'),
                 "tableId" =>$tableId,
-                "friend" =>$friend
+                "friend" =>$reservation->getUserId()
             );
             $userReservations[]=$record;
         }
-        return $this->render('@User/Reservations/userReservationsList.html.twig', array(
+        return $this->render('@User/Reservations/userUncorfirmedReservationsList.html.twig', array(
             'reservations' => $userReservations, 'user'=>$user
         ));
 
     }
-
     /**
-     * @return Response
+     * @return JsonResponse
      */
-    public function deleteUserReservationAction()
+    public function acceptUserReservationAction()
     {
         $reservationId = $this->get('request')->request->get('reservationId');
-        $this->get('reservation_service')->deleteRegisteredReservation($reservationId);
-        return new JsonResponse( "Reservation was deleted".$reservationId );
+        $this->get('reservation_service')->acceptUnconfirmedRegisteredReservation($reservationId);
+        return new JsonResponse( "Reservation was accepted ".$reservationId );
     }
-
 
     /*need to get all uncormirmed reservations*/
 }

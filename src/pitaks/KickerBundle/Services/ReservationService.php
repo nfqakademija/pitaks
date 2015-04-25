@@ -227,4 +227,15 @@ class ReservationService extends ContainerAware{
         $this->getEm()->remove($registeredReservation);
         $this->getEm()->flush();
     }
+
+    /**
+     * @param $registeredReservationId
+     */
+    public function acceptUnconfirmedRegisteredReservation($registeredReservationId){
+        $registeredReservation=$this->getEm()->
+        getRepository('pitaksKickerBundle:RegisteredReservation')->find($registeredReservationId);
+        $registeredReservation->setIsConfirmed(true);
+        $this->getEm()->flush();
+
+    }
 }

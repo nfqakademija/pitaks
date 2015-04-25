@@ -1,0 +1,65 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+    <h2> Your Unconfirmed reservations </h2>
+    <table id="userReservationTable" class="table table-hover" >
+        <tr>
+            <th>Table</th>
+            <th>Start Date </th>
+            <th>End Date </th>
+            <th>Friend </th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        {% for record in reservations %}
+            <tr >
+                <td> {{ record['tableName'] }} </td>
+                <td> {{ record['startDate'] }} </td>
+                <td> {{ record['endDate'] }} </td>
+                {% if record['friend'] is null %}
+                    <td> No competitor</td>
+                {% else %}
+                    <td> {{ record['friend']}} </td>
+                {% endif %}
+                <td><span  class=" acceptRegisteredReservation glyphicon glyphicon-ok" style="cursor: pointer"value="{{ record['id'] }}"></span> </td>
+                <td><span  class=" removeRegisteredReservation glyphicon glyphicon-remove" style="cursor: pointer"value="{{ record['id'] }}"></span> </td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    <script>
+        $('.acceptRegisteredReservation').click(function(){
+            var reservationId = $(this).attr('value');
+            alert(reservationId);
+            $.ajax({
+                url:  "{{path('userConfirmRegisteredReservation')}}",
+                type: "post",
+                data: ({reservationId: reservationId}),
+                success: function(data){
+                    alert(data);
+                    window.location.reload(true);
+                },
+                error:function(){
+                    alert("Where was some errors while accepting");
+                }
+            });
+        });
+        $('.removeRegisteredReservation').click(function(){
+            var reservationId = $(this).attr('value');
+            alert(reservationId);
+            $.ajax({
+                url:  "{{path('userDeleteRegisteredReservation')}}",
+                type: "post",
+                data: ({reservationId: reservationId}),
+                success: function(data){
+                    alert(data);
+                    window.location.reload(true);
+                },
+                error:function(){
+                    alert("Where was some errors while deleting");
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

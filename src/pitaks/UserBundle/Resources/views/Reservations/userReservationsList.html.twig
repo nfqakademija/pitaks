@@ -11,7 +11,9 @@
         <th>Start Date </th>
         <th>End Date </th>
         <th>Friend </th>
+        <th> Confirmed </th>
         <th> </th>
+
     </tr>
     {% for record in reservations %}
         <tr >
@@ -21,7 +23,12 @@
             {% if record['friend'] is null %}
                <td> No competitor</td>
             {% else %}
-                <td> {{ record['friend'].username}} </td>
+                <td> {{ record['friend']}} </td>
+            {% endif %}
+            {% if  record['confirmed']  == true %}
+            <td> confirmed </td>
+            {% else %}
+            <td> unconfirmed</td>
             {% endif %}
             <td><span  class=" removeRegisteredReservation glyphicon glyphicon-remove" style="cursor: pointer"value="{{ record['id'] }}"></span> </td>
          </tr>
