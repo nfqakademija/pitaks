@@ -52,32 +52,57 @@ class ReservationService extends ContainerAware{
         $this->em = $em;
     }
 
-    public function createFreeReservationDayTimes(){
-
-        $today = new \DateTime();
-        //gauname tik diena
-        $timeToday = strtotime($today->format('Y-m-d'));
-        //pradedame nuo 7
-        $timeToday = $timeToday + $this::RESERVATION_DAY_START*3600;
-        //spausdina data nuo 7
-
-        $endDayTime = strtotime("+".$this::RESERVATION_DAY_LONG." hour", $timeToday);
-
-        $table = $this->getEm()->getRepository('pitaksKickerBundle:Tables')->find(1);
-
-        $time = $timeToday;
-
-        while($time<$endDayTime){
-            //start time
-            $startTime = date('Y-m-d H:i', $time);
-            //end time
-            $time = $time + $this::RESERVATION_DURATION;
-            $endTime = date('Y-m-d H:i', $time);
-            $this->saveReservationBlocks($startTime,$endTime,$table);
+    /**
+     * Creates reservation blocks for all tables
+     */
+    public function createRegistrationBlocksForTables()
+    {
+        $tables = $this->getEm()->getRepository('pitaksKickerBundle:Tables')->findAll();
+        foreach($tables as $table )
+        {
+            $this->createFreeReservationDayTimes($table->getId());
         }
+    }
+    /**
+     * created blocks of registration for 1 table (1week)
+     * @param integer $tableId
+     */
+    public function createFreeReservationDayTimes($tableId){
+        //find last table reservation
+        $lastReservationBox= $this->getEm()->getRepository('pitaksKickerBundle:Reservation')
+            ->findBy(array('tableId'=>$tableId),array('reservationStart' => 'DESC'),1);
+        if(count($lastReservationBox)>0)
+        {
+            $lastTime=$lastReservationBox[0]->getReservationStart();
+        }
+        else{
+            $lastTime=new \DateTime();
+        }
+        //susikuriamas time
+        $newtime = strtotime($lastTime->format('Y-m-d'));
 
-       // $date = strtotime("+1 month", strtotime("2007-01-29"));
+        for($i = 1; $i <= 7; $i++)
+        {
+            $newtime= strtotime("+1 day", $newtime);
 
+            $timeToday = $newtime + $this::RESERVATION_DAY_START*3600;
+
+            $endDayTime = strtotime("+".$this::RESERVATION_DAY_LONG." hour", $timeToday);
+
+            $table = $this->getEm()->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+
+            $time = $timeToday;
+
+            while($time<$endDayTime){
+                //start time
+                $startTime = date('Y-m-d H:i', $time);
+                //end time
+                $time = $time + $this::RESERVATION_DURATION;
+                $endTime = date('Y-m-d H:i', $time);
+                $this->saveReservationBlocks($startTime,$endTime,$table);
+            }
+            echo date('Y-m-d',$newtime);
+        }
     }
 
     /**
@@ -136,14 +161,9 @@ class ReservationService extends ContainerAware{
         $startDate = $date." ".$startValue;
         $endDate =$date." ".$endValue;
         $duration = strtotime($endValue) - strtotime($startValue);
-        echo "Your date: ".$startDate." duration ". $duration;
-        $table = $this->getEm()->getRepository('pitaksKickerBundle:Tables')->find($tableId);
-
         $reservationTime = new \DateTime($startDate);
 
-
         $step = $duration/$this::RESERVATION_DURATION;
-
 
         $reservation= $this->getEm()->
         getRepository('pitaksKickerBundle:Reservation')->findOneBy(array('reservationStart' => $reservationTime, 'tableId' => $tableId));
@@ -151,26 +171,21 @@ class ReservationService extends ContainerAware{
         $freeReservations=$this->getEm()->
         getRepository('pitaksKickerBundle:Reservation')->findFreeDateReservations($tableId,$date);
 
-        echo "".$reservation->getId();
         $this->createRegisteredReservation($userId, $friendId, $startDate, $endDate);
 
         for($i = 0; $i<count($freeReservations); $i++){
             if($reservation->getId() == $freeReservations[$i]->getId())
             {
-                echo "setiname...";
                 $kiekis = 0;
                 while($kiekis<$step){
                     $freeReservations[$i+$kiekis];
-                    echo($freeReservations[$i+$kiekis]->getReservationStartHour());
                     $freeReservations[$i+$kiekis]->setisFree(false);
                     $this->getEm()->flush();
                     $kiekis++;
-
                 }
                 break;
             }
         }
-
     }
 
     /**
