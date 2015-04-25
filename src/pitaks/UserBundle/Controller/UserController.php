@@ -20,29 +20,6 @@ class UserController extends Controller{
      */
     public function showUsersAction()
     {
-
-        $lastReservationBox= $this->getDoctrine()->getRepository('pitaksKickerBundle:Reservation')
-            ->findBy(array('tableId'=>4),array('reservationStart' => 'DESC'),1);
-        if(count($lastReservationBox)>0)
-        {
-            $lastTime=$lastReservationBox[0]->getReservationStart();
-        }
-        else{
-            $lastTime=new \DateTime();
-        }
-        //susikuriamas time
-        $newtime = strtotime($lastTime->format('Y-m-d'));
-
-        for($i = 1; $i <= 7; $i++)
-        { $newtime= strtotime("+1 day", $newtime);
-            echo date('Y-m-d H:i',$newtime);
-
-        }
-        var_export($lastTime);
-      //  echo $lastTime->format('Y-m-d');
-      //  $newtime= strtotime("+1 day", strtotime($lastTime->format('Y-m-d')));
-       //  echo date('Y-m-d',$newtime);
-        die;
         return $this->render('UserBundle:User:index.html.twig');
     }
 
