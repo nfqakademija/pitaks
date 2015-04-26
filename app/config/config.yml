@@ -78,3 +78,6 @@ fos_user:
     user_class: pitaks\UserBundle\Entity\User
     service:
             user_manager: pitaksUserManager
+    registration:
+            form:
+                type: pitaks_user_registration
