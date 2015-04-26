@@ -241,6 +241,31 @@ class ReservationService extends ContainerAware{
         getRepository('pitaksKickerBundle:RegisteredReservation')->find($registeredReservationId);
         $registeredReservation->setIsConfirmed(true);
         $this->getEm()->flush();
+    }
+
+    /*Need to erase reservation blocks and Registered Reservations*/
+
+    public function regularDeleting()
+    {
+        /*get data Today and delete all reservations
+        *where end time expire
+         * */
+        $today=new \DateTime();
+        $date = $today->format('Y-m-d H:i');
+        $RegisteredReservations = $this->getEm()->getRepository('pitaksKickerBundle:RegisteredReservation')
+            ->findOlderThenData($date);
+        $ReservationBlocks = $this->getEm()->getRepository('pitaksKickerBundle:Reservation')
+            ->findOlderThenData($date);
+        echo "Reservations which are older then ".$date.". Deleting";
+
+        foreach($ReservationBlocks as $row){
+            $this->getEm()->remove($row);
+            $this->getEm()->flush();
+        }
+        foreach($RegisteredReservations as $row){
+            $this->getEm()->remove($row);
+            $this->getEm()->flush();
+        }
 
     }
 }

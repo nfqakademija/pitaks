@@ -12,6 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class ReservationRepository extends EntityRepository
 {
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBulder()
+    {
+        return $this->createQueryBuilder("r");
+    }
+
     /**
      * @param $tableId
      * @return array
@@ -23,7 +32,6 @@ class ReservationRepository extends EntityRepository
      return $r;
 
  }
-
     /**
      * @param $tableId
      * @param $date
@@ -65,4 +73,16 @@ class ReservationRepository extends EntityRepository
         return $r;
     }
 
+    /**
+     * @param string $date
+     * @return array
+     */
+    public function findOlderThenData($date){
+        $r = $this->getQueryBulder()
+            ->select()
+            ->where('r.reservationEnd < :date')
+            ->setParameter('date', $date)
+            ->getQuery()->getResult();
+        return $r;
+    }
 }
