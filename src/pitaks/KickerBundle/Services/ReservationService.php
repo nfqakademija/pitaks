@@ -201,7 +201,12 @@ class ReservationService extends ContainerAware{
         $registeredReservation->setDate(new \DateTime());
         $registeredReservation->setUserId($userId);
         $registeredReservation->setFriendId($friendId);
-        $registeredReservation->setIsConfirmed(false);
+        if($friendId == null) {
+            $registeredReservation->setIsConfirmed(true);
+        }
+        else{
+            $registeredReservation->setIsConfirmed(false);
+        }
         $registeredReservation->setReservationEnd(new \DateTime($endDate));
         $registeredReservation->setReservationStart(new \DateTime($startDate));
         $this->getEm()->persist($registeredReservation);

@@ -19,3 +19,12 @@ userUnconfirmedReservationList:
 userConfirmRegisteredReservation:
     path: /userConfirmRegisteredReservation
     defaults: {_controller: UserBundle:Profile:acceptUserReservation}
+
+#challenges
+userChallengeMain:
+    path: /challenge/{username}
+    defaults: {_controller: UserBundle:Challenge:ChallengePage}
+
+userChallengeSave:
+     path: /challenge/{username}/save
+     defaults: {_controller: UserBundle:Challenge:saveChallenge}

@@ -1,0 +1,105 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}CHALLENGE{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h2> Challenge</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Enemy</h3>
+                </div>
+                <div class="panel-body">
+                    <div>
+                    there will be photo
+                    </div>
+                    <div >
+                       <p>{{ friend.username }}</p>
+                        <input id="friendUsername" type="hidden" name="country" value="{{ friend.username }}">
+                    </div>
+                    <div>
+                        {{ friend.name }} <br/>
+                        {{ friend.lastName }}
+                    </div>
+                </div>
+            </div>
+            <div id="challengeOkBox" style="text-align: center"><p>
+                <span id="challengeOk" style="font-size: 56pt;
+                 color :#00CC00;" class="glyphicon glyphicon-ok"></span></p>
+            </div>
+        </div>
+        <div class="col-sm-8" id="challengeMenu">
+    <h3> Tables </h3>
+
+    <table class="table table-hover" >
+
+        <tr>
+            <th>Table name</th>
+            <th>Table address</th>
+            <th>Table rank </th>
+            <th></th>
+        </tr>
+        {% for table in tables %}
+            <tr>
+                <td> {{ table.name }}</td>
+                <td> {{ table.address }}</td>
+                <td> NO
+                </td>
+                <td>
+                    <button id="challengeButton" class="btn btn-success" value="{{ table.id }}">Choose</button>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+        </div>
+    </div>
+</div>
+    <script>
+        var friend = $('#friendUsername').val();
+        alert(friend);
+        function showResults(){
+        $('#challengeButton').click(function(){
+                        $.ajax({
+                            url:  "{{path('viewRes')}}",
+                            type: "post",
+                            data: ({ tableId: $(this).val()}),
+                            success: function(data){
+                                alert("OK");
+                                $("#challengeMenu").html(data);
+                            },
+                            error:function(){
+                                alert("something wrong happends");
+                            }
+                        });
+                    }
+            );
+        }
+        showResults();
+        function saveChallenge() {
+            $('#challengeOk').click(function () {
+                        var tableId = $('#timesTable').attr('value');
+                        var datele = $('#datetimepicker').val();
+                        alert(friend);
+                        $.ajax({
+                            url: "{{path('userChallengeSave', {'username': friend.username })  }}",
+                            type: "post",
+                            data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
+                            success: function (data) {
+                                alert(data);
+                                window.location.reload(true);
+                            },
+                            error: function () {
+                                alert("failure");
+                            }
+                        });
+                    }
+            );
+        }
+        saveChallenge();
+    </script>
+
+{% endblock %}

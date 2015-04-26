@@ -18,7 +18,6 @@ class TableController extends Controller
      */
     public function indexAction()
     {
-
         $em = $this->getDoctrine()->getManager();
         $tables = $em->getRepository('pitaksKickerBundle:Tables')->findAll();
         return $this->render(

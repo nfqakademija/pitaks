@@ -1,5 +1,4 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
-{% block fos_user_content %}
+
     <h2>User list </h2>
 
     <table  class="table-striped" style="width:50%">
@@ -17,19 +16,15 @@
             <td> {{ user.name }}</td>
             <td> {{ user.lastName }}</td>
             <td> not created yet </td>
-            <td> <input type="radio" value="{{ user.username }}" name="users">   </td>
+            <td> <button id="challengeButton" class="btn btn-success" value="{{ user.username }}" name="users"> Challlenge</button> </td>
         </tr>
     {% endfor %}
+        </table>
     <script>
         function selectedUserId(){
-
-            $('input:radio').change(function() {
-                alert(
-                        $("input[type='radio']:checked").val()
-                );
+            $(".challengeButton").click(function () {
+                alert($(this).val());
             });
-
-        }
+          }
         selectedUserId();
         </script>
-{% endblock fos_user_content %}

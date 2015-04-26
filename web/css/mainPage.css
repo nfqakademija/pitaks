@@ -2,7 +2,6 @@ body{
     background-color: rgba(0, 0, 0, 1);
 }
 #main{
-    margin-top: -50px;
     min-height: 100%;
 
 
@@ -99,7 +98,7 @@ body{
     margin-top: 40px;
     color: #ffffff;
     text-align: center;
-}
+}/*
 .navbar{
     margin-top:-20px;
     padding: 0;
@@ -140,7 +139,7 @@ body{
 }
 .navbar-default {
     border: 0;
-}
+}*/
 .white-line{
     margin-top: 40px;
     background-color: #ffffff;

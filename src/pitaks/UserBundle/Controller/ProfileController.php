@@ -126,6 +126,4 @@ class ProfileController extends BaseController{
         $this->get('reservation_service')->acceptUnconfirmedRegisteredReservation($reservationId);
         return new JsonResponse( "Reservation was accepted ".$reservationId );
     }
-
-    /*need to get all uncormirmed reservations*/
 }

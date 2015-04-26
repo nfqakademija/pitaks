@@ -75,6 +75,12 @@ class Tables
      */
     protected $isFree;
 
+    /**
+     * @var string
+     * @ORM\Column(name="address", type="string")
+     */
+    protected $address;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -304,5 +310,28 @@ class Tables
     public function getGames()
     {
         return $this->games;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Tables
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

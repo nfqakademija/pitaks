@@ -1,0 +1,23 @@
+<h3> Table List </h3>
+
+<table class="table table-hover" >
+
+    <tr>
+        <th>Table name</th>
+        <th>Table address</th>
+        <th>Table rank </th>
+        <th></th>
+    </tr>
+    {% for table in tables %}
+        <tr>
+            <td> {{ table.name }}</td>
+            <td> {{ table.address }}</td>
+            <td> NO
+            </td>
+            <td>
+                <button class="btn btn-success" value="{{ table.id }}">Choose</button>
+            </td>
+        </tr>
+    {% endfor %}
+
+</table>

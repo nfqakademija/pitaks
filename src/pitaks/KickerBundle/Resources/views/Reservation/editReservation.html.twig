@@ -40,7 +40,7 @@
                         type: "post",
                         data: ({dateValue: verte, tableId: tableId, startDate: startTime, duration: duration }),
                         success: function(data){
-                            alert('success');
+                            $("#laukas").html("");
                             $("#laukas").html(data);
                             alert('success');
                         },
@@ -69,4 +69,22 @@
         format:'H:i',
         datepicker:false
     });
+
+    $('#save').click(function(){
+                var tableId= $('#timesTable').attr('value');
+                var datele = $('#datetimepicker').val();
+                $.ajax({
+                    url:  "{{path('saveReservation')}}",
+                    type: "post",
+                    data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
+                    success: function(data){
+                        alert(data);
+                        window.location.reload(true);
+                    },
+                    error:function(){
+                        alert("failure");
+                    }
+                });
+            }
+    );
 </script>
