@@ -21,25 +21,26 @@
                 <div class="myPanelAreaLeft col-sm-6">
                     <div class="tableList">
                         <div class="row">
-
                             {% for table in tables %}
                                 <div class="row">
-
                                     <div class="col-sm-1">
                                         <div class="status"></div>
                                     </div>
                                     <div class="col-sm-4">
                                         {{ table.name }}
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <div id="result" class="scoreSmall">
                                             5 : 0
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-xs-1">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </div>
                                     <div class="col-sm-2">
+                                        <button id="tableRate" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" value="{{ table.id }}">Rate</button>
+                                    </div>
+                                    <div class="col-xs-2">
                                         <button id="rezervation" type="button" value="{{ table.id }}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                                             Rezervation
                                         </button>
@@ -88,11 +89,36 @@
     </div>
 
 
-    <script>
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
 
-        $('#close_button').click(function(){
-           $('#lentosBAck').css('display','none');
-        });
+             <!-- ratingo uzkrovimas-->
+                <div id="ratingArea">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#tableRate').click(function(){
+                    var tableId =$(this).val();
+                    $.ajax({
+                        url:  "{{path('tableRateModal')}}",
+                        type: "post",
+                        data: ({tableId: tableId}),
+                        success: function(data){
+                            $("#ratingArea").html("");
+                            $("#ratingArea").html(data);
+                        },
+                        error:function(){
+                            alert("failure");
+                            $("#ratingArea").html('There is error while submit');
+                        }
+                    });
+                }
+        );
         $("#save").prop("disabled",true);
         $('#rezervation').click(function(){
                     $.ajax({

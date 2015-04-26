@@ -1,0 +1,35 @@
+<!-- Ateiti turi table id -->
+<div class="conteiner" style="padding: 10px;">
+
+    <h3>{{ table.name }}</h3>
+            <p>
+        <label for="spinner">Rate Table:</label>
+        <input id="spinner" name="value">
+    </p>
+    <button id="saveRate" value="{{ table.id }} " class="btn btn-success"> Rate</button>
+
+</div>
+
+<script>
+    $( "#spinner" ).spinner({
+        max: 5,
+        min: 0
+    });
+
+    //end data to database
+    $('#saveRate').click(function(){
+        var ratingValue = $('#spinner').attr('aria-valuenow');
+        $.ajax({
+        url:  "{{ path('saveTableRate', {'tableId': table.id})}}",
+        type: "post",
+        data: ({rating: ratingValue}),
+        success: function(data){
+            alert('success');
+        },
+        error:function(){
+            alert("failure");
+        }
+    });
+
+    });
+</script>

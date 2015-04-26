@@ -81,8 +81,14 @@ class Tables
      */
     protected $address;
 
+    /**
+     * @ORM\OneToMany(targetEntity="TableRate", mappedBy="tableId")
+     */
+    protected $ratings;
+
     public function __construct()
     {
+        $this->ratings = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->games = new ArrayCollection();
@@ -333,5 +339,53 @@ class Tables
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Add ratings
+     *
+     * @param \pitaks\KickerBundle\Entity\TableRate $ratings
+     * @return Tables
+     */
+    public function addRating(\pitaks\KickerBundle\Entity\TableRate $ratings)
+    {
+        $this->ratings[] = $ratings;
+
+        return $this;
+    }
+
+    /**
+     * Remove ratings
+     *
+     * @param \pitaks\KickerBundle\Entity\TableRate $ratings
+     */
+    public function removeRating(\pitaks\KickerBundle\Entity\TableRate $ratings)
+    {
+        $this->ratings->removeElement($ratings);
+    }
+
+    /**
+     * Get ratings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRatings()
+    {
+        return $this->ratings;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTableRate()
+    {
+        $n= $this->ratings->count();
+        $sum = 0;
+        foreach($this->ratings as $rate)
+        {
+            $sum+=$rate->getRating();
+        }
+
+        return $sum/$n;
     }
 }

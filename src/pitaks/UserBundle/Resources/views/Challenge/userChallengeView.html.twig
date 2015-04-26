@@ -46,7 +46,7 @@
             <tr>
                 <td> {{ table.name }}</td>
                 <td> {{ table.address }}</td>
-                <td> NO
+                <td> {{ table.getTableRate() }}
                 </td>
                 <td>
                     <button id="challengeButton" class="btn btn-success" value="{{ table.id }}">Choose</button>

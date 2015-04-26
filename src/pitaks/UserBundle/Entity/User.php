@@ -7,6 +7,7 @@
  */
 namespace pitaks\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,11 +44,15 @@ class User extends BaseUser{
      */
     protected $lastName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\pitaks\KickerBundle\Entity\TableRate", mappedBy="username")
+     */
+    protected $tablesRating;
 
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+        $this->tablesRating= new ArrayCollection();
     }
 
 
@@ -123,5 +128,38 @@ class User extends BaseUser{
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * Add tablesRating
+     *
+     * @param \pitaks\KickerBundle\Entity\TableRate $tablesRating
+     * @return User
+     */
+    public function addTablesRating(\pitaks\KickerBundle\Entity\TableRate $tablesRating)
+    {
+        $this->tablesRating[] = $tablesRating;
+
+        return $this;
+    }
+
+    /**
+     * Remove tablesRating
+     *
+     * @param \pitaks\KickerBundle\Entity\TableRate $tablesRating
+     */
+    public function removeTablesRating(\pitaks\KickerBundle\Entity\TableRate $tablesRating)
+    {
+        $this->tablesRating->removeElement($tablesRating);
+    }
+
+    /**
+     * Get tablesRating
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTablesRating()
+    {
+        return $this->tablesRating;
     }
 }

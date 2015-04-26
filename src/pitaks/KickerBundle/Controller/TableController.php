@@ -3,8 +3,10 @@
 namespace pitaks\KickerBundle\Controller;
 
 use GuzzleHttp\Client;
+use pitaks\KickerBundle\Entity\TableRate;
 use pitaks\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use pitaks\KickerBundle\Entity\Tables;
@@ -104,6 +106,44 @@ class TableController extends Controller
         ));
     }
 
+    /**
+     * @return Response
+     */
+    public function rateTableViewAction(){
+        $tableId = $this->get('request')->request->get('tableId');
+        $table = $this->getDoctrine()->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+        $user = $this->getUser();
+        $user->getUsername();
+        //need to check if registration exits
+       $Rating = $this->getDoctrine()->getRepository('pitaksKickerBundle:TableRate')->findOneBy(array('username'=>$this->getUser()->getId(),'tableId'=>$tableId));
+       if($Rating == null)
+        return $this->render(
+            '@pitaksKicker/Default/tableRateModal.html.twig',
+            array('table' => $table)
+        );
+        else{
+            return new Response('<div class="btn btn-danger" style="padding: 50px">You have voted.Your score was: '.$Rating->getRating().'</div>' );
+        }
+
+    }
+
+    /**
+     * @param integer $tableId
+     * @return Response
+     */
+    public function saveTableRateAction($tableId){
+        //get data from form tableId and user id and score
+        $rating = $this->get('request')->request->get('rating');
+        $TableRate = new TableRate();
+        $em = $this->getDoctrine()->getManager();
+        $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+        $TableRate->setRating($rating);
+        $TableRate->setTableId($table);
+        $TableRate->setUsername(  $this->getUser());
+        $em->persist($TableRate);
+        $em->flush();
+        return new Response("RATE WAS ADDED");
+    }
     public function ShowResultAction(){
 
         $client = new Client();

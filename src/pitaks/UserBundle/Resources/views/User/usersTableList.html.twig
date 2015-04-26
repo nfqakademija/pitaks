@@ -16,15 +16,9 @@
             <td> {{ user.name }}</td>
             <td> {{ user.lastName }}</td>
             <td> not created yet </td>
-            <td> <button id="challengeButton" class="btn btn-success" value="{{ user.username }}" name="users"> Challlenge</button> </td>
-        </tr>
+            <td>
+            <a class="btn btn-success" value="{{ user.username }}" name="users" href="{{ path('userChallengeMain', {'username': user.username}) }}">challenge</a>
+            </td>
+          </tr>
     {% endfor %}
         </table>
-    <script>
-        function selectedUserId(){
-            $(".challengeButton").click(function () {
-                alert($(this).val());
-            });
-          }
-        selectedUserId();
-        </script>

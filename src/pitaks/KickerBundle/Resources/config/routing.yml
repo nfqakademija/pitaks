@@ -51,3 +51,11 @@ saveReservation:
 isTableFree:
     path: isTableFree/{tableId}
     defaults: {_controller: pitaksKickerBundle:Reservation:isTableFree}
+#table rating
+saveTableRate:
+    path: /table/{tableId}/saveRating
+    defaults: {_controller: pitaksKickerBundle:Table:saveTableRate}
+tableRateModal:
+    path: /table/RateModal
+    defaults: {_controller: pitaksKickerBundle:Table:rateTableView}
+
