@@ -3,9 +3,6 @@
 {% block title %}Pagrindinis{% endblock %}
 
 {% block body %}
-
-
-
 <div id="main" class="row">
 
     <div class="myPanel col-sm-offset-1 col-sm-10" >
@@ -40,8 +37,8 @@
                                     <div class="col-sm-2">
                                         <button id="tableRate" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" value="{{ table.id }}">Rate</button>
                                     </div>
-                                    <div class="col-xs-2">
-                                        <button id="rezervation" type="button" value="{{ table.id }}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                    <div class="col-xs-2" value="{{ table.id }}">
+                                        <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                                             Rezervation
                                         </button>
                                         <div id="refreshInfo">
@@ -49,8 +46,6 @@
                                     </div>
                             </div>
                             {% endfor %}
-
-
                         </div>
                     </div>
                 </div>
@@ -88,7 +83,6 @@
         </div>
     </div>
 
-
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -120,13 +114,17 @@
                 }
         );
         $("#save").prop("disabled",true);
-        $('#rezervation').click(function(){
+        $('.rezervation').click(function(){
+                    alert($(this).val());
                     $.ajax({
                         url:  "{{path('viewRes')}}",
                         type: "post",
                         data: ({ tableId: $(this).val()}),
                         success: function(data){
+                            alert('succes');
                             $("#registarcija").html(data);
+
+                            alert('succes');
                         },
                         error:function(){
                             alert("failure");
@@ -135,7 +133,6 @@
                     });
                 }
         );
-
         $(document).ready(function(){
            refreshTable();
         });
