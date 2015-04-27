@@ -11,6 +11,7 @@ use pitaks\KickerBundle\Entity\Game;
 use pitaks\KickerBundle\Entity\Tables;
 use pitaks\UserBundle\Entity\User;
 use pitaks\UserBundle\Entity\UserTableStatistic;
+use pitaks\UserBundle\Model\UserAllStatistic;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class UserStatisticService extends ContainerAware {
@@ -124,5 +125,53 @@ class UserStatisticService extends ContainerAware {
             $this->getEm()->flush();
         }
 
+    }
+
+    /**
+     * @param User $user
+     * @param integer $tableId
+     * @return UserTableStatistic
+     */
+    public function returnUserStatisticForTable($user, $tableId)
+    {
+        return $this->getEm()->getRepository('UserBundle:UserTableStatistic')
+        ->findOneBy(array('userId'=>$user->getId(),'tableId'=>$tableId));
+    }
+
+    /**
+     * @param User $user
+     * @return UserAllStatistic
+     */
+    public function returnAllUserStatistic($user)
+    {
+        /*Gausime array reikes viska sudeti i nauja objekta ir paduoti*/
+        $allStatistic =  $this->getEm()->getRepository('UserBundle:UserTableStatistic')->findBy(array('userId'=>$user->getId()));
+        $userStatistic = new UserAllStatistic();
+        foreach($allStatistic as $stat)
+        {
+            $userStatistic->increase($stat->getGamesPlayed(),$stat->getGamesWin(),$stat->getPointsScored(),$stat->getPointsMissed());
+        }
+        return $userStatistic;
+    }
+
+    /**
+     * @param User $user
+     * @return array|\pitaks\UserBundle\Entity\UserTableStatistic[]
+     */
+    public function returnAllUserStatisticForEachTable($user)
+    {
+        $all =array();
+
+        $stats =  $this->getEm()->getRepository('UserBundle:UserTableStatistic')->findBy(array('userId'=>$user->getId()));
+        foreach($stats as $stat)
+        {
+            $table =  $this->getEm()->getRepository('pitaksKickerBundle:Tables')->find($stat->getTableId());
+            $TAndS = array(
+                "table"=> $table,
+                "stat" =>$stat
+            );
+            $all[]=$TAndS;
+        }
+        return $all;
     }
 }

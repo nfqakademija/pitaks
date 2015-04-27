@@ -7,7 +7,7 @@
  */
  namespace pitaks\KickerBundle\Services;
 
-
+use pitaks\UserBundle\Services\UserStatisticService;
  use Doctrine\ORM\EntityManager;
  use GuzzleHttp\Client;
  use pitaks\KickerBundle\Entity\Game;
@@ -251,6 +251,14 @@
                */ $game->setEndEventId($record['id']);
                 /*Ideda objekta*/
                 $this->getEm()->flush();
+
+
+                /**
+                 * Prideti zaidimo info iduombaze
+                 */
+                $this->container->get('user_statistic_service')->addUserStatistic($game);
+
+
                 $scoreTeam1 = 0;
                 $scoreTeam2 = 0;
                 $game = $this->createNewGame($table, $records,$record);
@@ -294,6 +302,11 @@
                         $game->setEndEventId($record['id']);
                         /*Ideda objekta*/
                         $this->getEm()->flush();
+
+                        /* Prideti zaidimo info i duombaze*/
+                        $this->container->get('user_statistic_service')->addUserStatistic($game);
+
+
                         $scoreTeam1 = 0;
                         $scoreTeam2 = 0;
                         $game = $this->createNewGame($table, $records,$record);

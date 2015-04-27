@@ -28,3 +28,10 @@ userChallengeMain:
 userChallengeSave:
      path: /challenge/{username}/save
      defaults: {_controller: UserBundle:Challenge:saveChallenge}
+#UserStats
+UserStat:
+    path: /user/stats/{username}
+    defaults: {_controller: UserBundle:UserStatistic:showAllLoginUserStatistic}
+myUserStat:
+    path: /user/stats
+    defaults: {_controller: UserBundle:UserStatistic:myStats}

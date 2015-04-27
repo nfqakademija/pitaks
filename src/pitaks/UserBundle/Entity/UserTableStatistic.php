@@ -263,8 +263,13 @@ class UserTableStatistic
      */
     public function getPlusMinusBalance()
     {
-        return ($this->pointsScored-$this->pointsMissed)/$this->gamesPlayed;
+        if($this->gamesPlayed>0)
+        return round(($this->pointsScored-$this->pointsMissed)/$this->gamesPlayed , 2 );
+        return 0;
     }
+
+    /*User all statistic*/
+
 
 
 }

@@ -1,0 +1,47 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+<h3>{{ user.username }} Stats </h3>
+    <table class="table table-striped">
+ <tr>
+        <th>Played</th>
+        <th>Won</th>
+        <th>Lost</th>
+        <th>Scored</th>
+        <th>Missed </th>
+        <th> +- </th>
+    </tr>
+    <tr>
+        <td> {{ stats.gamesPlayed }}</td>
+        <td> {{ stats.gamesWon }}</td>
+        <td> {{ stats.lostGames }}</td>
+        <td> {{ stats.pointsScored }} </td>
+        <td> {{ stats.pointsMissed}} </td>
+        <td> {{ stats.plusMinusBalance}} </td>
+    </tr>
+    </table>
+<h3>For each table </h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Table</th>
+            <th>Played</th>
+            <th>Won</th>
+            <th>Lost</th>
+            <th>Scored</th>
+            <th>Missed </th>
+            <th> +- </th>
+
+        </tr>
+        {% for stat in statsForTables %}
+        <tr>
+            <td> {{ stat["table"].name }}</td>
+            <td> {{ stat["stat"].gamesPlayed }}</td>
+            <td> {{ stat["stat"].gamesWin }}</td>
+            <td> {{ stat["stat"].lostGames }}</td>
+            <td> {{ stat["stat"].pointsScored }} </td>
+            <td> {{ stat["stat"].pointsMissed}} </td>
+            <td> {{ stat["stat"].plusMinusBalance}} </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock fos_user_content %}
