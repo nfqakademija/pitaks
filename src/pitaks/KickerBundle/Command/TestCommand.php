@@ -37,7 +37,7 @@ class TestCommand extends ContainerAwareCommand
         $game->setUser1Team1(2);
         $game->setUser1Team2(3);
         $game->setUser2Team1(4);
-        $this->getContainer()->get('api_data')->addUserStatistic($game);
+        $this->getContainer()->get('user_statistic_service')->addUserStatistic($game);
     }
 
 }

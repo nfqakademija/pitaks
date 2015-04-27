@@ -4,3 +4,8 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: pitaks_user_registration }
+    user_statistic_service:
+         class: pitaks\UserBundle\Services\UserStatisticService
+         arguments: ["@doctrine.orm.entity_manager"]
+         calls:
+                 - [setContainer, ['@service_container']]
