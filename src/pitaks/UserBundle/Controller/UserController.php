@@ -8,6 +8,7 @@
 
 namespace pitaks\UserBundle\Controller;
 
+use pitaks\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,20 @@ class UserController extends Controller{
     public function userListAction(Request $request)
     {
         $name = $this->get('request')->request->get('word');
-        $result = $this->get('fos_user.user_manager')->getUsersByWord($name);
-        return $this->render('UserBundle:User:usersTableList.html.twig', array('users' => $result));
+        $userResults = $this->get('fos_user.user_manager')->getUsersByWord($name);
+        $statsService = $this->get('user_statistic_service');
+        $results = array();
+
+        foreach($userResults as $user)
+        {
+            $realUser = $this->get('fos_user.user_manager')->findUserByUsername($user['username']);
+            $stats = $statsService->returnAllUserStatistic($realUser);
+            $all=array(
+                "stat" => $stats,
+                "user" => $user
+            );
+            $results []= $all;
+        }
+        return $this->render('UserBundle:User:usersTableList.html.twig', array('users' => $results));
     }
 }

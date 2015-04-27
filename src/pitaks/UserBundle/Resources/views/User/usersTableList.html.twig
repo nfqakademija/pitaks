@@ -7,17 +7,17 @@
         <th>User UserName </th>
         <th>User Name</th>
         <th>User LastName</th>
-        <th>User Stats</th>
+        <th>User Stats(+/-)</th>
         <th> CHOOSE </th>
     </tr>
     {% for user in users %}
         <tr>
-            <td> {{ user.username }}</td>
-            <td> {{ user.name }}</td>
-            <td> {{ user.lastName }}</td>
-            <td> not created yet </td>
+            <td> {{ user["user"].username }}</td>
+            <td> {{ user["user"].name }}</td>
+            <td> {{ user["user"].lastName }}</td>
+            <td> {{ user["stat"].plusMinusBalance }} <a href="{{ path('userStat', {'username': user["user"].username}) }}">more...</a></td>
             <td>
-            <a class="btn btn-success" value="{{ user.username }}" name="users" href="{{ path('userChallengeMain', {'username': user.username}) }}">challenge</a>
+            <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('userChallengeMain', {'username': user["user"].username }) }}">challenge</a>
             </td>
           </tr>
     {% endfor %}

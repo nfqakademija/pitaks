@@ -29,7 +29,7 @@ userChallengeSave:
      path: /challenge/{username}/save
      defaults: {_controller: UserBundle:Challenge:saveChallenge}
 #UserStats
-UserStat:
+userStat:
     path: /user/stats/{username}
     defaults: {_controller: UserBundle:UserStatistic:showAllLoginUserStatistic}
 myUserStat:
