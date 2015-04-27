@@ -59,3 +59,7 @@ tableRateModal:
     path: /table/RateModal
     defaults: {_controller: pitaksKickerBundle:Table:rateTableView}
 
+#comment
+tableComment:
+    path: /table/{tableId}/newComment
+    defaults: {_controller: pitaksKickerBundle:Comment:newComment}

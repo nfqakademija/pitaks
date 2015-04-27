@@ -87,6 +87,11 @@ class Tables
     protected $ratings;
 
     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="tableId")
+     */
+    protected $comments;
+
+    /**
      * @ORM\OneToMany(targetEntity="\pitaks\UserBundle\Entity\UserTableStatistic", mappedBy="tableId")
      */
     protected $tableUsersStatistic;
@@ -97,6 +102,7 @@ class Tables
         $this->events = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->tableUsersStatistic = new ArrayCollection();
     }
 
@@ -426,5 +432,38 @@ class Tables
     public function getTableUsersStatistic()
     {
         return $this->tableUsersStatistic;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \pitaks\KickerBundle\Entity\Comment $comments
+     * @return Tables
+     */
+    public function addComment(\pitaks\KickerBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \pitaks\KickerBundle\Entity\Comment $comments
+     */
+    public function removeComment(\pitaks\KickerBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

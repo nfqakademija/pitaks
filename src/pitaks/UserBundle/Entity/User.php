@@ -80,6 +80,11 @@ class User extends BaseUser{
      */
     protected $userTablesStatistic;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\pitaks\KickerBundle\Entity\Comment", mappedBy="tableId")
+     */
+    protected $comments;
+
     public function __construct()
     {
         parent::__construct();
@@ -287,6 +292,8 @@ class User extends BaseUser{
         return $this->pointsMissed;
     }
 
+
+
   /**
      * Add userTablesStatistic
      *
@@ -318,5 +325,38 @@ class User extends BaseUser{
     public function getUserTablesStatistic()
     {
         return $this->userTablesStatistic;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \pitaks\KickerBundle\Entity\Comment $comments
+     * @return User
+     */
+    public function addComment(\pitaks\KickerBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \pitaks\KickerBundle\Entity\Comment $comments
+     */
+    public function removeComment(\pitaks\KickerBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
