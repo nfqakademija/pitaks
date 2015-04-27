@@ -86,12 +86,18 @@ class Tables
      */
     protected $ratings;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\pitaks\UserBundle\Entity\UserTableStatistic", mappedBy="tableId")
+     */
+    protected $tableUsersStatistic;
+
     public function __construct()
     {
         $this->ratings = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->tableUsersStatistic = new ArrayCollection();
     }
 
     /**
@@ -387,5 +393,38 @@ class Tables
         }
 
         return $sum/$n;
+    }
+
+    /**
+     * Add tableUsersStatistic
+     *
+     * @param \\pitaks\UserBundle\Entity\UserTableStatistic $tableUsersStatistic
+     * @return Tables
+     */
+    public function addTableUsersStatistic(\pitaks\UserBundle\Entity\UserTableStatistic $tableUsersStatistic)
+    {
+        $this->tableUsersStatistic[] = $tableUsersStatistic;
+
+        return $this;
+    }
+
+    /**
+     * Remove tableUsersStatistic
+     *
+     * @param \pitaks\UserBundle\Entity\UserTableStatistic $tableUsersStatistic
+     */
+    public function removeTableUsersStatistic(\pitaks\UserBundle\Entity\UserTableStatistic $tableUsersStatistic)
+    {
+        $this->tableUsersStatistic->removeElement($tableUsersStatistic);
+    }
+
+    /**
+     * Get tableUsersStatistic
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTableUsersStatistic()
+    {
+        return $this->tableUsersStatistic;
     }
 }

@@ -44,15 +44,47 @@ class User extends BaseUser{
      */
     protected $lastName;
 
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="gamesPlayed", type="integer",nullable=true)
+     */
+    protected $gamesPlayed;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="gamesWin", type="integer",nullable=true)
+     */
+    protected $gamesWin;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pointScored", type="integer",nullable=true)
+     */
+    protected $pointsScored;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pointsMissed", type="integer",nullable=true)
+     */
+    protected $pointsMissed;
+
     /**
      * @ORM\OneToMany(targetEntity="\pitaks\KickerBundle\Entity\TableRate", mappedBy="username")
      */
     protected $tablesRating;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserTableStatistic", mappedBy="username")
+     */
+    protected $userTablesStatistic;
+
     public function __construct()
     {
         parent::__construct();
         $this->tablesRating= new ArrayCollection();
+        $this->userTablesStatistic= new ArrayCollection();
     }
 
 
@@ -161,5 +193,130 @@ class User extends BaseUser{
     public function getTablesRating()
     {
         return $this->tablesRating;
+    }
+
+    /**
+     * Set gamesPlayed
+     *
+     * @param integer $gamesPlayed
+     * @return User
+     */
+    public function setGamesPlayed($gamesPlayed)
+    {
+        $this->gamesPlayed = $gamesPlayed;
+
+        return $this;
+    }
+
+    /**
+     * Get gamesPlayed
+     *
+     * @return integer 
+     */
+    public function getGamesPlayed()
+    {
+        return $this->gamesPlayed;
+    }
+
+    /**
+     * Set gamesWin
+     *
+     * @param integer $gamesWin
+     * @return User
+     */
+    public function setGamesWin($gamesWin)
+    {
+        $this->gamesWin = $gamesWin;
+
+        return $this;
+    }
+
+    /**
+     * Get gamesWin
+     *
+     * @return integer 
+     */
+    public function getGamesWin()
+    {
+        return $this->gamesWin;
+    }
+
+    /**
+     * Set pointsScored
+     *
+     * @param integer $pointsScored
+     * @return User
+     */
+    public function setPointsScored($pointsScored)
+    {
+        $this->pointsScored = $pointsScored;
+
+        return $this;
+    }
+
+    /**
+     * Get pointsScored
+     *
+     * @return integer 
+     */
+    public function getPointsScored()
+    {
+        return $this->pointsScored;
+    }
+
+    /**
+     * Set pointsMissed
+     *
+     * @param integer $pointsMissed
+     * @return User
+     */
+    public function setPointsMissed($pointsMissed)
+    {
+        $this->pointsMissed = $pointsMissed;
+
+        return $this;
+    }
+
+    /**
+     * Get pointsMissed
+     *
+     * @return integer 
+     */
+    public function getPointsMissed()
+    {
+        return $this->pointsMissed;
+    }
+
+  /**
+     * Add userTablesStatistic
+     *
+     * @param \pitaks\UserBundle\Entity\UserTableStatistic $userTablesStatistic
+     * @return User
+     */
+    public function addUserTablesStatistic(\pitaks\UserBundle\Entity\UserTableStatistic $userTablesStatistic)
+    {
+        $this->userTablesStatistic[] = $userTablesStatistic;
+
+        return $this;
+    }
+
+    /**
+     * Remove userTablesStatistic
+     *
+     * @param \pitaks\UserBundle\Entity\UserTableStatistic $userTablesStatistic
+     */
+    public function removeUserTablesStatistic(\pitaks\UserBundle\Entity\UserTableStatistic $userTablesStatistic)
+    {
+        $this->userTablesStatistic->removeElement($userTablesStatistic);
+    }
+
+    /**
+     * Get userTablesStatistic
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserTablesStatistic()
+    {
+        return $this->userTablesStatistic;
     }
 }

@@ -19,7 +19,7 @@ class ApiCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('Api')
+            ->setName('pitaks:getTableAPI')
             ->setDescription('get data from api and put it in database. Searching by table id')
             ->addArgument(
                 'id',

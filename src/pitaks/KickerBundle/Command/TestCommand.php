@@ -8,11 +8,13 @@
 
 namespace pitaks\KickerBundle\Command;
 
+use pitaks\KickerBundle\Entity\Game;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TestCommand extends Command
+class TestCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
@@ -24,7 +26,18 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("Test");
+        $game = new Game();
+        $game->setTableId(4);
+        $game->setBeginTime(1);
+        $game->setEndEventId(15);
+        $game->setLastAddedEventId(54);
+        $game->setLastTime(14);
+        $game->setScoreTeam1(10);
+        $game->setScoreTeam2(7);
+        $game->setUser1Team1(2);
+        $game->setUser1Team2(3);
+        $game->setUser2Team1(4);
+        $this->getContainer()->get('api_data')->addUserStatistic($game);
     }
 
 }

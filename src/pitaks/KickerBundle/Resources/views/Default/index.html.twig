@@ -35,7 +35,7 @@
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <button id="tableRate" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" value="{{ table.id }}">Rate</button>
+                                        <button type="button" class=" tableRate btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" value="{{ table.id }}">Rate</button>
                                     </div>
                                     <div class="col-xs-2" value="{{ table.id }}">
                                         <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -96,7 +96,7 @@
     </div>
 </div>
     <script>
-        $('#tableRate').click(function(){
+        $('.tableRate').click(function(){
                     var tableId =$(this).val();
                     $.ajax({
                         url:  "{{path('tableRateModal')}}",
@@ -121,10 +121,7 @@
                         type: "post",
                         data: ({ tableId: $(this).val()}),
                         success: function(data){
-                            alert('succes');
                             $("#registarcija").html(data);
-
-                            alert('succes');
                         },
                         error:function(){
                             alert("failure");
