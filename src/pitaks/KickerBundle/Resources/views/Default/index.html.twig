@@ -98,11 +98,13 @@
     <script>
         $('.tableRate').click(function(){
                     var tableId =$(this).val();
+                    alert(tableId);
                     $.ajax({
                         url:  "{{path('tableRateModal')}}",
                         type: "post",
                         data: ({tableId: tableId}),
                         success: function(data){
+                            alert("succes");
                             $("#ratingArea").html("");
                             $("#ratingArea").html(data);
                         },

@@ -170,4 +170,20 @@ class TableController extends Controller
          DATA DROM TABLE: asdfasdf');
 
     }
+
+    public function showTableInfoAction($tableId)
+    {
+        /*rodysim komentaru forma ir visus komentarus*/
+        /*trumpa info apie table*/
+        $em =$this->getDoctrine()->getManager();
+        $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+        $comments = $em->getRepository('pitaksKickerBundle:Comment')->findBy(array('tableId'=>$tableId));
+        $last10Games =$em->getRepository('pitaksKickerBundle:Game')
+            ->findBy(array('tableId'=>$tableId),array('lastAddedEventId'=>"DESC"),10);
+        return $this->render(
+            '',
+            array('tables' => $tables)
+        );
+
+    }
 }

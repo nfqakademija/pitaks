@@ -5,7 +5,6 @@ body{
     margin-top: -50px;
     min-height: 100%;
 
-
 }
 .myPanel{
     z-index: 5;
@@ -84,6 +83,16 @@ body{
     height: 150px;
     z-index: 15;
 }
+
+
+
+
+
+
+
+
+
+
 .myFooter,
 .name-table {
     background: rgba(66,66,66,1);

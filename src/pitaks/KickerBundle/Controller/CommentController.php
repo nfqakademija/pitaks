@@ -32,6 +32,7 @@ class CommentController extends Controller{
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
+
             return new Response("Success");
         }
 
