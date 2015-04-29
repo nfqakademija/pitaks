@@ -7,6 +7,8 @@
  */
 namespace pitaks\TeamBundle\Services;
 use Doctrine\ORM\EntityManager;
+use pitaks\TeamBundle\Entity\Team;
+use pitaks\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class TeamService extends ContainerAware {
@@ -42,13 +44,18 @@ class TeamService extends ContainerAware {
     public function checkIfTeamExits($userId1, $userId2)
     {
         /*find if exits*/
-        $firstOption =$this->getEm()->getRepository('pitaksTeamBundle:Team')->findBy(array('userId1'=>$userId1, 'userId2'=>$userId2));
-        $secondOption = $this->getEm()->getRepository('pitaksTeamBundle:Team')->findBy(array('userId1'=>$userId2, 'userId2'=>$userId1));
-        if($firstOption !=null|| $secondOption!=null)
+        $user = new User();
+        $user->getTeams();
+        $user1 = $this->container->get('fos_user.user_manager')->findUserById($userId1)->getTeams();
+        $user2 = $this->container->get('fos_user.user_manager')->findUserById($userId2)->getTeams();
+
+        $exits = false;
+        foreach($user1 as $team)
         {
-            return true;
+            if($user2->contains($team))
+                $exits=true;
         }
-        return false;
+        return $exits;
     }
 
     /**

@@ -42,6 +42,8 @@ class TeamController extends Controller{
         );
     }
 
+
+    /*VISADA PIRMAS TAS KURIS SUKURE PAKVIETE IR PNS*/
     /**
      * @param Request $request
      * @param $userId
@@ -50,11 +52,11 @@ class TeamController extends Controller{
     public function newTeamAction(Request $request,$userId)
     {
         $team = new Team();
+        $friend = $this->get('fos_user.user_manager')->findUserById($userId);
         $form = $this->createForm(new TeamType(), $team);
         $form->handleRequest($request);
-        $yourID = $this->getUser()->getId();
-        $exits = $this->get('team_service')->checkIfTeamExits($userId,$yourID);
-        if($userId == $yourID || $exits == true)
+        $exits = $this->get('team_service')->checkIfTeamExits($userId,$this->getUser()->getId());
+        if($userId == $this->getUser()->getId() )
         {
             //redirektinsim i kazkur kitur ir koki sms isvesim
            return new Response("Tokios komandaos neina sudaryt");
@@ -63,8 +65,10 @@ class TeamController extends Controller{
             // perform some action, such as saving the task to the database
             $team->setRegisteredDate(new \DateTime());
             $team->setConfirmed(false);
-            $team->setUserId1($this->getUser()->getId());
-            $team->setUserId2($userId);
+            $team->addUser($this->getUser());
+            $team->addUser($friend);
+            $friend->addTeam($team);
+            $this->getUser()->addTeam($team);
             $em = $this->getDoctrine()->getManager();
             $em->persist($team);
             $em->flush();
