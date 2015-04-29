@@ -1,0 +1,3 @@
+showAllTeams:
+    path: /team/showAll
+    defaults: {_controller: pitaksTeamBundle:Team:TeamsView}

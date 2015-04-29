@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new pitaks\KickerBundle\pitaksKickerBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new pitaks\UserBundle\UserBundle(),
+            new pitaks\TeamBundle\pitaksTeamBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

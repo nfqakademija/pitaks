@@ -9,9 +9,9 @@
 
         <!-- styles -->
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <link type="text/css" rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
-        <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-        <link type="text/css" rel="stylesheet" href="{{ asset('css/mainPage.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/pitakskicker/css/jquery.datetimepicker.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/pitakskicker/css/bootstrap.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/pitakskicker/css/mainPage.css') }}">
         {% block styles %}{% endblock %}
 
         <!-- scripts -->
@@ -27,13 +27,13 @@
     </head>
 
     <body>
-    {# include 'pitaksKickerBundle:layouts:navigation.html.twig' #}
-    {%  include '@pitaksKicker/layouts/header.html.twig' %}
-        <div class="container-fluid" style="background-color: white; z-index: 50; min-height: 300px ">
+    {#   include 'pitaksKickerBundle:layouts:navigation.html.twig' #}
+    {%   include '@pitaksKicker/layouts/header.html.twig' %}
+        <div id="base"">
                 {% block body %}{% endblock %}
         </div>
 
         {% block scripts %}{% endblock %}
-    {% include '@pitaksKicker/layouts/footer.html.twig' %}
+    {%  include '@pitaksKicker/layouts/footer.html.twig' %}
     </body>
 </html>

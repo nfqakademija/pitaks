@@ -1,0 +1,4 @@
+services:
+#    pitaks_team.example:
+#        class: pitaks\TeamBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
