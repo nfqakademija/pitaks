@@ -11,13 +11,16 @@
             <th>Created Data</th>
             <th> Users</th>
             <th> Stat </th>
+            <th> Actions </th>
         </tr>
-        {% for team in teams %}
+        {% for team in teamAndFriend %}
             <tr>
-                <td> {{ team.name }}</td>
-                <td> {{ team.createdData|date('Y-m-d  h:m:sa') }}</td>
-                <td> {{ team.user1}} and {{ team.user2 }} </td>
-                <td> not available yet  </td>
+                <td> {{ team['team'].name }}</td>
+                <td> {{ team['team'].registeredDate|date('Y-m-d  h:m:sa') }}</td>
+
+                <td> <a class="btn btn-default" href="{{ path('userStat', {'username': team['friend'].username}) }}">{{ team['friend'].username}} </a>  </td>
+                <td>not available yet</td>
+                <td> <a class="btn btn-warning" href="{{ path('deleteTeam',{'teamId':team['team'].id}) }}">reject</a> </td>
             </tr>
         {% endfor %}
     </table>

@@ -61,6 +61,11 @@ class UserManager extends BaseUserManager {
        return $query->getQuery()->getArrayResult();
 
    }
+
+    /**
+     * @param $word
+     * @return array
+     */
     public function getUsersNamesByFirstLetters($word){
         $query = $this->_em->createQueryBuilder();
         if(!empty($word)) {
@@ -80,5 +85,14 @@ class UserManager extends BaseUserManager {
         }
         return $query->getQuery()->getArrayResult();
 
+    }
+
+    /**
+     * @param $id
+     * @return UserInterface|object
+     */
+    public function findUserById($id)
+    {
+        return $this->findUserBy(array('id'=>$id));
     }
 }

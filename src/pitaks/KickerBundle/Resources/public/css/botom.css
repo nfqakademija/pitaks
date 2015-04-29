@@ -75,7 +75,7 @@ h2, th {
 @media (max-width: 767px) {
   #base {
     margin-bottom: 10px; } }
-th:hover, td:hover {
+th, td {
   background-color: #262626;
   color: #000000; }
 

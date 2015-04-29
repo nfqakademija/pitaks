@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Delete team{% endblock %}
+
+{% block body %}
+    {% if form.delete is defined %}
+      <p>  Are you sure you want to delete team  ? </p>
+    {% endif %}
+    {{ form(form) }}
+{% endblock %}

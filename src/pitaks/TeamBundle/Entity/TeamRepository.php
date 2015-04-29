@@ -12,4 +12,71 @@ use Doctrine\ORM\EntityRepository;
  */
 class TeamRepository extends EntityRepository
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBulder()
+    {
+        return $this->createQueryBuilder("t");
+    }
+
+    /**
+     * @param integer $userId
+     * @return array
+     */
+    public function getAllUserTeam($userId)
+    {
+        $query= $this->getQueryBulder()
+            ->select('t')
+            ->where('t.userId1='.$userId)
+            ->orWhere('t.userId2='.$userId)
+            ->orderBy('t.name','ASC')->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+     * @param integer $userId
+     * @return array
+     */
+    public function getUsersInvitedTeams($userId)
+    {
+        $query= $this->getQueryBulder()
+            ->select('t')
+            ->Where('t.userId2='.$userId)
+            ->andWhere('t.confirmed=false')
+            ->orderBy('t.registeredDate','DESC')->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function getUsersSuggestedTeams($userId)
+    {
+        $query= $this->getQueryBulder()
+            ->select('t')
+            ->Where('t.userId1='.$userId)
+            ->andWhere('t.confirmed=false')
+            ->orderBy('t.registeredDate','DESC')->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+     * @param $userId
+     * @param $teamID
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getUserTeamById($userId,$teamID)
+    {
+        $query= $this->getQueryBulder()
+            ->select('t')
+            ->where('t.userId1='.$userId)
+            ->orWhere('t.userId2='.$userId)
+            ->andWhere('t.id='.$teamID)
+            ->orderBy('t.name','ASC')->getQuery();
+        return $query->getSingleResult();
+    }
 }

@@ -1,4 +1,6 @@
 services:
-#    pitaks_team.example:
-#        class: pitaks\TeamBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+     team_service:
+              class: pitaks\TeamBundle\Services\TeamService
+              arguments: ["@doctrine.orm.entity_manager"]
+              calls:
+                      - [setContainer, ['@service_container']]

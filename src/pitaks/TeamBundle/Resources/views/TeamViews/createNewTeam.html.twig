@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Create New Team{% endblock %}
+{% block body %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div>
+        {{ form_widget(form.save , {'attr': {'class': 'btn bg-danger'}} ) }}
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Team
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="pitaks\UserBundle\Entity\TeamRepository")
+ * @ORM\Entity(repositoryClass="pitaks\TeamBundle\Entity\TeamRepository")
  */
 class Team
 {
@@ -23,7 +23,7 @@ class Team
 
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="name", type="string", length=60)
      */
     private $name;
@@ -38,22 +38,30 @@ class Team
     /**
      * @var integer
      *
-     * @ORM\Column(name="user1", type="integer")
+     * @ORM\Column(name="userId1", type="integer")
      */
-    private $user1;
+    private $userId1;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="user2", type="integer")
+     * @ORM\Column(name="userId2", type="integer")
      */
-    private $user2;
+    private $userId2;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="confirmed", type="boolean")
+     */
+    private $confirmed;
+
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -107,48 +115,71 @@ class Team
     }
 
     /**
-     * Set user1
+     * Set userId1
      *
-     * @param integer $user1
+     * @param integer $userId1
      * @return Team
      */
-    public function setUser1($user1)
+    public function setUserId1($userId1)
     {
-        $this->user1 = $user1;
+        $this->userId1 = $userId1;
 
         return $this;
     }
 
     /**
-     * Get user1
+     * Get userId1
      *
      * @return integer 
      */
-    public function getUser1()
+    public function getUserId1()
     {
-        return $this->user1;
+        return $this->userId1;
     }
 
     /**
-     * Set user2
+     * Set userId2
      *
-     * @param integer $user2
+     * @param integer $userId2
      * @return Team
      */
-    public function setUser2($user2)
+    public function setUserId2($userId2)
     {
-        $this->user2 = $user2;
+        $this->userId2 = $userId2;
 
         return $this;
     }
 
     /**
-     * Get user2
+     * Get userId2
      *
      * @return integer 
      */
-    public function getUser2()
+    public function getUserId2()
     {
-        return $this->user2;
+        return $this->userId2;
+    }
+
+    /**
+     * Set confirmed
+     *
+     * @param boolean $confirmed
+     * @return Team
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmed
+     *
+     * @return boolean 
+     */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
     }
 }
