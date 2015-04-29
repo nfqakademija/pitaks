@@ -1,0 +1,82 @@
+.name-table {
+  position: absolute;
+  height: 170px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 2;
+  box-shadow: 0px 20px 30px -10px rgba(0, 0, 0, 0.75); }
+  .name-table h2 {
+    margin-top: 40px;
+    color: #ebebeb;
+    text-align: center; }
+
+.myFooter,
+.name-table {
+  background-color: black;
+  /* Fallback Color */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#424242), to(black));
+  /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, #424242 0%, #424242 77%, black 98%, black 100%);
+  /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image: -moz-linear-gradient(top, #424242 0%, #424242 77%, black 98%, black 100%);
+  /* FF3.6 */
+  background-image: -ms-linear-gradient(top, #424242 0%, #424242 77%, black 98%, black 100%);
+  /* IE10 */
+  background-image: -o-linear-gradient(top, #424242 0%, #424242 77%, black 98%, black 100%);
+  /* Opera 11.10+ */
+  background-image: linear-gradient(top, #424242 0%, #424242 77%, black 98%, black 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#424242', EndColorStr='black'); }
+
+.white-line {
+  margin-top: 40px;
+  background-color: #ffffff;
+  opacity: 0.8;
+  height: 20px; }
+
+.green-bar {
+  margin-top: -30px;
+  position: static;
+  background: url("../images/greenBar.png");
+  height: 100px;
+  opacity: 0.6;
+  left: 100px;
+  top: 100px;
+  z-index: -2; }
+
+.footer {
+  margin-top: -20px;
+  z-index: -2; }
+
+.white-line-sort {
+  z-index: 2;
+  margin-top: 100px;
+  background-color: #ffffff;
+  opacity: 0.8;
+  height: 20px; }
+
+nav {
+  z-index: 1;
+  box-shadow: 0px 20px 30px -10px rgba(0, 0, 0, 0.75); }
+
+#base {
+  padding: 20px;
+  background-color: #050B03;
+  z-index: -1;
+  min-height: 300px;
+  margin-bottom: 50px;
+  box-shadow: 0px 20px 30px -10px rgba(0, 0, 0, 0.75); }
+
+p, label, td {
+  color: #efffe3; }
+
+h2, th {
+  color: #ebebeb; }
+
+@media (max-width: 767px) {
+  #base {
+    margin-bottom: 10px; } }
+th:hover, td:hover {
+  background-color: #262626;
+  color: #000000; }
+
+/*# sourceMappingURL=botom.css.map */

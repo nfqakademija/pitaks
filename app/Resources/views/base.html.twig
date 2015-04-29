@@ -12,6 +12,7 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/pitakskicker/css/jquery.datetimepicker.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/pitakskicker/css/bootstrap.min.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/pitakskicker/css/mainPage.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/pitakskicker/css/botom.css') }}">
         {% block styles %}{% endblock %}
 
         <!-- scripts -->
@@ -29,7 +30,7 @@
     <body>
     {#   include 'pitaksKickerBundle:layouts:navigation.html.twig' #}
     {%   include '@pitaksKicker/layouts/header.html.twig' %}
-        <div id="base"">
+        <div id="base">
                 {% block body %}{% endblock %}
         </div>
 
