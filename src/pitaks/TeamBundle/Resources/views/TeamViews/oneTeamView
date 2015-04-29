@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Team {{ team.name }}{% endblock %}
+
+{% block body %}
+    <h3>Teams {{ team.name }}</h3>
+
+    <table class="table table-hover">
+        <tr>
+            <th>Team Name</th>
+            <th>Created Data</th>
+            <th> User</th>
+            <th> Stat </th>
+        </tr>
+        <tr>
+            <td> {{ team.name }}</td>
+            <td> {{ team.registeredDate|date('Y-m-d  h:m:sa') }}</td>
+            <td> {% for user in users %}
+                    {{ user.username }}
+                {% endfor %}
+             </td>
+            <td> not available yet  </td>
+         </tr>
+
+    </table>
+{% endblock %}

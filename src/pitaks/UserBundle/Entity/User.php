@@ -85,11 +85,18 @@ class User extends BaseUser{
      */
     protected $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="\pitaks\TeamBundle\Entity\Team", inversedBy="users")
+     * @ORM\JoinTable(name="users_groups")
+     **/
+    private $teams;
+
     public function __construct()
     {
         parent::__construct();
         $this->tablesRating= new ArrayCollection();
         $this->userTablesStatistic= new ArrayCollection();
+        $this->teams= new ArrayCollection();
     }
 
 
@@ -358,5 +365,38 @@ class User extends BaseUser{
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add teams
+     *
+     * @param \pitaks\TeamBundle\Entity\Team $teams
+     * @return User
+     */
+    public function addTeam(\pitaks\TeamBundle\Entity\Team $teams)
+    {
+        $this->teams[] = $teams;
+
+        return $this;
+    }
+
+    /**
+     * Remove teams
+     *
+     * @param \pitaks\TeamBundle\Entity\Team $teams
+     */
+    public function removeTeam(\pitaks\TeamBundle\Entity\Team $teams)
+    {
+        $this->teams->removeElement($teams);
+    }
+
+    /**
+     * Get teams
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTeams()
+    {
+        return $this->teams;
     }
 }

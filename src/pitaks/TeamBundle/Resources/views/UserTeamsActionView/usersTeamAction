@@ -16,7 +16,7 @@
             <tr>
                 <td> {{ team.name }}</td>
                 <td> {{ team.registeredDate|date('Y-m-d  h:m:sa') }}</td>
-                <td> {{ team.userId1}} and {{ team.userId2 }} </td>
+                <td> {{ team. }}</td>
                 <td> not available yet  </td>
             </tr>
         {% endfor %}

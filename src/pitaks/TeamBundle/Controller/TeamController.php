@@ -20,9 +20,25 @@ class TeamController extends Controller{
     public function TeamsViewAction()
     {
         $teams = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->findAll();
+        $teams= new Team();
+
         return $this->render(
-            'pitaksTeamBundle:TeamViews:allTeamsView.html.twig',
+            '@pitaksTeam/UserTeamsActionView/usersTeamAction',
             array('teams' => $teams)
+        );
+    }
+
+    /**
+     * @param integer $teamId
+     * @return Response
+     */
+    public function OneTeamViewAction($teamId)
+    {
+        $team = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($teamId);
+
+        return $this->render(
+            '@pitaksTeam/TeamViews/oneTeamView',
+            array('team' => $team ,'users'=>$team->getUsers())
         );
     }
 
@@ -142,12 +158,14 @@ class TeamController extends Controller{
 
     }
 
+    /**
+     * @param $teamId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function acceptTeamAction($teamId)
     {
         $this->get('team_service')->confirmTeam($teamId);
+        // TODO need to change redirect t
         return $this->redirectToRoute('fos_user_profile_show');
     }
-
-
-
 }
