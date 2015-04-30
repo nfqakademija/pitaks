@@ -12,6 +12,7 @@ use pitaks\TeamBundle\Form\Type\TeamType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\User;
 
 class TeamController extends Controller{
     /**
@@ -20,7 +21,6 @@ class TeamController extends Controller{
     public function TeamsViewAction()
     {
         $teams = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->findAll();
-        $teams= new Team();
 
         return $this->render(
             '@pitaksTeam/UserTeamsActionView/usersTeamAction',
@@ -84,10 +84,9 @@ class TeamController extends Controller{
      */
     public function showUserTeamsAction()
     {
-        $userId=$this->getUser()->getId();
-        $teams = $this->get('team_service')->returnUserTeams($userId);
+        $teams = $this->getUser()->getTeams();
         return $this->render(
-            'pitaksTeamBundle:TeamViews:allTeamsView.html.twig',
+            '@pitaksTeam/UserTeamsActionView/usersTeamAction',
             array('teams' => $teams)
         );
     }
@@ -98,7 +97,16 @@ class TeamController extends Controller{
     public function showUsersInvitedTeamsAction()
     {
         $userId=$this->getUser()->getId();
-        $teams = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->getUsersInvitedTeams($userId);
+        $teams = $this->getUser()->getTeams();
+        $new = new \pitaks\UserBundle\Entity\User();
+        $team2=$new->getTeams();
+        foreach($team2 as $team)
+        {
+            if(!(new Team())->getConfirmed())
+            {
+
+            }
+        }
         $teamAndUser = array();
         foreach($teams as $team)
         {

@@ -65,18 +65,22 @@ nav {
   min-height: 300px;
   margin-bottom: 50px;
   box-shadow: 0px 20px 30px -10px rgba(0, 0, 0, 0.75); }
-
-p, label, td {
-  color: #efffe3; }
-
-h2, th {
-  color: #ebebeb; }
+  #base table {
+    background-color: #fafafa; }
+    #base table td {
+      background-color: #050B03;
+      color: #efffe3; }
+    #base table th {
+      color: #000000;
+      padding: 5px; }
+  #base p,
+  #base label {
+    color: #efffe3; }
+  #base h2 {
+    color: #ebebeb; }
 
 @media (max-width: 767px) {
   #base {
     margin-bottom: 10px; } }
-th, td {
-  background-color: #262626;
-  color: #000000; }
 
-/*# sourceMappingURL=botom.css.map */
+/*# sourceMappingURL=bottom.css.map */

@@ -2,7 +2,7 @@ showAllTeams:
     path: /user/team/showAll
     defaults: {_controller: pitaksTeamBundle:Team:TeamsView}
 oneTeam:
-    path: /user/team/{teamId}/
+    path: /user/team/review/{teamId}
     defaults: {_controller: pitaksTeamBundle:Team:OneTeamView}
 createTeam:
     path: /user/team/createTeam/{userId}

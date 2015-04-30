@@ -3,14 +3,29 @@ $z-up :1;
 $z-down:-1;
 $z-downer:-2;
 
+$smallPadding:5px;
+
 $text_color_simple : #efffe3;
 $text_color_bigger : #ebebeb;
+
 $box_shadow_down:0px 20px 30px -10px;
 $box_shadow_color:rgba(0,0,0,0.75);
+
 $whiteLineOpacity:0.8;
 $text_color_hover:#000000;
 $LineColor: #ffffff;
 $radius_little :10px;
+
+$bg_main_color:#050B03;
+$bg_table_color:#fafafa;
+
+$gradient_color_up:rgba(66,66,66,1);
+$gradient_color_down:rgba(0,0,0,1);
+//procents for gradient
+$percent1:0%;
+$percent2:77%;
+$percent3:98%;
+$percent4:100%;
 
 @mixin gradient_color_footer_4($fromColor, $toColor,$proc1,$proc2,$proc3,$proc4) {
   background-color: $toColor; /* Fallback Color */
@@ -21,10 +36,7 @@ $radius_little :10px;
   background-image:      -o-linear-gradient(top, $fromColor $proc1,$fromColor $proc2, $toColor $proc3,$toColor $proc4); /* Opera 11.10+ */
   background-image:         linear-gradient(top, $fromColor $proc1,$fromColor $proc2, $toColor $proc3,$toColor $proc4);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}');
-
 }
-
-
 .name-table{
   position: absolute;
   height: 170px;
@@ -40,7 +52,7 @@ $radius_little :10px;
 }
 .myFooter,
 .name-table {
-  @include gradient_color_footer_4(rgba(66,66,66,1), rgba(0,0,0,1),0%,77%,98%,100%);
+  @include gradient_color_footer_4($gradient_color_up, $gradient_color_down,$percent1,$percent2,$percent3,$percent4);
  }
 
 .white-line{
@@ -76,25 +88,32 @@ nav{
 }
 #base {
   padding: 20px;
-  background-color: #050B03;
+  background-color: $bg_main_color;
   z-index: $z-down;
   min-height: 300px ;
   margin-bottom: 50px;
   box-shadow: $box_shadow_down $box_shadow_color;
+  table{
+    background-color:$bg_table_color ;
+    td{
+      background-color: $bg_main_color;
+      color: $text_color_simple;
+    }th{
+       color: $text_color_hover;
+       padding: $smallPadding;
+     }
+  }
+  p,
+  label{
+    color: $text_color_simple;
+  }
+  h2{
+    color:$text_color_bigger;
+  }
 }
-p,label,td{
-  color: $text_color_simple;
-}
-h2, th{
-  color:$text_color_bigger;
-}
+
 @media (max-width: 767px) {
   #base {
     margin-bottom: 10px;
   }
-}
-th:hover,td:hover
-{
-  background-color: #262626;
-  color: $text_color_hover;
 }
