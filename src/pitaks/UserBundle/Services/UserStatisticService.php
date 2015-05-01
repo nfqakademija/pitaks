@@ -90,8 +90,6 @@ class UserStatisticService extends ContainerAware {
      * @param User $user
      * @param Tables $table
      */
-
-
     public function setUserData($game, $userTeam,$user,$table)
     {
         /*pasiziuret ar turi data ar ne jei ne tj sukurt ir idet su nulais*/
@@ -124,7 +122,6 @@ class UserStatisticService extends ContainerAware {
             $userStatistic->setPointsMissed($game->getScoreTeam1()+$userStatistic->getPointsMissed());
             $this->getEm()->flush();
         }
-
     }
 
     /**
@@ -142,17 +139,17 @@ class UserStatisticService extends ContainerAware {
      * @param User $user
      * @return UserAllStatistic
      */
-    public function returnAllUserStatistic($user)
-    {
-        /*Gausime array reikes viska sudeti i nauja objekta ir paduoti*/
-        $allStatistic =  $this->getEm()->getRepository('UserBundle:UserTableStatistic')->findBy(array('userId'=>$user->getId()));
-        $userStatistic = new UserAllStatistic();
-        foreach($allStatistic as $stat)
+        public function returnAllUserStatistic($user)
         {
-            $userStatistic->increase($stat->getGamesPlayed(),$stat->getGamesWin(),$stat->getPointsScored(),$stat->getPointsMissed());
+            /*Gausime array reikes viska sudeti i nauja objekta ir paduoti*/
+            $allStatistic =  $this->getEm()->getRepository('UserBundle:UserTableStatistic')->findBy(array('userId'=>$user->getId()));
+            $userStatistic = new UserAllStatistic();
+            foreach($allStatistic as $stat)
+            {
+                $userStatistic->increase($stat->getGamesPlayed(),$stat->getGamesWin(),$stat->getPointsScored(),$stat->getPointsMissed());
+            }
+            return $userStatistic;
         }
-        return $userStatistic;
-    }
 
     /**
      * @param User $user

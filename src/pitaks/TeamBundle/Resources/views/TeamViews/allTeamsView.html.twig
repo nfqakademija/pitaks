@@ -5,6 +5,8 @@
             <th> Users</th>
             <th> Stat </th>
             <th> Actions </th>
+
+            <th> </th>
         </tr>
         {% for team in teamAndFriend %}
             <tr>
@@ -14,6 +16,10 @@
                 <td> <a class="btn btn-default" href="{{ path('userStat', {'username': team['friend'].username}) }}">{{ team['friend'].username}} </a>  </td>
                 <td>not available yet</td>
                 <td> <a class="btn btn-danger" href="{{ path('deleteTeam',{'teamId':team['team'].id}) }}">reject</a>
+                </td>
+                {% if team['team'].confirmed %}
+                <td> <a class="btn btn-success" href="{{ path('teamMenu',{'teamId':team['team'].id}) }}">View</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

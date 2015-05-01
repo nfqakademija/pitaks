@@ -4,3 +4,9 @@ services:
               arguments: ["@doctrine.orm.entity_manager"]
               calls:
                       - [setContainer, ['@service_container']]
+     team_statistic_service:
+             class: pitaks\TeamBundle\Services\TeamStatisticService
+             arguments: ["@doctrine.orm.entity_manager"]
+             calls:
+                     - [setContainer, ['@service_container']]
+

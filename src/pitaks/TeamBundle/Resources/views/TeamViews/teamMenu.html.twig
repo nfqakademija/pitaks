@@ -1,0 +1,89 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Team {{ team.name }}{% endblock %}
+
+{% block body %}
+<div role="tabpanel">
+    <div class="row">
+
+        <!-- Nav tabs -->
+        <div class="col-sm-4">
+
+            {#Team info will be there#}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title" >
+                        {{ team.name }}
+                    </h2>
+                </div>
+                <div class="panel-body" style="color:#000000">
+                    <p> Created Data: {{ team.registeredDate|date('Y-m-d  h:m:sa')  }}</p>
+                    {#reikes pasiduoti ir userius#}
+                    <p> {% for user in team.users %}
+                            {{ user.username }}
+                        {% endfor %}
+                    </p>
+                    <a href="#">edit</a>
+                </div>
+            </div>
+
+            {#navigation for team wil be where#}
+            <ul class="nav nav-pills nav-stacked" role="tablist">
+                <li role="presentation" class=""><a href="#challenges" aria-controls="challenges" role="tab" data-toggle="tab">Challenges</a></li>
+                <li role="presentation" class="active"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="col-sm-8">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane" id="stats">
+                    <h2>Team stat:</h2>
+                    <div id="teamStats">
+
+                    </div>
+                    <h2>Team Stat for each table:</h2>
+                    <div id="teamEachTableStat">
+
+                    </div>
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="challenges">
+                    where will be user's comments
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        function showStat(){
+            $.ajax({
+                url:  "{{path('commonTeamStat',{'teamId': team.id})}}",
+                type: "get",
+                success: function(data){
+                    $('#teamStats').html(data);
+                },
+                error:function(){
+                    $('#teamStats').html("Where was some errors while loading your stats");
+                }
+            });
+        }
+        showStat();
+
+        function showEachStat(){
+            $.ajax({
+                url:  "{{path('teamEachTableStat',{'teamId': team.id})}}",
+                type: "get",
+                success: function(data){
+                    $('#teamEachTableStat').html(data);
+                },
+                error:function(){
+                    $('#teamEachTableStat').html("Where was some errors while loading your stats");
+                }
+            });
+        }
+        showEachStat();
+    </script>
+{% endblock %}

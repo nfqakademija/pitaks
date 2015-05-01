@@ -4,13 +4,12 @@
 
 {% block body %}
     <h3>Teams {{ team.name }}</h3>
-
     <table class="table table-hover">
         <tr>
             <th>Team Name</th>
             <th>Created Data</th>
             <th> User</th>
-            <th> Stat </th>
+            <th> Stats </th>
         </tr>
         <tr>
             <td> {{ team.name }}</td>

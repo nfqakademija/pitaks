@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <tr>
+        <th><strong>Table</strong></th>
+        <th>Played</th>
+        <th>Won</th>
+        <th>Lost</th>
+        <th>Scored</th>
+        <th>Missed </th>
+        <th> +- </th>
+    </tr> {% for stat in stats%}
+    <tr>
+
+        <td> {{ stat.table.name }}</td>
+        <td> {{ stat.gamesPlayed }}</td>
+        <td> {{ stat.gamesWin }}</td>
+        <td> {{ stat.lostGames }}</td>
+        <td> {{ stat.pointsScored }} </td>
+        <td> {{ stat.pointsMissed}} </td>
+        <td> {{ stat.plusMinusBalance}} </td>
+
+    </tr> {% endfor %}
+</table>

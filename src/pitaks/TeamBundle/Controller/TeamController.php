@@ -37,9 +37,29 @@ class TeamController extends Controller{
         $team = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($teamId);
 
         return $this->render(
-            '@pitaksTeam/TeamViews/oneTeamView',
+            'pitaksTeamBundle:TeamViews:oneTeamView',
             array('team' => $team ,'users'=>$team->getUsers())
         );
+    }
+
+    public function TeamMenuAction($teamId)
+    {
+        //find user and check if he has access to this team
+        $user= $this->getUser();
+        $team = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($teamId);
+        if($team->getConfirmed() && $team->getUsers()->contains($user))
+        {
+            //if okay return view
+            return $this->render(
+                'pitaksTeamBundle:TeamViews:teamMenu.html.twig',
+                array('team' => $team)
+            );
+        }
+        else{
+            //redirect to profile
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+
     }
 
 

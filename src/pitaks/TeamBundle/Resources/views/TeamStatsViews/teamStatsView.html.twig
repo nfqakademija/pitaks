@@ -1,0 +1,18 @@
+<table class="table table-striped">
+    <tr>
+        <th>Played</th>
+        <th>Won</th>
+        <th>Lost</th>
+        <th>Scored</th>
+        <th>Missed </th>
+        <th> +- </th>
+    </tr>
+    <tr>
+        <td> {{ stats['gamePlayed'] }}</td>
+        <td> {{ stats['gameWon'] }}</td>
+        <td> {{  stats['gamePlayed']-stats['gameWon']  }}</td>
+        <td> {{ stats['pointsScored']}} </td>
+        <td> {{ stats['pointsMissed']}} </td>
+        <td> {{ stats['plusMinus'] }} </td>
+    </tr>
+</table>

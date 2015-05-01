@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use pitaks\UserBundle\Entity\User;
 
+//Statistic for table
 /**
  * Team
  *
@@ -65,9 +66,24 @@ class Team
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamReservation", mappedBy="team")
+     */
+    private $reservations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamReservation", mappedBy="team")
+     */
+    private $invitedReservations;
+    /**
+     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamStatistic", mappedBy="team")
+     */
+    private $stats;
     function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->reservations= new ArrayCollection();
+        $this->reservations= new ArrayCollection();
     }
 
 
@@ -228,5 +244,104 @@ class Team
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Add reservations
+     *
+     * @param \pitaks\TeamBundle\Entity\TeamReservation $reservations
+     * @return Team
+     */
+    public function addReservation(\pitaks\TeamBundle\Entity\TeamReservation $reservations)
+    {
+        $this->reservations[] = $reservations;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservations
+     *
+     * @param \pitaks\TeamBundle\Entity\TeamReservation $reservations
+     */
+    public function removeReservation(\pitaks\TeamBundle\Entity\TeamReservation $reservations)
+    {
+        $this->reservations->removeElement($reservations);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Add invitedReservations
+     *
+     * @param \pitaks\TeamBundle\Entity\TeamReservation $invitedReservations
+     * @return Team
+     */
+    public function addInvitedReservation(\pitaks\TeamBundle\Entity\TeamReservation $invitedReservations)
+    {
+        $this->invitedReservations[] = $invitedReservations;
+
+        return $this;
+    }
+
+    /**
+     * Remove invitedReservations
+     *
+     * @param \pitaks\TeamBundle\Entity\TeamReservation $invitedReservations
+     */
+    public function removeInvitedReservation(TeamReservation $invitedReservations)
+    {
+        $this->invitedReservations->removeElement($invitedReservations);
+    }
+
+    /**
+     * Get invitedReservations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvitedReservations()
+    {
+        return $this->invitedReservations;
+    }
+
+    /**
+     * Add stats
+     *
+     * @param TeamStatistic $stats
+     * @return Team
+     */
+    public function addStat(TeamStatistic $stats)
+    {
+        $this->stats[] = $stats;
+
+        return $this;
+    }
+
+    /**
+     * Remove stats
+     *
+     * @param TeamStatistic $stats
+     */
+    public function removeStat(TeamStatistic $stats)
+    {
+        $this->stats->removeElement($stats);
+    }
+
+    /**
+     * Get stats
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStats()
+    {
+        return $this->stats;
     }
 }

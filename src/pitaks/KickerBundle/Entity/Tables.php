@@ -96,6 +96,11 @@ class Tables
      */
     protected $tableUsersStatistic;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamStatistic", mappedBy="tableId")
+     */
+    protected $tableTeamStatistic;
+
     public function __construct()
     {
         $this->ratings = new ArrayCollection();
@@ -104,6 +109,7 @@ class Tables
         $this->games = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->tableUsersStatistic = new ArrayCollection();
+        $this->TeamStatistic = new ArrayCollection();
     }
 
     /**
@@ -465,5 +471,38 @@ class Tables
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add tableTeamStatistic
+     *
+     * @param \pitaks\TeamBundle\Entity\TeamStatistic $tableTeamStatistic
+     * @return Tables
+     */
+    public function addTableTeamStatistic(\pitaks\TeamBundle\Entity\TeamStatistic $tableTeamStatistic)
+    {
+        $this->tableTeamStatistic[] = $tableTeamStatistic;
+
+        return $this;
+    }
+
+    /**
+     * Remove tableTeamStatistic
+     *
+     * @param \pitaks\TeamBundle\Entity\TeamStatistic $tableTeamStatistic
+     */
+    public function removeTableTeamStatistic(\pitaks\TeamBundle\Entity\TeamStatistic $tableTeamStatistic)
+    {
+        $this->tableTeamStatistic->removeElement($tableTeamStatistic);
+    }
+
+    /**
+     * Get tableTeamStatistic
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTableTeamStatistic()
+    {
+        return $this->tableTeamStatistic;
     }
 }

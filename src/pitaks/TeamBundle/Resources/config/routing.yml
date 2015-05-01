@@ -25,6 +25,17 @@ deleteTeam:
 acceptTeam:
     path: /user/team/{teamId}/accept
     defaults: {_controller: pitaksTeamBundle:Team:acceptTeam}
+#team manu rautings....
 
+teamMenu:
+    path: /user/teamMenu/{teamId}
+    defaults: {_controller: pitaksTeamBundle:Team:TeamMenu}
+teamEachTableStat:
+    path: /user/teamMenu/{teamId}/eachStat
+    defaults: {_controller: pitaksTeamBundle:TeamStats:showEachStatsForTable}
+#bendra statistika
+commonTeamStat:
+    path: /user/teamMenu/{teamId}/stats
+    defaults: {_controller: pitaksTeamBundle:TeamStats:showAllTeamStatistic}
 
 

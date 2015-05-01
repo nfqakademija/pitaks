@@ -1,17 +1,16 @@
 <?php
 
-namespace pitaks\UserBundle\Entity;
+namespace pitaks\TeamBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\UniqueConstraint as UniqueConstraint;
 
 /**
- * UserTableStatistic
+ * TeamStatistic
  *
- * @ORM\Table( uniqueConstraints={@UniqueConstraint(name="rating_unique", columns={"tableId", "userId"})})
- * @ORM\Entity(repositoryClass="pitaks\UserBundle\Entity\UserTableStatisticRepository")
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="pitaks\TeamBundle\Entity\TeamStatisticRepository")
  */
-class UserTableStatistic
+class TeamStatistic
 {
     /**
      * @var integer
@@ -51,21 +50,21 @@ class UserTableStatistic
     private $pointsMissed;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\pitaks\KickerBundle\Entity\Tables", inversedBy="tableUsersStatistic")
+     * @ORM\ManyToOne(targetEntity="\pitaks\KickerBundle\Entity\Tables", inversedBy="tableTeamStatistic")
      * @ORM\JoinColumn(name="tableId", referencedColumnName="id")
      */
-    private $tableId;
+    private $table;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="userTablesStatistic")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="stats")
+     * @ORM\JoinColumn(name="teamId", referencedColumnName="id")
      */
-    private $userId;
+    private $team;
 
     function __construct()
     {
         $this->gamesPlayed = 0;
-        $this->gamesWin = 0;
+        $this->gamesWin =0;
         $this->pointsScored = 0;
         $this->pointsMissed = 0;
     }
@@ -85,7 +84,7 @@ class UserTableStatistic
      * Set gamesPlayed
      *
      * @param integer $gamesPlayed
-     * @return UserTableStatistic
+     * @return TeamStatistic
      */
     public function setGamesPlayed($gamesPlayed)
     {
@@ -108,7 +107,7 @@ class UserTableStatistic
      * Set gamesWin
      *
      * @param integer $gamesWin
-     * @return UserTableStatistic
+     * @return TeamStatistic
      */
     public function setGamesWin($gamesWin)
     {
@@ -131,7 +130,7 @@ class UserTableStatistic
      * Set pointsScored
      *
      * @param integer $pointsScored
-     * @return UserTableStatistic
+     * @return TeamStatistic
      */
     public function setPointsScored($pointsScored)
     {
@@ -154,7 +153,7 @@ class UserTableStatistic
      * Set pointsMissed
      *
      * @param integer $pointsMissed
-     * @return UserTableStatistic
+     * @return TeamStatistic
      */
     public function setPointsMissed($pointsMissed)
     {
@@ -173,42 +172,53 @@ class UserTableStatistic
         return $this->pointsMissed;
     }
 
+
+
+
     /**
-     * @param $tableId
-     * @return $this
+     * Set table
+     *
+     * @param \pitaks\KickerBundle\Entity\Tables $table
+     * @return TeamStatistic
      */
-    public function setTableId($tableId)
+    public function setTable(\pitaks\KickerBundle\Entity\Tables $table = null)
     {
-        $this->tableId = $tableId;
+        $this->table = $table;
 
         return $this;
     }
 
     /**
-     * @return mixed
+     * Get table
+     *
+     * @return \pitaks\KickerBundle\Entity\Tables 
      */
-    public function getTableId()
+    public function getTable()
     {
-        return $this->tableId;
+        return $this->table;
     }
 
     /**
-     * @param $userId
-     * @return $this
+     * Set team
+     *
+     * @param \pitaks\TeamBundle\Entity\Team $team
+     * @return TeamStatistic
      */
-    public function setUserId($userId)
+    public function setTeam(\pitaks\TeamBundle\Entity\Team $team = null)
     {
-        $this->userId = $userId;
+        $this->team = $team;
 
         return $this;
     }
 
     /**
-     * @return mixed
+     * Get team
+     *
+     * @return \pitaks\TeamBundle\Entity\Team 
      */
-    public function getUserId()
+    public function getTeam()
     {
-        return $this->userId;
+        return $this->team;
     }
 
 
@@ -217,7 +227,7 @@ class UserTableStatistic
     */
 
     /*increase games*/
-    public function increaseUserGamesCount()
+    public function increaseGamesCount()
     {
         $this->gamesPlayed = $this->gamesPlayed+1;
     }
@@ -225,12 +235,12 @@ class UserTableStatistic
     /**
      * @param integer $score
      */
-    public function increaseUserScoredPoints($score)
+    public function increaseScoredPoints($score)
     {
         $this->pointsScored = $this->pointsScored+$score;
     }
 
-    public function increaseUserMissedPoints($score)
+    public function increaseMissedPoints($score)
     {
         $this->pointsMissed = $this->pointsMissed + $score;
     }
@@ -238,7 +248,7 @@ class UserTableStatistic
     /**
      *
      */
-    public function increaseUserWinGameCount()
+    public function increaseWinGameCount()
     {
         $this->gamesWin = $this->gamesWin+1;
     }
@@ -257,12 +267,8 @@ class UserTableStatistic
     public function getPlusMinusBalance()
     {
         if($this->gamesPlayed>0)
-        return round(($this->pointsScored-$this->pointsMissed)/$this->gamesPlayed , 2 );
+            return round(($this->pointsScored-$this->pointsMissed)/$this->gamesPlayed , 2 );
         return 0;
     }
-
-    /*User all statistic*/
-
-
 
 }

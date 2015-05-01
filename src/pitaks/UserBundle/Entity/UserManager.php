@@ -95,4 +95,13 @@ class UserManager extends BaseUserManager {
     {
         return $this->findUserBy(array('id'=>$id));
     }
+
+    /**
+     * @param $id
+     * @return UserInterface|object
+     */
+    public function findUserByCardId($id)
+    {
+        return $this->findUserBy(array('cardId'=>$id));
+    }
 }

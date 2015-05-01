@@ -44,11 +44,8 @@ class TeamService extends ContainerAware {
     public function checkIfTeamExits($userId1, $userId2)
     {
         /*find if exits*/
-        $user = new User();
-        $user->getTeams();
         $user1 = $this->container->get('fos_user.user_manager')->findUserById($userId1)->getTeams();
         $user2 = $this->container->get('fos_user.user_manager')->findUserById($userId2)->getTeams();
-
         $exits = false;
         foreach($user1 as $team)
         {
@@ -58,6 +55,25 @@ class TeamService extends ContainerAware {
         return $exits;
     }
 
+    /**
+     * @param User $user1
+     * @param User $user2
+     * @return null
+     */
+    public function findTeamByTwoUser($user1, $user2)
+    {
+        $teams1 = $user1->getTeams();
+        $teams2 =$user2->getTeams();
+
+        foreach($teams1 as $team)
+        {
+            if($teams2->contains($team))
+            {
+                return $team;
+            }
+        }
+            return null;
+    }
     /**
      * @param integer $teamId
      */
