@@ -46,7 +46,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="\pitaks\UserBundle\Entity\User", inversedBy="comments")
-     * @ORM\JoinColumn(name="username", referencedColumnName="id")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
     private $userId;
 

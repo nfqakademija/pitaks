@@ -1,4 +1,4 @@
-{% extends "::base.html.twig" %}
+
 
 {% block title %}Delete team{% endblock %}
 
@@ -7,4 +7,4 @@
       <p>  Are you sure you want to delete team  ? </p>
     {% endif %}
     {{ form(form) }}
-{% endblock %}
+

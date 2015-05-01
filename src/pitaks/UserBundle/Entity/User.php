@@ -81,7 +81,7 @@ class User extends BaseUser{
     protected $userTablesStatistic;
 
     /**
-     * @ORM\OneToMany(targetEntity="\pitaks\KickerBundle\Entity\Comment", mappedBy="tableId")
+     * @ORM\OneToMany(targetEntity="\pitaks\KickerBundle\Entity\Comment", mappedBy="userId")
      */
     protected $comments;
 
@@ -91,12 +91,18 @@ class User extends BaseUser{
      **/
     private $teams;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\Team", mappedBy="author")
+     */
+    private $createdTeams;
+
     public function __construct()
     {
         parent::__construct();
         $this->tablesRating= new ArrayCollection();
         $this->userTablesStatistic= new ArrayCollection();
         $this->teams= new ArrayCollection();
+        $this->createdTeams= new ArrayCollection();
     }
 
 
@@ -398,5 +404,38 @@ class User extends BaseUser{
     public function getTeams()
     {
         return $this->teams;
+    }
+
+    /**
+     * Add createdTeams
+     *
+     * @param \pitaks\TeamBundle\Entity\Team $createdTeams
+     * @return User
+     */
+    public function addCreatedTeam(\pitaks\TeamBundle\Entity\Team $createdTeams)
+    {
+        $this->createdTeams[] = $createdTeams;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdTeams
+     *
+     * @param \pitaks\TeamBundle\Entity\Team $createdTeams
+     */
+    public function removeCreatedTeam(\pitaks\TeamBundle\Entity\Team $createdTeams)
+    {
+        $this->createdTeams->removeElement($createdTeams);
+    }
+
+    /**
+     * Get createdTeams
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCreatedTeams()
+    {
+        return $this->createdTeams;
     }
 }

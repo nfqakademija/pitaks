@@ -4,6 +4,7 @@ namespace pitaks\TeamBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use pitaks\UserBundle\Entity\User;
 
 /**
  * Team
@@ -48,12 +49,21 @@ class Team
      */
     private $confirmed;
 
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="confirmedDate", type="datetime",nullable=true)
      */
     private $confirmedDate;
+
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="pitaks\UserBundle\Entity\User", inversedBy="createdTeams")
+     * @ORM\JoinColumn(name="author", referencedColumnName="id")
+     */
+    private $author;
 
     function __construct()
     {
@@ -195,5 +205,28 @@ class Team
     public function getConfirmedDate()
     {
         return $this->confirmedDate;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \pitaks\UserBundle\Entity\User $authorId
+     * @return Team
+     */
+    public function setAuthor(\pitaks\UserBundle\Entity\User $authorId = null)
+    {
+        $this->author = $authorId;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \pitaks\UserBundle\Entity\User 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

@@ -65,6 +65,7 @@ class TeamService extends ContainerAware {
     {
         $team =$this->getEm()->getRepository('pitaksTeamBundle:Team')->find($teamId);
         $team->setConfirmed(true);
+        $team->setConfirmedDate(new \DateTime());
         $this->getEm()->flush();
     }
 
@@ -79,11 +80,20 @@ class TeamService extends ContainerAware {
     }
 
     /**
-     * @param integer $userId
-     * @return array
+     * @param User $you
+     * @param Team $team
+     * @return null
      */
-    public function returnUserTeams($userId)
+    public function returnTeamFriend($you,$team)
     {
-        return $this->getEm()->getRepository('pitaksTeamBundle:Team')->getAllUserTeam($userId);
+        //susirandam useri
+        $users =$team->getUsers();
+        foreach($users as $user)
+        {
+            if($user != $you)
+                return $user;
+        }
+        return null;
     }
+
 }

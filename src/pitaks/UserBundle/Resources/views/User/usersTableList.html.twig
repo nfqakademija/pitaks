@@ -18,6 +18,8 @@
             <td> {{ user["stat"].plusMinusBalance }} <a href="{{ path('userStat', {'username': user["user"].username}) }}">more...</a></td>
             <td>
             <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('userChallengeMain', {'username': user["user"].username }) }}">challenge</a>
+            <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('createTeam', {'userId': user["user"].id }) }}">Create a team</a>
+
             </td>
           </tr>
     {% endfor %}

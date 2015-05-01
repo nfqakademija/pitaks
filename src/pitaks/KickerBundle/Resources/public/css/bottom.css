@@ -1,3 +1,6 @@
+.panel h2, .panel-body p{
+    color:#000000;
+}
 .name-table {
   position: absolute;
   height: 170px;
@@ -82,5 +85,6 @@ nav {
 @media (max-width: 767px) {
   #base {
     margin-bottom: 10px; } }
+
 
 /*# sourceMappingURL=bottom.css.map */

@@ -393,12 +393,12 @@ class Tables
     {
         $n= $this->ratings->count();
         $sum = 0;
-        foreach($this->ratings as $rate)
-        {
-            $sum+=$rate->getRating();
+        if($n > 0){
+        foreach($this->ratings as $rate) {
+            $sum += $rate->getRating();
         }
-
-        return $sum/$n;
+        return $sum/$n;}
+        return 0;
     }
 
     /**

@@ -1,13 +1,63 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
-{% include "FOSUserBundle:Profile:show_content.html.twig" %}
-    <div id="userUnconfirmedReservationsList">
 
-    </div>
-    <div id="userReservationsList">
 
+    <div role="tabpanel">
+        <div class="row">
+
+            <!-- Nav tabs -->
+            <div class="col-sm-4">{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+                <ul class="nav nav-pills nav-stacked" role="tablist">
+                    <li role="presentation" class=""><a href="#teams" aria-controls="teams" role="tab" data-toggle="tab">TEAMS</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+                    <li role="presentation"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+                    <li role="presentation"><a href="#rates" aria-controls="rates" role="tab" data-toggle="tab">Settings</a></li>
+                    <li role="presentation"><a href="#games" aria-controls="games" role="tab" data-toggle="tab">Settings</a></li>
+
+                </ul>
+            </div>
+            <!-- Tab panes -->
+            <div class="col-sm-8">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div class="container-fluid">
+
+                            <div id="userUnconfirmedReservationsList"> </div>
+
+                            <div id="userReservationsList"> </div>
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="stats">
+
+                        <div id="userStats"> </div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="messages"> where will be user's comments</div>
+                    <div role="tabpanel" class="tab-pane" id="rates"> where will be user's table rates </div>
+                    <div role="tabpanel" class="tab-pane" id="games"> where will be last 10 user games </div>
+                    <div role="tabpanel" class="tab-pane" id="teams">
+                        <div>
+                        <a href="{{ path('show_users') }}" class="btn btn-success">Create a team </a>
+                        </div>
+                        <h2> Invites to create a team </h2>
+                        <div id="userInvitesToCreateATeam"></div>
+
+                        <h2> TEAMS </h2>
+                        <div id="usersTeamList"> </div>
+
+
+                        <h2> Your team suggestions:</h2>
+                        <div id="SuggestedTeamList"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
  <script>
      function showList(){
          $.ajax({
@@ -36,5 +86,62 @@
          });
      }
      showUnconfirmedList();
+
+
+     function showUserStats(){
+         $.ajax({
+             url:  "{{path('userStat',{'username': user.username})}}",
+             type: "get",
+             success: function(data){
+                 $('#userStats').html(data);
+             },
+             error:function(){
+                 $('#userStats').html("Where was some errors while loading your stats");
+             }
+         });
+     }
+     showUserStats();
+
+     function showUsersTeams(){
+         $.ajax({
+             url:  "{{path('showUserTeam')}}",
+             type: "get",
+             success: function(data){
+                 $('#usersTeamList').html(data);
+             },
+             error:function(){
+                 $('#usersTeamList').html("Error while loading your teams");
+             }
+         });
+     }
+     showUsersTeams();
+
+     function showSuggestedUsersToTeams(){
+         $.ajax({
+             url:  "{{path('showSuggestedTeams')}}",
+             type: "get",
+             success: function(data){
+                 $('#SuggestedTeamList').html(data);
+             },
+             error:function(){
+                 $('#SuggestedTeamList').html("Error while loading your teams");
+             }
+         });
+     }
+     showSuggestedUsersToTeams();
+
+     function showInvitedUserTeams(){
+         $.ajax({
+             url:  "{{path('showInvitedTeams')}}",
+             type: "get",
+             success: function(data){
+                 $('#userInvitesToCreateATeam').html(data);
+             },
+             error:function(){
+                 $('#userInvitesToCreateATeam').html("Error while loading your teams");
+             }
+         });
+     }
+     showInvitedUserTeams();
  </script>
 {% endblock fos_user_content %}

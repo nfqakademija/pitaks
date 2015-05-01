@@ -1,0 +1,6 @@
+<div class=" bg-success">
+        <p>  Team {{ team.name }} was created</p>
+        <a href="/profile/" class="bg-danger">Back to profile</a>
+</div>
+
+
