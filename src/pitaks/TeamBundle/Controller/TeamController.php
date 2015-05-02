@@ -10,6 +10,7 @@ namespace pitaks\TeamBundle\Controller;
 use pitaks\TeamBundle\Entity\Team;
 use pitaks\TeamBundle\Form\Type\TeamType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use pitaks\UserBundle\Entity\User;
@@ -23,7 +24,7 @@ class TeamController extends Controller{
         $teams = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->findAll();
 
         return $this->render(
-            '@pitaksTeam/UserTeamsActionView/usersTeamAction',
+            'pitaksTeamBundle:TeamSearch:teamSerchResultView.html.twig',
             array('teams' => $teams)
         );
     }
@@ -211,5 +212,34 @@ class TeamController extends Controller{
         return $this->render('@pitaksTeam/UserTeamsActionView/acceptedTeamView', array(
             'team' =>$team
         ));
+    }
+//delete darysim
+
+    public function teamListsBySearchAction()
+    {
+        $name = $this->get('request')->request->get('word');
+        $teams = $this->get('team_service')->returnAllTeamsNoUserTeams($name,$this->getUser());
+       // $teams = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->getTeamsByFirstLetters($name);
+        return $this->render(
+            'pitaksTeamBundle:TeamSearch:teamSerchResultView.html.twig',
+            array('teams' => $teams)
+        );
+
+    }
+
+    /**
+     * @return Response
+     */
+    public function teamSearchViewAction()
+    {
+        return $this->render('pitaksTeamBundle:TeamSearch:teamSearchFormView.html.twig');
+    }
+
+    //return all teams name by name or everything if name field is emty
+    public function teamsNamesListAction()
+    {
+        $name = $this->get('request')->request->get('name');
+        $names = $this->get('team_service')->returnAllTeamsNames($name,$this->getUser());
+        return new JsonResponse($names);
     }
 }

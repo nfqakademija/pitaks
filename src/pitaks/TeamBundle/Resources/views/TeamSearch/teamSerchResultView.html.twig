@@ -1,0 +1,21 @@
+    <table class="table table-hover">
+        <tr>
+            <th>Team Name</th>
+            <th>Created Data</th>
+            <th>Users</th>
+            <th> Stats </th>
+        </tr> {% for team in teams %}
+        <tr>
+            <td> {{ team.name }}</td>
+            <td> {{ team.registeredDate|date('Y-m-d  h:m:sa') }}</td>
+            <td>
+                {% for user in team.users %}
+                    {{ user.username }}
+                {% endfor %}
+            </td>
+            <td> <a class="btn btn-success" href="{{ path('commonTeamStat',{'teamId':team.id}) }}">Stats</a>
+            <td> <a class="btn btn-success" href="{{ path('teamMenu',{'teamId':team.id}) }}">Challenge</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>

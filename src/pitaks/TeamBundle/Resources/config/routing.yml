@@ -25,7 +25,7 @@ deleteTeam:
 acceptTeam:
     path: /user/team/{teamId}/accept
     defaults: {_controller: pitaksTeamBundle:Team:acceptTeam}
-#team manu rautings....
+#team menu rautings....
 
 teamMenu:
     path: /user/teamMenu/{teamId}
@@ -39,3 +39,16 @@ commonTeamStat:
     defaults: {_controller: pitaksTeamBundle:TeamStats:showAllTeamStatistic}
 
 
+#teams search
+teamSearchForm:
+    path: user/searchTeams
+    defaults: {_controller: pitaksTeamBundle:Team:teamSearchView}
+
+
+teamSearchResults:
+    path: user/searchTeamsResults
+    defaults: {_controller: pitaksTeamBundle:Team:teamListsBySearch}
+
+teamsNames:
+    path: user/teamsNames
+    defaults: {_controller: pitaksTeamBundle:Team:teamsNamesList}

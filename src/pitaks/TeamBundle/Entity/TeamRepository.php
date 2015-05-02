@@ -21,4 +21,30 @@ class TeamRepository extends EntityRepository
     }
 
 
+    //return teams by name ...
+    /**
+     * @param string $word
+     * @return array
+     */
+    public function getTeamsByFirstLetters($word){
+        $query = $this->getQueryBulder();
+        if(!empty($word)) {
+            $query
+                ->select('t')->
+                where(
+                    $query->expr()->like('t.name', ':name')
+                )->andWhere('t.confirmed=true')
+                ->orderBy('t.name', 'ASC')
+                ->setParameter('name', $word.'%');
+        }else{
+            $query
+                ->select('t')
+                ->Where('t.confirmed=true')
+                ->orderBy('t.name', 'ASC');
+        }
+        return $query->getQuery()->getResult();
+    }
+
+
+
 }

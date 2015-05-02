@@ -112,4 +112,60 @@ class TeamService extends ContainerAware {
         return null;
     }
 
+
+    /**
+     * @param string $name
+     * @return array
+     */
+    public function returnAllTeamsNames($name)
+    {
+        $teams = $this->getEm()->getRepository('pitaksTeamBundle:Team')->getTeamsByFirstLetters($name);
+        $names = array();
+        foreach($teams as $team)
+        {
+            $names[]=$team->getName();
+        }
+        return $names;
+    }
+
+    /**
+     * @param string $name
+     * @param User $user
+     * @return array
+     */
+    public function returnAllTeamsNamesWithoutUser($name,$user)
+    {
+        $teams = $this->getEm()->getRepository('pitaksTeamBundle:Team')->getTeamsByFirstLetters($name);
+        $names = array();
+        foreach($teams as $team)
+        {
+            if(!$team->getUsers()->contains($user))
+            {
+                $names[]=$team->getName();
+            }
+        }
+        return $names;
+    }
+
+    //not effective
+    /**
+     * @param string $name
+     * @param User $user
+     * @return array
+     */
+    public function returnAllTeamsNoUserTeams($name,$user)
+    {
+        $teams = $this->getEm()->getRepository('pitaksTeamBundle:Team')->getTeamsByFirstLetters($name);
+        $teamsNo= array();
+        foreach($teams as $team)
+        {
+            if(!$team->getUsers()->contains($user))
+            {
+                $teamsNo[]=$team;
+            }
+        }
+        return $teamsNo;
+    }
+
+
 }
