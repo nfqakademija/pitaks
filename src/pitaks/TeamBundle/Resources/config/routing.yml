@@ -52,3 +52,12 @@ teamSearchResults:
 teamsNames:
     path: user/teamsNames
     defaults: {_controller: pitaksTeamBundle:Team:teamsNamesList}
+
+#challengess
+
+challengeTeam:
+    path: user/teamMenu/{teamId}/challene/{anotherTeamId}
+    defaults: {_controller: pitaksTeamBundle:TeamChallenge:ChallengePage}
+saveTeamChallenge:
+    path: user/teamMenu/{teamId}/challene/{anotherTeamId}/save
+    defaults: {_controller: pitaksTeamBundle:TeamChallenge:saveChallenge}

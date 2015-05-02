@@ -1,0 +1,114 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Challenge{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-sm-offset-1 col-sm-4">
+                <div class="challengeUserView well well-lg btn-success"><h2>{{ myteam.name }}</h2>
+                    <div>
+                        {% for user in myteam.users %}
+                            {{ user.name }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1 ">
+                 <button class="btn btn-primary center-block">   <span id="challengeOk" style="font-size: 56pt;
+                 color :#00CC00;" class="glyphicon glyphicon-ok"></span></button>
+            </div>
+            <div class="col-sm-4">
+                <div class="challengeUserView  well well-lg btn-danger"><h2>{{ friend.name }}</h2>
+                    <div>
+                        {% for user in friend.users %}
+                            {{ user.name }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        <button id="anotherTable" class="btn btn-success " style="display: none;"> Choose another table</button>
+            <div id="tableListForReservation">
+                <h3> Tables </h3>
+
+                <table class="table table-hover" >
+
+                    <tr>
+                        <th>Table name</th>
+                        <th>Table address</th>
+                        <th>Table rank </th>
+                        <th></th>
+                    </tr>
+                    {% for table in tables %}
+                        <tr>
+                            <td> {{ table.name }}</td>
+                            <td> {{ table.address }}</td>
+                            <td> {{ table.getTableRate() }}
+                            </td>
+                            <td>
+                                <button id="challengeButton" class="btn btn-success" value="{{ table.id }}">Choose</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="teamChallengeMenu" class="well-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#anotherTable').click(function()
+        {
+            $('#tableListForReservation').css("display","block");
+            $('#anotherTable').css("display","none");
+        });
+        function showResults(){
+            $('#challengeButton').click(function(){
+                        $.ajax({
+                            url:  "{{path('viewRes')}}",
+                            type: "post",
+                            data: ({ tableId: $(this).val()}),
+                            success: function(data){
+                                alert("OK");
+                                $('#tableListForReservation').css("display","none");
+                                $('#anotherTable').css("display","block");
+                                $("#teamChallengeMenu").html(data);
+                            },
+                            error:function(){
+                                alert("something wrong happends");
+                            }
+                        });
+                    }
+            );
+        }
+        showResults();
+
+         function saveChallenge() {
+            $('#challengeOk').click(function () {
+                        var tableId = $('#timesTable').attr('value');
+                        var datele = $('#datetimepicker').val();
+                        $.ajax({
+                            url: "{{path('saveTeamChallenge', {'teamId':  myteam.id, 'anotherTeamId': friend.id  })  }}",
+                            type: "post",
+                            data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
+                            success: function (data) {
+                                alert(data);
+                                window.location.reload(true);
+                            },
+                            error: function () {
+                                alert("failure");
+                            }
+                        });
+                    }
+            );
+        }
+        saveChallenge();
+
+    </script>
+
+{% endblock %}

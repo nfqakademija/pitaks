@@ -83,7 +83,7 @@ class Team
     {
         $this->users = new ArrayCollection();
         $this->reservations= new ArrayCollection();
-        $this->reservations= new ArrayCollection();
+        $this->invitedReservations= new ArrayCollection();
     }
 
 

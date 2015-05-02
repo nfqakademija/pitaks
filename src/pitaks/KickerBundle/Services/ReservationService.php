@@ -11,6 +11,7 @@ namespace pitaks\KickerBundle\Services;
 use Doctrine\ORM\EntityManager;
 use pitaks\KickerBundle\Entity\Reservation;
 use pitaks\KickerBundle\Entity\RegisteredReservation;
+use pitaks\TeamBundle\Entity\TeamReservation;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -156,6 +157,15 @@ class ReservationService extends ContainerAware{
     }
 
 
+    /**
+     *
+     * @param $date
+     * @param $tableId
+     * @param $startValue
+     * @param $endValue
+     * @param null $userId
+     * @param null $friendId
+     */
     public function saveUserReservation($date, $tableId, $startValue, $endValue,$userId=null, $friendId=null)
     {
         $startDate = $date." ".$startValue;
@@ -189,6 +199,39 @@ class ReservationService extends ContainerAware{
         }
     }
 
+    public function saveTeamReservation($date, $tableId, $startValue, $endValue,$teamId,$anotherTeamId)
+    {
+        $startDate = $date." ".$startValue;
+        $endDate =$date." ".$endValue;
+        $duration = strtotime($endValue) - strtotime($startValue);
+        $reservationTime = new \DateTime($startDate);
+
+        $step = $duration/$this::RESERVATION_DURATION;
+
+        $reservation= $this->getEm()->
+        getRepository('pitaksKickerBundle:Reservation')->findOneBy(array('reservationStart' => $reservationTime, 'tableId' => $tableId));
+
+        $freeReservations=$this->getEm()->
+        getRepository('pitaksKickerBundle:Reservation')->findFreeDateReservations($tableId,$date);
+
+        $registeredReservation =$this->createTeamReservation($teamId,$anotherTeamId, $startDate, $endDate);
+
+        for($i = 0; $i<count($freeReservations); $i++){
+            if($reservation->getId() == $freeReservations[$i]->getId())
+            {
+                $kiekis = 0;
+                while($kiekis<$step){
+                    $freeReservations[$i+$kiekis];
+                    $freeReservations[$i+$kiekis]->setIsFree(false);
+                    $freeReservations[$i+$kiekis]->setTeamReservation($registeredReservation);
+                    $this->getEm()->flush();
+                    $kiekis++;
+                }
+                break;
+            }
+        }
+    }
+
     /**
      * @param $userId
      * @param $friendId
@@ -213,6 +256,30 @@ class ReservationService extends ContainerAware{
         $this->getEm()->flush();
         return $registeredReservation;
     }
+
+    /**
+     * @param $teamId
+     * @param $anotherTeamId
+     * @param $startDate
+     * @param $endDate
+     * @return TeamReservation
+     */
+    public function createTeamReservation($teamId,$anotherTeamId, $startDate, $endDate)
+    {
+        $myTeam = $this->getEm()->getRepository('pitaksTeamBundle:Team')->find($teamId);
+        $competitor = $this->getEm()->getRepository('pitaksTeamBundle:Team')->find($anotherTeamId);
+        $registeredReservation = new TeamReservation();
+        $registeredReservation->setDate(new \DateTime());
+        $registeredReservation->setReservationEnd(new \DateTime($endDate));
+        $registeredReservation->setReservationStart(new \DateTime($startDate));
+        $registeredReservation->setCompetitorTeam( $competitor);
+        $registeredReservation->setTeam($myTeam);
+        $registeredReservation->setIsConfirmed(false);
+        $this->getEm()->persist($registeredReservation);
+        $this->getEm()->flush();
+        return $registeredReservation;
+    }
+
 
     /**
      * @param integer $registeredReservationId

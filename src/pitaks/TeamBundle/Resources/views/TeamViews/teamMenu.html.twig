@@ -50,7 +50,9 @@
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="challenges">
-                    where will be user's comments
+                    <div id="challengeView">
+                    <button id="challengeMaker" class="btn btn-danger">create a challenge</button>
+                    </div>
                 </div>
 
             </div>
@@ -85,5 +87,24 @@
             });
         }
         showEachStat();
+        function challenges()
+        {
+            $("#challengeMaker").click(function()
+            {
+                $.ajax({
+                    url:  "{{path('teamSearchForm')}}",
+                    type: "get",
+                    success: function(data){
+                        $('#challengeView').html(data);
+                    },
+                    error:function(){
+                        $('#challengeView').html("Where was some errors while loading challenge form");
+                    }
+                });
+
+            }
+            )
+        }
+        challenges();
     </script>
 {% endblock %}

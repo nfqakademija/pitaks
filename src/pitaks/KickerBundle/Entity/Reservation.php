@@ -55,6 +55,12 @@ class Reservation
     private $registeredReservationId;
 
     /**
+     * @ORM\ManyToOne(targetEntity="pitaks\TeamBundle\Entity\TeamReservation", inversedBy="reservations")
+     * @ORM\JoinColumn(name="teamReservation", referencedColumnName="id")
+     */
+    private $teamReservation;
+
+    /**
      * @var boolean
      * @ORM\Column(name="isFree", type="boolean" ,nullable=true)
      */
@@ -219,5 +225,28 @@ class Reservation
     public function getRegisteredReservationId()
     {
         return $this->registeredReservationId;
+    }
+
+    /**
+     * Set teamReservation
+     *
+     * @param \pitaks\TeamBundle\Entity\TeamReservation $teamReservation
+     * @return Reservation
+     */
+    public function setTeamReservation(\pitaks\TeamBundle\Entity\TeamReservation $teamReservation = null)
+    {
+        $this->teamReservation = $teamReservation;
+
+        return $this;
+    }
+
+    /**
+     * Get teamReservation
+     *
+     * @return \pitaks\TeamBundle\Entity\TeamReservation
+     */
+    public function getTeamReservation()
+    {
+        return $this->teamReservation;
     }
 }

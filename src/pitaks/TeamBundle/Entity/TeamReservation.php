@@ -2,6 +2,7 @@
 
 namespace pitaks\TeamBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,7 +62,15 @@ class TeamReservation
      */
     private $date;
 
+    /**
+     * @ORM\OneToMany(targetEntity="pitaks\KickerBundle\Entity\Reservation", mappedBy="teamReservation")
+     */
+    protected $reservations;
 
+    function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -209,5 +218,38 @@ class TeamReservation
     public function getCompetitorTeam()
     {
         return $this->competitorTeam;
+    }
+
+    /**
+     * Add reservations
+     *
+     * @param \pitaks\KickerBundle\Entity\Reservation $reservations
+     * @return TeamReservation
+     */
+    public function addReservation(\pitaks\KickerBundle\Entity\Reservation $reservations)
+    {
+        $this->reservations[] = $reservations;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservations
+     *
+     * @param \pitaks\KickerBundle\Entity\Reservation $reservations
+     */
+    public function removeReservation(\pitaks\KickerBundle\Entity\Reservation $reservations)
+    {
+        $this->reservations->removeElement($reservations);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 }
