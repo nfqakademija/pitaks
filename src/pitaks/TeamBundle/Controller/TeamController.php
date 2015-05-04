@@ -152,7 +152,6 @@ class TeamController extends Controller{
             array('teamAndFriend' => $teamAndUser)
         );
     }
-
     /**
      * @return Response
      */
