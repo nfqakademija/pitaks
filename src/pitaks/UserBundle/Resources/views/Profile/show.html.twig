@@ -18,7 +18,7 @@
                     <li role="presentation"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
                     <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
                     <li role="presentation"><a href="#rates" aria-controls="rates" role="tab" data-toggle="tab">Settings</a></li>
-                    <li role="presentation"><a href="#games" aria-controls="games" role="tab" data-toggle="tab">Settings</a></li>
+                    <li role="presentation"><a href="#games" aria-controls="games" role="tab" data-toggle="tab">Games</a></li>
 
                 </ul>
             </div>
@@ -41,7 +41,10 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="messages"> where will be user's comments</div>
                     <div role="tabpanel" class="tab-pane" id="rates"> where will be user's table rates </div>
-                    <div role="tabpanel" class="tab-pane" id="games"> where will be last 10 user games </div>
+                    <div role="tabpanel" class="tab-pane" id="games">
+                        <div id="userLastGames"> </div>
+
+                    </div>
                     <div role="tabpanel" class="tab-pane" id="teams">
                         <div>
                         <a href="{{ path('show_users') }}" class="btn btn-success">Create a team </a>
@@ -147,5 +150,18 @@
          });
      }
      showInvitedUserTeams();
+     function showLastUserGames(){
+         $.ajax({
+             url:  "{{path('lastUserGames')}}",
+             type: "get",
+             success: function(data){
+                 $('#userLastGames').html(data);
+             },
+             error:function(){
+                 $('#userLastGames').html("Error while loading your teams");
+             }
+         });
+     }
+     showLastUserGames();
  </script>
 {% endblock fos_user_content %}

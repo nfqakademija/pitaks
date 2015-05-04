@@ -3,6 +3,7 @@
 namespace pitaks\KickerBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use pitaks\UserBundle\Entity\User;
 
 /**
  * GameRepository
@@ -47,6 +48,26 @@ class GameRepository extends EntityRepository
             ->getQuery();
         //return last Game as array?
         return $query->getResult()[0];
+    }
+
+
+    /**
+     * @param User $user
+     * @param int $n
+     * @return mixed
+     */
+    public function getLastNUserGames($user,$n){
+
+        $query= $this->getQueryBulder()
+            ->select('g')
+            ->where('g.user1Team1='.$user->getCardId())
+            ->orWhere('g.user2Team1='.$user->getCardId())
+            ->orWhere('g.user1Team2='.$user->getCardId())
+            ->orWhere('g.user2Team2='.$user->getCardId())
+            ->orderBy('g.beginTime','DESC')
+            ->setFirstResult(0)
+            ->setMaxResults($n);
+            return $query->getQuery()->getResult();
     }
 
 }

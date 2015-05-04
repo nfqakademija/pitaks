@@ -35,3 +35,7 @@ userStat:
 myUserStat:
     path: /user/stats
     defaults: {_controller: UserBundle:UserStatistic:myStats}
+#last user games
+lastUserGames:
+    path: /user/lastGames
+    defaults: {_controller: UserBundle:UserStatistic:lastTenUserGames}

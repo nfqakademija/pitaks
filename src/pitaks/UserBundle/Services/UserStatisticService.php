@@ -171,4 +171,30 @@ class UserStatisticService extends ContainerAware {
         }
         return $all;
     }
+
+    /**
+     * @param User $user
+     * @param int $n
+     * @return mixed
+     */
+    public function getLastUserGames($user,$n)
+    {
+       return $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastNUserGames($user,$n);
+    }
+
+    /**
+     * @param User $user
+     * @param Game $game
+     * @return int
+     */
+    public function whichTeamUserBelongTo($user, $game)
+    {
+        $cardId =$user->getCardId();
+        if($game->getUser1Team1() == $cardId || $game->getUser2Team1() == $cardId)
+        {
+            return 0;
+        }
+        else
+            return 1;
+    }
 }

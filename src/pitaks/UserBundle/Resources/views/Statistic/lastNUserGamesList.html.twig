@@ -1,0 +1,32 @@
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>Mach duration</th>
+        <th>Competitor</th>
+        <th>Colleague</th>
+        <th>Score</th>
+    </tr>
+    {% for game in games %}
+    <tr>
+        <td>{{ game['gameDate']|date('Y/m/d H:i') }}</td>
+        <td>{{ game['gameDuration'] }}</td>
+        <td>
+            {%if game['competitor1'] is not null  %}
+            {{ game['competitor1'].username }}
+             {% else %}
+                anonymous
+            {% endif %}
+            {% if game['competitor2'] is not null  %}
+            {{ game['competitor2'].username }}
+            {% else %}
+                anonymous
+            {% endif %}</td>
+        <td> {% if game['friend'] is not null  %}
+                {{ game['friend'].username }}
+            {% else %}
+                anonymous
+            {% endif %}</td>
+        <td>{{ game['myResult'] }} : {{game['enemyResult']  }}</td>
+    </tr>
+    {% endfor %}
+</table>
