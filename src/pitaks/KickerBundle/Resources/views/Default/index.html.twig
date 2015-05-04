@@ -41,22 +41,17 @@
                                         <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                                             Rezervation
                                         </button>
-                                        <div id="refreshInfo">
-                                        </div>
                                     </div>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
-                <div class="myPanelAreaLeft col-sm-offset-2 col-sm-4">
-                    <header>
-                        <h2>Rezultatas</h2>
-                    </header>
+                <div class="myPanelAreaLeft col-sm-6 ">
 
-                    <h2>
-                        <strong>5 : 2</strong>
-                    </h2>
+                    <div class="refreshInfo">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,14 +127,31 @@
                     });
                 }
         );
-        $(document).ready(function(){
+       $(document).ready(function(){
            refreshTable();
         });
 
         function refreshTable(){
-            $('#refreshInfo').load('{{ path('isTableFree',{'tableId': 1}) }}', function(){
-                setTimeout(refreshTable, 1000);
+            $('.refreshInfo').load('{{  path('tableResult',{'tableId': 1}) }}', function(){
+                setTimeout(refreshTable, 5000);
+            });
+
+        }
+        /*function tableResult(){
+            $.ajax({
+                url:  "{path('tableResult',{'tableId': 1})}}",
+                type: "get",
+                success: function(data){
+                    alert("nothing");
+                    $('.refreshInfo').html(data);
+
+                },
+                error:function(){
+                    alert("something");
+                    $('.refreshInfot').html("Error while loading tableResult");
+                }
             });
         }
+        tableResult();*/
     </script>
 {% endblock %}

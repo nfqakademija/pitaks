@@ -9,8 +9,12 @@
             <!-- Nav tabs -->
             <div class="col-sm-4">{% include "FOSUserBundle:Profile:show_content.html.twig" %}
                 <ul class="nav nav-pills nav-stacked" role="tablist">
-                    <li role="presentation" class=""><a href="#teams" aria-controls="teams" role="tab" data-toggle="tab">TEAMS</a></li>
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+                    <li role="presentation" class=""><a href="#teams" aria-controls="teams" role="tab" data-toggle="tab">TEAMS
+                        <span class="badge" style="float: right">{{ render(controller('UserBundle:UserCounts:userNewTeamsCount')) }}</span></a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                            Reservations
+                             <span class="badge" style="float: right">{{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }}</span>  </a>
+                      </li>
                     <li role="presentation"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
                     <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
                     <li role="presentation"><a href="#rates" aria-controls="rates" role="tab" data-toggle="tab">Settings</a></li>

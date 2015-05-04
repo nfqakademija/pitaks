@@ -52,7 +52,7 @@ use pitaks\UserBundle\Services\UserStatisticService;
 
      //metodas grazina live laiku ar jis laisvas ar uzimtas
      /**
-      * @param $table
+      * @param Tables $table
       * @return bool
       */
      public function getTableStatusFromApi($table)
@@ -60,12 +60,16 @@ use pitaks\UserBundle\Services\UserStatisticService;
          //true jei užimtas
          $time = time();
          $lasAPI =$this->getJsonFromTableApi($table,1)['records'][0]['timeSec'];
-         if(($time - $lasAPI) < APIDataService::MIN_GAME_TIME)
-         {//set table status to busy
-             return true;}
-         //set table status to free
-         else return false;
-
+             if (($time - $lasAPI) < APIDataService::MIN_GAME_TIME) {//set table status to busy
+                 $table->setIsFree(false);
+                 $this->getEm()->flush();
+                 return true;
+             } //set table status to free
+             else {
+                 $table->setIsFree(false);
+                 $this->getEm()->flush();
+                 return false;
+             }
      }
 
      /**
@@ -122,8 +126,10 @@ use pitaks\UserBundle\Services\UserStatisticService;
             }
         }
         catch(Exception $e){
+
             echo 'Caught exceptions: ',  $e->getMessage(), "\n";
             $dispatcher->dispatch('api_failed', $errorEvent);
+
         }
         return $results->json();
      }

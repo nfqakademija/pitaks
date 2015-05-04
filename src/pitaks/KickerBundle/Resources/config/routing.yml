@@ -63,3 +63,8 @@ tableRateModal:
 tableComment:
     path: /table/{tableId}/newComment
     defaults: {_controller: pitaksKickerBundle:Comment:newComment}
+
+#TableREzultatas
+tableResult:
+    path: /table/{tableId}/result
+    defaults: {_controller: pitaksKickerBundle:Table:showTableResults}

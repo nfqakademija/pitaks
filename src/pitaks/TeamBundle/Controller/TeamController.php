@@ -171,6 +171,7 @@ class TeamController extends Controller{
             $teamAndUser[]=$a;
             }
         }
+        $this->get('user_lastviews_service')->updateUserNewTeamsSuggestionData($this->getUser());
         return $this->render(
             'pitaksTeamBundle:TeamViews:allTeamsView.html.twig',
             array('teamAndFriend' => $teamAndUser)

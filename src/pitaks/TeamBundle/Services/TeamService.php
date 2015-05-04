@@ -62,14 +62,14 @@ class TeamService extends ContainerAware {
      */
     public function findTeamByTwoUser($user1, $user2)
     {
-        $teams1 = $user1->getTeams();
-        $teams2 =$user2->getTeams();
+        if($user2 && $user1) {
+            $teams1 = $user1->getTeams();
+            $teams2 = $user2->getTeams();
 
-        foreach($teams1 as $team)
-        {
-            if($teams2->contains($team))
-            {
-                return $team;
+            foreach ($teams1 as $team) {
+                if ($teams2->contains($team)) {
+                    return $team;
+                }
             }
         }
             return null;
@@ -165,6 +165,24 @@ class TeamService extends ContainerAware {
             }
         }
         return $teamsNo;
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function returnTeamsWhereUserIsInvited($user)
+    {
+        $teams=$user->getTeams();
+        $invitedTeams = array();
+        foreach($teams as $team)
+        {
+            if( $user != $team->getAuthor() && $team->getConfirmed() == false)
+            {
+                $invitedTeams[] = $team;
+            }
+        }
+        return $invitedTeams;
     }
 
 

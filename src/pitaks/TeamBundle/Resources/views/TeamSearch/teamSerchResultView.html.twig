@@ -14,8 +14,10 @@
                 {% endfor %}
             </td>
             <td> <a class="btn btn-success" href="{{ path('commonTeamStat',{'teamId':team.id}) }}">Stats</a>
-            <td> <a class="btn btn-success" href="{{ path('teamMenu',{'teamId':team.id}) }}">Challenge</a>
+            <td> <a id="challengeTeamId" class=" btn btn-success" value="{{ team.id }}">Challenge</a>
             </td>
         </tr>
     {% endfor %}
     </table>
+    <script>
+    </script>

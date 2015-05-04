@@ -43,7 +43,7 @@ class TeamReservation
     private $team;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\pitaks\TeamBundle\Entity\Team", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="\pitaks\TeamBundle\Entity\Team", inversedBy="invitedReservations")
      * @ORM\JoinColumn(name="competitorTeam", referencedColumnName="id")
      */
     private $competitorTeam;

@@ -51,7 +51,7 @@ class TeamStatistic
 
     /**
      * @ORM\ManyToOne(targetEntity="\pitaks\KickerBundle\Entity\Tables", inversedBy="tableTeamStatistic")
-     * @ORM\JoinColumn(name="tableId", referencedColumnName="id")
+     * @ORM\JoinColumn(name="table", referencedColumnName="id")
      */
     private $table;
 

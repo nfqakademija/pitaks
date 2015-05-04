@@ -9,3 +9,8 @@ services:
          arguments: ["@doctrine.orm.entity_manager"]
          calls:
                  - [setContainer, ['@service_container']]
+    user_lastviews_service:
+             class: pitaks\UserBundle\Services\LastReviewsService
+             arguments: ["@doctrine.orm.entity_manager"]
+             calls:
+                     - [setContainer, ['@service_container']]

@@ -3,6 +3,7 @@
 namespace pitaks\KickerBundle\Controller;
 
 use GuzzleHttp\Client;
+use pitaks\KickerBundle\Entity\Game;
 use pitaks\KickerBundle\Entity\TableRate;
 use pitaks\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -185,5 +186,34 @@ class TableController extends Controller
             array('tables' => $tables)
         );
 
+    }
+
+    /**
+     * @param integer $tableId
+     * @return Response
+     */
+    public function showTableResultsAction($tableId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+        $tableStatus = $this->get('api_data')->getTableStatusFromApi($table);
+        $game = $this->getDoctrine()->getManager()->getRepository('pitaksKickerBundle:Game')->
+        getLastGame($table->getId());
+        $user11 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser1Team1());
+        $user12 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser2Team1());
+        $user21 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser1Team2());
+        $user22 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser2Team2());
+        $team1 = $this->get('team_service')->findTeamByTwoUser($user11,$user12);
+        $team2 = $this->get('team_service')->findTeamByTwoUser($user21,$user22);
+        return $this->render('pitaksKickerBundle:Table:tableResultReview.html.twig',array(
+            'game' => $game,
+            'tableStatus' => $tableStatus,
+            'user11' => $user11,
+            'user12' => $user12,
+            'user21' => $user21,
+            'user22' => $user22,
+            'team1' => $team1,
+            'team2' =>$team2,
+        ));
     }
 }

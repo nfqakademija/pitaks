@@ -31,4 +31,24 @@ class RegisteredReservationRepository extends EntityRepository
             ->getQuery()->getResult();
         return $r;
     }
+
+    /**finds new Reservations from data
+     */
+    /**
+     * @param string $username
+     * @param string $date
+     * @return int
+     */
+    public function findUserLastReservationFromData($username, $date)
+    {
+        $r = $this->getQueryBulder()
+            ->select()
+            ->where('r.reservationEnd >:date')
+            ->andWhere('r.friendId=:username')
+            ->andWhere('r.isConfirmed=false')
+            ->setParameter('date', $date)
+            ->setParameter('username', $username)
+            ->getQuery()->getResult();
+        return count($r);
+    }
 }

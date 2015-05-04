@@ -26,7 +26,7 @@ class TestCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $game = new Game();
+      $game = new Game();
         $game->setTableId(4);
         $game->setBeginTime(1);
         $game->setEndEventId(15);

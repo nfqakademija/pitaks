@@ -72,7 +72,7 @@ class Team
     private $reservations;
 
     /**
-     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamReservation", mappedBy="team")
+     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamReservation", mappedBy="competitorTeam")
      */
     private $invitedReservations;
     /**

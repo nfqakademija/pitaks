@@ -97,7 +97,7 @@ class Tables
     protected $tableUsersStatistic;
 
     /**
-     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamStatistic", mappedBy="tableId")
+     * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamStatistic", mappedBy="table")
      */
     protected $tableTeamStatistic;
 
@@ -109,7 +109,7 @@ class Tables
         $this->games = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->tableUsersStatistic = new ArrayCollection();
-        $this->TeamStatistic = new ArrayCollection();
+        $this->tableTeamStatistic = new ArrayCollection();
     }
 
     /**

@@ -8,6 +8,8 @@
             </h2>
         </div>
         <div class="panel-body" style="color:#000000">
+            <p> NEWS:   {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }}</p>
+
             <p> Name: {{ user.name }}</p>
             <p> Last Name: {{ user.lastName }}</p>
             <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>

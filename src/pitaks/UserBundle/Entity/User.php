@@ -10,7 +10,7 @@ namespace pitaks\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
+use pitaks\UserBundle\Entity\LastReviews;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
@@ -76,7 +76,7 @@ class User extends BaseUser{
     protected $tablesRating;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserTableStatistic", mappedBy="username")
+     * @ORM\OneToMany(targetEntity="UserTableStatistic", mappedBy="userId")
      */
     protected $userTablesStatistic;
 
@@ -96,6 +96,12 @@ class User extends BaseUser{
      */
     private $createdTeams;
 
+    /**
+     * @ORM\OneToOne(targetEntity="LastReviews")
+     * @ORM\JoinColumn(name="reviewsId", referencedColumnName="id")
+     **/
+    private $reviews;
+
     public function __construct()
     {
         parent::__construct();
@@ -103,6 +109,7 @@ class User extends BaseUser{
         $this->userTablesStatistic= new ArrayCollection();
         $this->teams= new ArrayCollection();
         $this->createdTeams= new ArrayCollection();
+        //sukuriam reviews pirmas
     }
 
 
@@ -437,5 +444,28 @@ class User extends BaseUser{
     public function getCreatedTeams()
     {
         return $this->createdTeams;
+    }
+
+    /**
+     * Set reviews
+     *
+     * @param \pitaks\UserBundle\Entity\LastReviews $reviews
+     * @return User
+     */
+    public function setReviews(\pitaks\UserBundle\Entity\LastReviews $reviews = null)
+    {
+        $this->reviews = $reviews;
+
+        return $this;
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \pitaks\UserBundle\Entity\LastReviews 
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 }

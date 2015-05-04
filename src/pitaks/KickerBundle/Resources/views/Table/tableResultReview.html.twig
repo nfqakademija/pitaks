@@ -1,0 +1,109 @@
+
+<style>
+    .tableLeftSide
+    {
+       text-align: right;
+    }
+      .tableCenterSide
+    {
+       text-align: center;
+    }
+    .userCard
+    {
+    border-radius: 5px;
+    border: #000000 1px solid ;
+    padding: 5px;
+}
+.tableFormat
+{
+    margin-left: 20px;;
+background-color: rgba(0, 204, 0, 0.50);
+border-radius: 10px;
+border: 5px #fefefe solid;
+color: white;
+//border-right:5px #fefefe solid ;
+padding:20px;
+}
+.score{
+color: white;
+font-size: 24pt;
+padding: 5px;
+border: 5px #fefefe solid;
+border-radius: 10px;
+}
+
+
+</style>
+
+   <div class="tableFormat">
+
+    {% if tableStatus  %}
+        <div class="row">
+            <div class="row ">
+                <div class="col-xs-5 tableLeftSide">
+                    {% if team1 %}
+                        <div>   {{ team1.name}}</div>
+                        {% else %}
+                      <br/>
+                    {% endif %}
+
+                {% if user11 %}
+                        {{ user11.username }}
+                {% else %}
+                    anonymous
+                    </div>
+                {% endif %}
+
+                </div>
+                <div class="col-xs-2">
+
+                </div>
+                <div class="col-xs-5">
+                    {% if team2 %}
+                     <div>   {{ team2.name}}</div>
+                    {% else %}
+                        <br/>
+                    {% endif %}
+
+                    {% if user21 %}
+                            {{ user21.username }}
+                    {% else %}
+                            anonymous
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">
+                </div>
+                <div class="col-xs-2 tableCenterSide">
+                   <span class="score">{{  game.scoreTeam1}} : {{ game.scoreTeam2}}</span>
+                </div>
+                <div class="col-xs-5">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5 tableLeftSide">
+                {% if user12 %}
+                    <span class="userCard">{{ user12.username }}</span>
+                    {% else %}
+                    anonymous
+                {% endif %}
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-5">
+                    {% if user22 %}
+                    {{ user22.username }}
+                    {% else %}
+                        anonymous
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+{% else %}
+    <div class="tableCenterSide ">
+        <span class="score">FREE</span>
+    </div>
+{% endif %}
+    </div>
