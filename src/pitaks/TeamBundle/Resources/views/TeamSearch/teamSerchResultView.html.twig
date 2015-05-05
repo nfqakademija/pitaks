@@ -14,7 +14,7 @@
                 {% endfor %}
             </td>
             <td> <a class="btn btn-success" href="{{ path('commonTeamStat',{'teamId':team.id}) }}">Stats</a>
-            <td> <a id="challengeTeamId" class=" btn btn-success" value="{{ team.id }}">Challenge</a>
+            <td> <a href="{{ path('challengeTeam',{'teamId':myTeam.id, 'anotherTeamId': team.id})}}" id="challengeTeamId" class=" btn btn-success" value="{{ team.id }}">Challenge</a>
             </td>
         </tr>
     {% endfor %}

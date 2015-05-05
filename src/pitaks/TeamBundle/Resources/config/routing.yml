@@ -41,12 +41,12 @@ commonTeamStat:
 
 #teams search
 teamSearchForm:
-    path: user/searchTeams
+    path: user/teamMenu/{teamId}/searchTeams
     defaults: {_controller: pitaksTeamBundle:Team:teamSearchView}
 
 
 teamSearchResults:
-    path: user/searchTeamsResults
+    path: user/teamMenu/{teamId}/searchTeamsResults
     defaults: {_controller: pitaksTeamBundle:Team:teamListsBySearch}
 
 teamsNames:
@@ -61,3 +61,12 @@ challengeTeam:
 saveTeamChallenge:
     path: user/teamMenu/{teamId}/challene/{anotherTeamId}/save
     defaults: {_controller: pitaksTeamBundle:TeamChallenge:saveChallenge}
+sendedChallengeReview:
+    path: user/teamMenu/{teamId}/sendedChallenges
+    defaults: {_controller: pitaksTeamBundle:TeamChallenge:showSendedChallengesTeams}
+recievedChallengeReview:
+    path: user/teamMenu/{teamId}/recievedChallenges
+    defaults: {_controller: pitaksTeamBundle:TeamChallenge:showReceivedChallengesTeams}
+confirmedChallengeReview:
+    path: user/teamMenu/{teamId}/confirmedChallenges
+    defaults: {_controller: pitaksTeamBundle:TeamChallenge:showConfirmedChallengesTeams}

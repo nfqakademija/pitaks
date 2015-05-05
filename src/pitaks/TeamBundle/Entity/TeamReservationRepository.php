@@ -12,4 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class TeamReservationRepository extends EntityRepository
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBulder()
+    {
+        return $this->createQueryBuilder("t");
+    }
+
+    public function getConfirmedReservations($teamId)
+    {
+       $query = $this->getQueryBulder()->
+            select()->
+            where('t.competitorTeam='.$teamId)->
+            orWhere('t.team='.$teamId)->
+            andWhere('t.isConfirmed=true')->
+            getQuery();
+        return $query->getResult();
+    }
 }

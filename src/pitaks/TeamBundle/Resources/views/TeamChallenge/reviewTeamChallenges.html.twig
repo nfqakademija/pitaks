@@ -1,0 +1,17 @@
+<table class="table">
+    <tr>
+        <th>Competitor </th>
+        <th> Start Date </th>
+        <th> End Date </th>
+        <th> Table </th>
+    </tr>
+    {% for reservation in reservations  %}
+    <tr>
+        <td> {{ reservation.team.name }} </td>
+        <td> {{ reservation.reservationStart|date("Y-m-d H:i") }}</td>
+        <td> {{ reservation.reservationEnd|date("Y-m-d H:i") }}</td>
+        <td> lalallalal</td>
+    </tr>
+    {% endfor %}
+
+</table>

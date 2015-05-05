@@ -35,7 +35,7 @@
             var text = $('#tags').val();
             //need to return user list
             $.ajax({
-                url: "{{path('teamSearchResults') }}",
+                url: "{{path('teamSearchResults', {"teamId":myteamId}) }}",
                 type: "post",
                 data: ({'word': text}),
                 success: function (data) {

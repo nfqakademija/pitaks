@@ -214,25 +214,32 @@ class TeamController extends Controller{
         ));
     }
 //delete darysim
-
-    public function teamListsBySearchAction()
+    /**
+     * @param $teamId
+     * @return Response
+     */
+    public function teamListsBySearchAction($teamId)
     {
         $name = $this->get('request')->request->get('word');
         $teams = $this->get('team_service')->returnAllTeamsNoUserTeams($name,$this->getUser());
+
+        $myteam = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($teamId);
        // $teams = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->getTeamsByFirstLetters($name);
         return $this->render(
             'pitaksTeamBundle:TeamSearch:teamSerchResultView.html.twig',
-            array('teams' => $teams)
+            array('teams' => $teams, 'myTeam' => $myteam)
         );
 
     }
 
     /**
+     * @param $teamId
      * @return Response
      */
-    public function teamSearchViewAction()
+    public function teamSearchViewAction($teamId)
     {
-        return $this->render('pitaksTeamBundle:TeamSearch:teamSearchFormView.html.twig');
+        return $this->render('pitaksTeamBundle:TeamSearch:teamSearchFormView.html.twig',
+        array('myteamId'=>$teamId));
     }
 
     //return all teams name by name or everything if name field is emty

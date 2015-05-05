@@ -52,6 +52,18 @@
                 <div role="tabpanel" class="tab-pane" id="challenges">
                     <div id="challengeView">
                     <button id="challengeMaker" class="btn btn-danger">create a challenge</button>
+                        <h2>Received Challenges</h2>
+                        <div id="recievedTeamChallenges">
+
+                        </div>
+                        <h2>Your team Challenges</h2>
+                        <div id="confirmedTeamChallenges">
+
+                        </div>
+                        <h2>Your suggested challenges</h2>
+                        <div id="sendedTeamChallenges">
+
+                        </div>
                     </div>
                 </div>
 
@@ -92,7 +104,7 @@
             $("#challengeMaker").click(function()
             {
                 $.ajax({
-                    url:  "{{path('teamSearchForm')}}",
+                    url:  "{{path('teamSearchForm',{'teamId': team.id})}}",
                     type: "get",
                     success: function(data){
                         $('#challengeView').html(data);
@@ -106,5 +118,46 @@
             )
         }
         challenges();
+       function recievedTeamChallenges(){
+            $.ajax({
+                url:  "{{path('recievedChallengeReview', {'teamId':team.id})}}",
+                type: "get",
+                success: function(data){
+                    $('#recievedTeamChallenges').html(data);
+                },
+                error:function(){
+                    $('#recievedTeamChallenges').html("Error while loading your challenges");
+                }
+            });
+        }
+        recievedTeamChallenges();
+        function sendTeamChallenges(){
+            $.ajax({
+                url:  "{{ path('sendedChallengeReview',  {'teamId':team.id})}}",
+                type: "get",
+                success: function(data){
+                    $('#sendedTeamChallenges').html(data);
+                },
+                error:function(){
+                    $('#sendedTeamChallenges').html("Error while loading your teams");
+                }
+            });
+        }
+        sendTeamChallenges();
+
+        function confirmedTeamChallenges(){
+            $.ajax({
+                url:  "{{ path('confirmedChallengeReview',  {'teamId':team.id})}}",
+                type: "get",
+                success: function(data){
+                    $('#confirmedTeamChallenges').html(data);
+                },
+                error:function(){
+                    $('#confirmedTeamChallenges').html("Error while loading your teams");
+                }
+            });
+        }
+        confirmedTeamChallenges();
+
     </script>
 {% endblock %}

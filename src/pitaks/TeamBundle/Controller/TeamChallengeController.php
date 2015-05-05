@@ -47,5 +47,25 @@ class TeamChallengeController extends Controller{
         return new Response("Challenged ". $friend->getName());
     }
 
+    public function showSendedChallengesTeamsAction($teamId)
+    {
+       $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->findBy(array('team' => $teamId, 'isConfirmed'=>false));
+        return $this->render('pitaksTeamBundle:TeamChallenge:reviewTeamChallenges.html.twig',
+            array('reservations' => $reservations) );
 
+    }
+
+    public function showReceivedChallengesTeamsAction($teamId)
+    {
+        $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->findBy(array('competitorTeam' => $teamId, 'isConfirmed'=>false));
+        return $this->render('pitaksTeamBundle:TeamChallenge:reviewTeamChallenges.html.twig',
+            array('reservations' => $reservations) );
+    }
+
+    public function showConfirmedChallengesTeamsAction($teamId)
+    {
+        $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->getConfirmedReservations($teamId);
+        return $this->render('pitaksTeamBundle:TeamChallenge:reviewTeamChallenges.html.twig',
+            array('reservations' => $reservations) );
+    }
 }
