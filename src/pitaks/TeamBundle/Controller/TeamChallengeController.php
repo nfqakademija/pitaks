@@ -47,6 +47,10 @@ class TeamChallengeController extends Controller{
         return new Response("Challenged ". $friend->getName());
     }
 
+    /**
+     * @param $teamId
+     * @return Response
+     */
     public function showSendedChallengesTeamsAction($teamId)
     {
        $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->findBy(array('team' => $teamId, 'isConfirmed'=>false));
@@ -55,6 +59,10 @@ class TeamChallengeController extends Controller{
 
     }
 
+    /**
+     * @param $teamId
+     * @return Response
+     */
     public function showReceivedChallengesTeamsAction($teamId)
     {
         $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->findBy(array('competitorTeam' => $teamId, 'isConfirmed'=>false));
@@ -62,10 +70,25 @@ class TeamChallengeController extends Controller{
             array('reservations' => $reservations) );
     }
 
+    /**
+     * @param $teamId
+     * @return Response
+     */
     public function showConfirmedChallengesTeamsAction($teamId)
     {
         $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->getConfirmedReservations($teamId);
         return $this->render('pitaksTeamBundle:TeamChallenge:reviewTeamChallenges.html.twig',
             array('reservations' => $reservations) );
+    }
+
+    /**
+     * @param integer $teamId
+     * @return Response
+     */
+    public function getTeamUnconfirmedChallengesCountAction($teamId)
+    {
+        $count = count($this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->
+        findBy(array('competitorTeam' => $teamId, 'isConfirmed'=>false)));
+        return new Response($count);
     }
 }

@@ -1,0 +1,16 @@
+<table class="table">
+    <tr>
+        <th>Table</th>
+        <th>Your Score</th>
+    </tr>
+    {% for rate in ratings %}
+        {% if rate.rating > 4 %}
+    <tr class="bg-success">
+        {% else %}
+    <tr class="bg-danger">
+        {% endif %}
+        <th> {{ rate.tableId.name }}</th>
+        <th> {{ rate.rating }}</th>
+    </tr>
+    {% endfor %}
+</table>

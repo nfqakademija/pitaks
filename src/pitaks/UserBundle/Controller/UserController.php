@@ -8,6 +8,7 @@
 
 namespace pitaks\UserBundle\Controller;
 
+use pitaks\KickerBundle\Entity\TableRate;
 use pitaks\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -54,5 +55,17 @@ class UserController extends Controller{
             $results []= $all;
         }
         return $this->render('UserBundle:User:usersTableList.html.twig', array('users' => $results));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function userTableRatesListAction()
+    {
+        $user =$this->getUser();
+        $rating =$user->getTablesRating();
+        return $this->render('UserBundle:UserTableRate:userTableRating.html.twig',
+            array('ratings' => $rating)
+        );
     }
 }

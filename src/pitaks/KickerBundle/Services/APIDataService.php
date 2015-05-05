@@ -154,6 +154,7 @@ use pitaks\UserBundle\Services\UserStatisticService;
 
           $lastGameID = $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($taleID)->getLastAddedEventId();
         //paskutnis id nuo kurio imsime dbr imsime tik po koki 150 irasu veliau apgalvosim dar
+         // $recordsEndId =
           $recordsEndId = $lastGameID+150;
          $lastID= $data['records'][0]['id'];
           //yra gerai
@@ -167,7 +168,7 @@ use pitaks\UserBundle\Services\UserStatisticService;
               $this->handlerApiData($table,$rez['records']);
               $lastGameID += 100;
           }*/
-         while($lastGameID<$recordsEndId)
+         while($lastGameID<$lastID)
          {
 
              //set API address, later we will take it from tables class

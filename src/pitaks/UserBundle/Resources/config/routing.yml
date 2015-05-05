@@ -39,3 +39,7 @@ myUserStat:
 lastUserGames:
     path: /user/lastGames
     defaults: {_controller: UserBundle:UserStatistic:lastTenUserGames}
+#user table rating
+userTableRates:
+    path: /user/tableRatings
+    defaults: {_controller: UserBundle:User:userTableRatesList}

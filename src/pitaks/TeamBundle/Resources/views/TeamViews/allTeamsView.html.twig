@@ -18,7 +18,12 @@
                 <td> <a class="btn btn-danger" href="{{ path('deleteTeam',{'teamId':team['team'].id}) }}">reject</a>
                 </td>
                 {% if team['team'].confirmed %}
-                <td> <a class="btn btn-success" href="{{ path('teamMenu',{'teamId':team['team'].id}) }}">View</a>
+                <td> <a class="btn btn-success" href="{{ path('teamMenu',{'teamId':team['team'].id}) }}">
+                        View
+                    <span class="badge" style="float:right">
+                            {{ render(controller('pitaksTeamBundle:TeamChallenge:getTeamUnconfirmedChallengesCount', {"teamId":team['team'].id})) }}
+                        </span>
+                    </a>
                     {% endif %}
                 </td>
             </tr>

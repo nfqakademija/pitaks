@@ -7,7 +7,11 @@
         <th>Score</th>
     </tr>
     {% for game in games %}
-    <tr>
+    {% if  game['myResult'] > game['enemyResult'] %}
+    <tr class="bg-success">
+        {% else %}
+    <tr class="bg-danger">
+    {% endif %}
         <td>{{ game['gameDate']|date('Y/m/d H:i') }}</td>
         <td>{{ game['gameDuration'] }}</td>
         <td>
@@ -26,7 +30,14 @@
             {% else %}
                 anonymous
             {% endif %}</td>
-        <td>{{ game['myResult'] }} : {{game['enemyResult']  }}</td>
+
+            {% if  game['myResult'] > game['enemyResult'] %}
+                <td class="bg-success"> {{ game['myResult'] }}: {{game['enemyResult']  }}</td>
+            {% else %}
+                <td class="bg-danger"> {{ game['myResult'] }}: {{game['enemyResult']  }}</td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>
+<script>
+</script>

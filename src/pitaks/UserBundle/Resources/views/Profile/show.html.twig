@@ -40,8 +40,14 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="messages"> where will be user's comments</div>
-                    <div role="tabpanel" class="tab-pane" id="rates"> where will be user's table rates </div>
+                    <div role="tabpanel" class="tab-pane" id="rates">
+                        <h2>Your table rates</h2>
+                        <div id="usersTableRates">
+
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane" id="games">
+                        <h2>Last 5 games</h2>
                         <div id="userLastGames"> </div>
 
                     </div>
@@ -163,5 +169,19 @@
          });
      }
      showLastUserGames();
+
+     function showUserTableRating(){
+         $.ajax({
+             url:  "{{path('userTableRates')}}",
+             type: "get",
+             success: function(data){
+                 $('#usersTableRates').html(data);
+             },
+             error:function(){
+                 $('#usersTableRates').html("Error while loading your teams");
+             }
+         });
+     }
+     showUserTableRating();
  </script>
 {% endblock fos_user_content %}

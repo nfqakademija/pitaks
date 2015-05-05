@@ -30,7 +30,12 @@
 
             {#navigation for team wil be where#}
             <ul class="nav nav-pills nav-stacked" role="tablist">
-                <li role="presentation" class=""><a href="#challenges" aria-controls="challenges" role="tab" data-toggle="tab">Challenges</a></li>
+                <li role="presentation" class="">
+                    <a href="#challenges" aria-controls="challenges" role="tab" data-toggle="tab">Challenges
+                        <span class="badge" style="float:right">
+                            {{ render(controller('pitaksTeamBundle:TeamChallenge:getTeamUnconfirmedChallengesCount', {"teamId":team.id})) }}
+                        </span>
+                    </a></li>
                 <li role="presentation" class="active"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
             </ul>
         </div>
