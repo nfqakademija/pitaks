@@ -1,13 +1,27 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
+<style>
+    .profileIMG{
+        max-width: 300px;
+        max-height: 300px;
+        border-radius: 5%;
+        border: solid #000099 4px;
+    }
+</style>
 <div class="fos_user_user_show">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title" >
-               {{ user.username }}
+               {{ user.getUsername() }}
             </h2>
         </div>
         <div class="panel-body" style="color:#000000">
+            {%  if( user.image) %}
+            <img class="profileIMG" src="{{ asset( user.image.getImageAddress() ) }}">
+                <p> <a href="{{ path('userImageDelete') }}"> Delete photo</a> </p>
+            {% else %}
+                <img class="profileIMG" src="{{ asset('images/anonymous.png') }}">
+                <p> <a href="{{ path('userImageUnpload') }}"> add <strong>YOUR</strong> photo</a> </p>
+            {% endif %}
             <p> NEWS:   {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }}</p>
 
             <p> Name: {{ user.name }}</p>
@@ -15,6 +29,7 @@
             <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
             <p> Card Id: {{ user.cardId }}</p>
             <a href="#">edit</a>
+
         </div>
     </div>
 

@@ -43,3 +43,9 @@ lastUserGames:
 userTableRates:
     path: /user/tableRatings
     defaults: {_controller: UserBundle:User:userTableRatesList}
+userImageUnpload:
+    path: /user/image
+    defaults: {_controller: UserBundle:Image:upload}
+userImageDelete:
+    path: /user/image/delete
+    defaults: {_controller: UserBundle:Image:delete}

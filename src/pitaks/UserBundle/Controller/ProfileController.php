@@ -18,9 +18,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class ProfileController extends BaseController{
+class ProfileController extends BaseController
+{
 
     public function registerAction(Request $request)
     {
@@ -70,6 +72,7 @@ class ProfileController extends BaseController{
             'form' => $form->createView(),
         ));
     }
+
     public function showAction()
     {
         $user = $this->getUser();
@@ -85,48 +88,46 @@ class ProfileController extends BaseController{
     /*need to get all reservations*/
     public function userRegisteredReservationsAction()
     {
-        $em=$this->getDoctrine();
-        $user=  $this->getUser();
-        $username=  $user->getUsername();
-        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('userId' => $username),array('reservationStart'=>'ASC'));
-        $userReservations= array();
-        foreach($reservations as $reservation)
-        {
-            $tableId=$em->getRepository('pitaksKickerBundle:Reservation')->
-            findOneBy(array('registeredReservationId'=>$reservation->getId()))->getTableId();
+        $em = $this->getDoctrine();
+        $user = $this->getUser();
+        $username = $user->getUsername();
+        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('userId' => $username), array('reservationStart' => 'ASC'));
+        $userReservations = array();
+        foreach ($reservations as $reservation) {
+            $tableId = $em->getRepository('pitaksKickerBundle:Reservation')->
+            findOneBy(array('registeredReservationId' => $reservation->getId()))->getTableId();
             $tableName = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId)->getName();
             $record = array(
                 "id" => $reservation->getId(),
-                "tableName" =>$tableName,
-                "startDate" =>$reservation->getReservationStart()->format('Y-m-d H:i'),
-                "endDate" =>$reservation->getReservationEnd()->format('Y-m-d H:i'),
-                "tableId" =>$tableId,
-                "friend" =>$reservation->getFriendId(),
-                "confirmed" =>$reservation->getIsConfirmed()
+                "tableName" => $tableName,
+                "startDate" => $reservation->getReservationStart()->format('Y-m-d H:i'),
+                "endDate" => $reservation->getReservationEnd()->format('Y-m-d H:i'),
+                "tableId" => $tableId,
+                "friend" => $reservation->getFriendId(),
+                "confirmed" => $reservation->getIsConfirmed()
             );
-            $userReservations[]=$record;
+            $userReservations[] = $record;
         }
 
-        $reservations2 = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('friendId' => $username, 'isConfirmed'=>true),array('reservationStart'=>'ASC'));
-        foreach($reservations2 as $reservation)
-        {
+        $reservations2 = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('friendId' => $username, 'isConfirmed' => true), array('reservationStart' => 'ASC'));
+        foreach ($reservations2 as $reservation) {
             $friend = $this->get('fos_user.user_manager')->findUserByUsername($reservation->getFriendId());
-            $tableId=$em->getRepository('pitaksKickerBundle:Reservation')->
-            findOneBy(array('registeredReservationId'=>$reservation->getId()))->getTableId();
+            $tableId = $em->getRepository('pitaksKickerBundle:Reservation')->
+            findOneBy(array('registeredReservationId' => $reservation->getId()))->getTableId();
             $tableName = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId)->getName();
             $record = array(
                 "id" => $reservation->getId(),
-                "tableName" =>$tableName,
-                "startDate" =>$reservation->getReservationStart()->format('Y-m-d H:i'),
-                "endDate" =>$reservation->getReservationEnd()->format('Y-m-d H:i'),
-                "tableId" =>$tableId,
-                "friend" =>$reservation->getUserId(),
-                "confirmed" =>$reservation->getIsConfirmed()
+                "tableName" => $tableName,
+                "startDate" => $reservation->getReservationStart()->format('Y-m-d H:i'),
+                "endDate" => $reservation->getReservationEnd()->format('Y-m-d H:i'),
+                "tableId" => $tableId,
+                "friend" => $reservation->getUserId(),
+                "confirmed" => $reservation->getIsConfirmed()
             );
-            $userReservations[]=$record;
+            $userReservations[] = $record;
         }
         return $this->render('@User/Reservations/userReservationsList.html.twig', array(
-            'reservations' => $userReservations, 'user'=>$user
+            'reservations' => $userReservations, 'user' => $user
         ));
 
     }
@@ -138,39 +139,38 @@ class ProfileController extends BaseController{
     {
         $reservationId = $this->get('request')->request->get('reservationId');
         $this->get('reservation_service')->deleteRegisteredReservation($reservationId);
-        return new JsonResponse( "Reservation was deleted ".$reservationId );
+        return new JsonResponse("Reservation was deleted " . $reservationId);
     }
 
 
     public function userUnconfirmedRegisteredReservationsAction()
     {
-        $em=$this->getDoctrine();
-        $user=  $this->getUser();
-        $username=  $user->getUsername();
-        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('friendId' => $username,'isConfirmed' =>false ));
-        $userReservations= array();
-        foreach($reservations as $reservation)
-        {
+        $em = $this->getDoctrine();
+        $user = $this->getUser();
+        $username = $user->getUsername();
+        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('friendId' => $username, 'isConfirmed' => false));
+        $userReservations = array();
+        foreach ($reservations as $reservation) {
             $friend = $this->get('fos_user.user_manager')->findUserByUsername($reservation->getFriendId());
-            $tableId=$em->getRepository('pitaksKickerBundle:Reservation')->
-            findOneBy(array('registeredReservationId'=>$reservation->getId()))->getTableId();
+            $tableId = $em->getRepository('pitaksKickerBundle:Reservation')->
+            findOneBy(array('registeredReservationId' => $reservation->getId()))->getTableId();
             $tableName = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId)->getName();
             $record = array(
                 "id" => $reservation->getId(),
-                "tableName" =>$tableName,
-                "startDate" =>$reservation->getReservationStart()->format('Y-m-d H:i'),
-                "endDate" =>$reservation->getReservationEnd()->format('Y-m-d H:i'),
-                "tableId" =>$tableId,
-                "friend" =>$reservation->getUserId()
+                "tableName" => $tableName,
+                "startDate" => $reservation->getReservationStart()->format('Y-m-d H:i'),
+                "endDate" => $reservation->getReservationEnd()->format('Y-m-d H:i'),
+                "tableId" => $tableId,
+                "friend" => $reservation->getUserId()
             );
-            $userReservations[]=$record;
+            $userReservations[] = $record;
         }
         $this->get('user_lastviews_service')->updateUserChallengeReviewData($user);
         return $this->render('@User/Reservations/userUncorfirmedReservationsList.html.twig', array(
-            'reservations' => $userReservations, 'user'=>$user
+            'reservations' => $userReservations, 'user' => $user
         ));
-
     }
+
     /**
      * @return JsonResponse
      */
@@ -178,7 +178,7 @@ class ProfileController extends BaseController{
     {
         $reservationId = $this->get('request')->request->get('reservationId');
         $this->get('reservation_service')->acceptUnconfirmedRegisteredReservation($reservationId);
-        return new JsonResponse( "Reservation was accepted ".$reservationId );
+        return new JsonResponse("Reservation was accepted " . $reservationId);
     }
-
 }
+

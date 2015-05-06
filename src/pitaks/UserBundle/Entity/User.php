@@ -102,6 +102,12 @@ class User extends BaseUser{
      **/
     private $reviews;
 
+    /**
+     * @ORM\OneToOne(targetEntity="\pitaks\KickerBundle\Entity\Document")
+     * @ORM\JoinColumn(name="imageId", referencedColumnName="id")
+     **/
+    private $image;
+
     public function __construct()
     {
         parent::__construct();
@@ -467,5 +473,32 @@ class User extends BaseUser{
     public function getReviews()
     {
         return $this->reviews;
+    }
+
+ 
+
+
+
+    /**
+     * Set image
+     *
+     * @param \pitaks\KickerBundle\Entity\Document $image
+     * @return User
+     */
+    public function setImage(\pitaks\KickerBundle\Entity\Document $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \pitaks\KickerBundle\Entity\Document 
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

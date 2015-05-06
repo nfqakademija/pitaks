@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Delete image{% endblock %}
+
+{% block body %}
+    {% if form.delete is defined %}
+        {{ form.vars.value.name }} are you sure want to delete this <strong> AMAZING </strong> photo ?
+    {% endif %}
+    {{ form(form) }}
+{% endblock %}
