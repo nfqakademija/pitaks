@@ -154,10 +154,11 @@ use pitaks\UserBundle\Services\UserStatisticService;
 // TODO KLAIDA CIA PADARYT KAD EITU NUO
           $lastGame= $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($taleID);
           if($lastGame == null){
-              $lastGameID=$lasAPI =$this->getJsonFromTableApi($table,1)['records'][0]['id'];
+              $lastGameID=$data['records'][0]['id'];
           }
           else{
               $lastGameID = $lastGame->getLastAddedEventId();
+
           }
               $lastID = $data['records'][0]['id'];
               /*   while($lastGameID<$recordsEndId ){
@@ -170,7 +171,7 @@ use pitaks\UserBundle\Services\UserStatisticService;
                      $this->handlerApiData($table,$rez['records']);
                      $lastGameID += 100;
                  }*/
-              while ($lastGameID < $lastID) {
+              while ($lastGameID <= $lastID) {
 
                   //set API address, later we will take it from tables class
                   $data = $this->getJsonFromTableApi($table, 100, $lastGameID);
