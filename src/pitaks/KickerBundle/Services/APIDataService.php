@@ -57,7 +57,7 @@ use pitaks\UserBundle\Services\UserStatisticService;
       */
      public function getTableStatusFromApi($table)
      {
-         //true jei užimtas
+         //true esli užimtas
          $time = time();
          $lasAPI =$this->getJsonFromTableApi($table,1)['records'][0]['timeSec'];
              if (($time - $lasAPI) < APIDataService::MIN_GAME_TIME) {//set table status to busy
@@ -151,55 +151,54 @@ use pitaks\UserBundle\Services\UserStatisticService;
          $table =$this->getEm()->getRepository('pitaksKickerBundle:Tables')->findByID($taleID);
          $fromID=$this->getEm()->getRepository('pitaksKickerBundle:EventTable')->getLastEvent($taleID);
          $data = $this->getLastActiveTableApiJson($table);
-
+// TODO KLAIDA CIA PADARYT KAD EITU NUO
           $lastGameID = $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($taleID)->getLastAddedEventId();
-        //paskutnis id nuo kurio imsime dbr imsime tik po koki 150 irasu veliau apgalvosim dar
-         // $recordsEndId =
-          $recordsEndId = $lastGameID+150;
-         $lastID= $data['records'][0]['id'];
-          //yra gerai
-       /*   while($lastGameID<$recordsEndId ){
-              $client = new Client();
-              $data = $client->get(
-                  "http://wonderwall.ox.nfq.lt/kickertable/api/v1/events?rows=".(100)."&from-id=".$lastGameID, ['auth' =>  ['nfq', 'labas']]
-              );
+          if($lastGameID == null){
+              $lastGameID=$lasAPI =$this->getJsonFromTableApi($table,1)['records'][0]['id'];
+          }
+              $lastID = $data['records'][0]['id'];
+              /*   while($lastGameID<$recordsEndId ){
+                     $client = new Client();
+                     $data = $client->get(
+                         "http://wonderwall.ox.nfq.lt/kickertable/api/v1/events?rows=".(100)."&from-id=".$lastGameID, ['auth' =>  ['nfq', 'labas']]
+                     );
 
-              $rez = $data->json();
-              $this->handlerApiData($table,$rez['records']);
-              $lastGameID += 100;
-          }*/
-         while($lastGameID<$lastID)
-         {
+                     $rez = $data->json();
+                     $this->handlerApiData($table,$rez['records']);
+                     $lastGameID += 100;
+                 }*/
+              while ($lastGameID < $lastID) {
 
-             //set API address, later we will take it from tables class
-             $data = $this->getJsonFromTableApi($table, 100, $lastGameID);
-             $records = $data['records'];
+                  //set API address, later we will take it from tables class
+                  $data = $this->getJsonFromTableApi($table, 100, $lastGameID);
+                  $records = $data['records'];
 
-             $this->handlerApiData($table,$records);
-             //we go
-          /*   foreach ($records as $record) {
-                 //create new event record
-                 $event = new EventTable();
-                 $event->setData($record["data"])
-                     ->setId($record['id'])
-                     ->setTableId($table)
-                     ->setTimeSec($record["timeSec"])
-                     ->setType($record["type"])
-                     ->setUsec($record["usec"]);
+                  $this->handlerApiData($table, $records);
+                  //we go
+                  /*   foreach ($records as $record) {
+                         //create new event record
+                         $event = new EventTable();
+                         $event->setData($record["data"])
+                             ->setId($record['id'])
+                             ->setTableId($table)
+                             ->setTimeSec($record["timeSec"])
+                             ->setType($record["type"])
+                             ->setUsec($record["usec"]);
 
-                 $this->getEm()->persist($event);
+                         $this->getEm()->persist($event);
 
-                 $this->getEm()->flush();
-        }
-        //last id from records
-        $array_lenght  = count($data['records']);
-        //set next id
-        $fromID= $data['records'][$array_lenght-1]['id'];*/
-        //echo new
-        $lastGameID= $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($taleID)->getLastAddedEventId();
-        echo('Last inserted id from API: '.$lastGameID);
-        }
-      }
+                         $this->getEm()->flush();
+                }
+                //last id from records
+                $array_lenght  = count($data['records']);
+                //set next id
+                $fromID= $data['records'][$array_lenght-1]['id'];*/
+                  //echo new
+                  $lastGameID = $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($taleID)->getLastAddedEventId();
+                  echo('Last inserted id from API: ' . $lastGameID);
+              }
+          }
+
     else
     {
     echo("Invalid table id ".$taleID);
