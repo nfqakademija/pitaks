@@ -45,9 +45,11 @@ class Document
     public $path;
     /**
      *@Assert\File(
-     * maxSize = "2M",
+     * maxSize = "1M",
      * mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff"},
-     * maxSizeMessage = "The maxmimum allowed file size is 5MB.",
+     * maxSizeMessage = "The maxmimum allowed file size is 1MB.",
+     * uploadIniSizeErrorMessage= "The maxmimum allowed file size is 1MB.",
+     * uploadErrorMessage ="The maxmimum allowed file size is 1MB.",
      * mimeTypesMessage = "Only the filetypes image are allowed.")
      */
     private $file;
