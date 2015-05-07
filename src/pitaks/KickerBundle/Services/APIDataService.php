@@ -152,9 +152,12 @@ use pitaks\UserBundle\Services\UserStatisticService;
          $fromID=$this->getEm()->getRepository('pitaksKickerBundle:EventTable')->getLastEvent($taleID);
          $data = $this->getLastActiveTableApiJson($table);
 // TODO KLAIDA CIA PADARYT KAD EITU NUO
-          $lastGameID = $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($taleID)->getLastAddedEventId();
-          if($lastGameID == null){
+          $lastGame= $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($taleID);
+          if($lastGame == null){
               $lastGameID=$lasAPI =$this->getJsonFromTableApi($table,1)['records'][0]['id'];
+          }
+          else{
+              $lastGameID = $lastGame->getLastAddedEventId();
           }
               $lastID = $data['records'][0]['id'];
               /*   while($lastGameID<$recordsEndId ){
