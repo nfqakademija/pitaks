@@ -97,7 +97,7 @@ class User extends BaseUser{
     private $createdTeams;
 
     /**
-     * @ORM\OneToOne(targetEntity="LastReviews")
+     * @ORM\OneToOne(targetEntity="LastReviews", cascade={"persist"})
      * @ORM\JoinColumn(name="reviewsId", referencedColumnName="id")
      **/
     private $reviews;

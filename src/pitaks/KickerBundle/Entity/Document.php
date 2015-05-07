@@ -43,10 +43,12 @@ class Document
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $path;
-
-
     /**
-     * @Assert\File(maxSize="6000000")
+     *@Assert\File(
+     * maxSize = "2M",
+     * mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff"},
+     * maxSizeMessage = "The maxmimum allowed file size is 5MB.",
+     * mimeTypesMessage = "Only the filetypes image are allowed.")
      */
     private $file;
 
