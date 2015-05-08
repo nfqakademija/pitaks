@@ -68,7 +68,3 @@ tableComment:
 tableResult:
     path: /table/{tableId}/result
     defaults: {_controller: pitaksKickerBundle:Table:showTableResults}
-
-rssFeed:
-    path: /rss
-    defaults: {_controller: pitaksKickerBundle:Default:rssFeed}

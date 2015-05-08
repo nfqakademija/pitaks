@@ -1,0 +1,28 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Providers Menu{% endblock %}
+
+{% block body %}
+    <div class="conteiner">
+        <h2> List Of feed providers</h2>
+        <a class="btn btn-success" href="{{ path('newFeedProvider') }}"> Create new Provider</a>
+        <table class="table">
+            <tr>
+                <th> Name</th>
+                <th> Url</th>
+                <th> last Updated</th>
+                <th> </th>
+            </tr>
+        {% for provider in providers %}
+            <tr>
+               <td> {{ provider.name }}</td>
+                <td> {{ provider.rssUrl }}</td>
+                <td> {{ provider.lastUpdated|date('Y:m:d H:i') }}</td>
+                <td> <a class="btn btn-danger" href="{{ path('deleteFeedProvider', {'id': provider.id}) }}">Delete</a>
+                <a class="btn btn-info" href="{{ path('editFeedProvider', {'id': provider.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

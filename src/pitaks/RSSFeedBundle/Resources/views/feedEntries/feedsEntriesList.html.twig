@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}feeds{% endblock %}
+
+{% block body %}
+   <h2>All feeds and entries</h2>
+    {% for provider in providers %}
+        <h3> {{ provider.getName()}} </h3>
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>title</th>
+        <th>content</th>
+        <th>link</th>
+    </tr>
+        {% for entry in provider%}
+            <tr>
+                <td>{{ entry.date|date("Y:m:d H:i") }}</td>
+                <td>{{ entry.title }}</td>
+                <td>{{ entry.description }}</td>
+                <td><a href="{{ entry.link }}">more</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+
+    {% endfor %}
+{% endblock %}

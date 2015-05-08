@@ -1,3 +1,6 @@
+adminView:
+    path: admin/
+    defaults: {_controller: UserBundle:Admin:index}
 show_users:
     path: /allUsers
     defaults: {_controller: UserBundle:User:showUsers}

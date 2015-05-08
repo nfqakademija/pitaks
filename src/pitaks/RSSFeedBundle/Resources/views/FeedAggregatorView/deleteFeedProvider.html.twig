@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}delete Provider{% endblock %}
+
+{% block body %}
+    {% if form.delete is defined %}
+        Are you sure you want to this<strong>amazing</strong>  provider : {{ form.vars.value.name }} ?
+    {% endif %}
+    {{ form(form) }}
+{% endblock %}

@@ -19,19 +19,4 @@ class DefaultController extends Controller
         return $this->render('pitaksKickerBundle:Default:index.html.twig',
             array('tables' => $tables));
     }
-
-    /**
-     *
-     */
-    public function rssFeedAction()
-    {
-        $client = new Client();
-        $response = $client->get('http://www.delfi.lt/rss/feeds/sports.xml');
-        echo $response->getStatusCode();
-// "200
-       // echo $response->getBody();
-        var_dump($response->getHeaders());
-        echo $response->getHeader('content-type');
-        return new Response("RSS");
-    }
 }

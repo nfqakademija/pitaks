@@ -1,0 +1,6 @@
+services:
+  rss_feed_getter_service:
+   class: pitaks\RSSFeedBundle\Services\RSSFeedService
+   arguments: ["@doctrine.orm.entity_manager"]
+   calls:
+           - [setContainer, ['@service_container']]

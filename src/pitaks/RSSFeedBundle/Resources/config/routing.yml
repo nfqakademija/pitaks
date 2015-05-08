@@ -1,0 +1,15 @@
+newFeedProvider:
+    path:     admin/provider/new
+    defaults: { _controller: pitaksRSSFeedBundle:FeedAggregator:newFeedProvider }
+editFeedProvider:
+    path:     admin/provider/{id}/edit
+    defaults: { _controller: pitaksRSSFeedBundle:FeedAggregator:editFeedProvider }
+deleteFeedProvider:
+    path:     admin/provider/{id}/delete
+    defaults: { _controller: pitaksRSSFeedBundle:FeedAggregator:deleteFeedProvider}
+listFeedProvider:
+    path:     admin/provider/
+    defaults: { _controller: pitaksRSSFeedBundle:FeedAggregator:index }
+feedEntriesReview:
+    path:     /rssfeeds
+    defaults: {_controller: pitaksRSSFeedBundle:FeedAggregator:reviewRssFeeds}
