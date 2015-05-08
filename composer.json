@@ -25,7 +25,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "twbs/bootstrap": "~3.3",
         "doctrine/doctrine-fixtures-bundle": "2.2.",
-         "debril/rss-atom-bundle": "1.5"
+         "debril/rss-atom-bundle": "1.5",
+        "knplabs/knp-paginator-bundle": "~2.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

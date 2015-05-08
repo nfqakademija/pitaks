@@ -44,9 +44,10 @@ class FeedProvider
 
 
     /**
-     * @ORM\OneToMany(targetEntity="FeedEntry", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="FeedEntry", mappedBy="providerId")
      */
     private $feed_entries;
+
 
 
     /**

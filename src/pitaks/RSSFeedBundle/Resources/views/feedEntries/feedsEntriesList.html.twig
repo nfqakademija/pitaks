@@ -1,27 +1,20 @@
-{% extends "::base.html.twig" %}
-
-{% block title %}feeds{% endblock %}
-
-{% block body %}
-   <h2>All feeds and entries</h2>
-    {% for provider in providers %}
-        <h3> {{ provider.getName()}} </h3>
+<p> news : {{ pagination.getTotalItemCount }}</p>
 <table class="table">
-    <tr>
-        <th>Date</th>
-        <th>title</th>
-        <th>content</th>
-        <th>link</th>
-    </tr>
-        {% for entry in provider%}
             <tr>
-                <td>{{ entry.date|date("Y:m:d H:i") }}</td>
-                <td>{{ entry.title }}</td>
-                <td>{{ entry.description }}</td>
-                <td><a href="{{ entry.link }}">more</a></td>
+                <th>{{ knp_pagination_sortable(pagination, 'Date', 'a.date') }}</th>
+                <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
             </tr>
-        {% endfor %}
-        </table>
-
-    {% endfor %}
-{% endblock %}
+            {% for feedentry in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ feedentry.date|date("Y/m/d H:i") }}</td>
+                <td><h5><strong>{{ feedentry.title }}</strong></h5>
+                    <h6>{{ feedentry.description }}</h6>
+                <a href="{{ feedentry.link }}">more</a></td>
+            </tr>
+            {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>

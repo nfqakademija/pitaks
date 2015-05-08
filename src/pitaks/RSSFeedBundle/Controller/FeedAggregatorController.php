@@ -99,14 +99,4 @@ class FeedAggregatorController extends Controller {
         ));
     }
 
-    public function reviewRssFeedsAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $feed_providers = $em->getRepository('pitaksRSSFeedBundle:FeedProvider')->findAll();
-        return $this->render(
-            'pitaksRSSFeedBundle:feedEntries:feedsEntriesList.html.twig',
-            array('providers' => $feed_providers)
-        );
-    }
-
 }

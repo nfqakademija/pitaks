@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use pitaks\RSSFeedBundle\Entity\FeedEntry;
 use pitaks\RSSFeedBundle\Entity\FeedProvider;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\Request;
 
 class RSSFeedService extends ContainerAware{
 
@@ -82,4 +83,18 @@ class RSSFeedService extends ContainerAware{
         $this->em->flush();
     }
 
+    /**
+     * @param Request $request
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
+   public function rssFeedPagination(Request $request)
+   {
+       $paginator  = $this->container->get('knp_paginator');
+       $pagination = $paginator->paginate(
+           $this->em->getRepository('pitaksRSSFeedBundle:FeedEntry')->feedsQuery(),
+           $request->query->get('page', 1),/*page number*/
+           5/*limit per page*/
+       );
+       return $pagination;
+   }
 }
