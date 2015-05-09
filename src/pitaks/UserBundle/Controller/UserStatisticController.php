@@ -36,7 +36,7 @@ class UserStatisticController extends Controller{
         $stats = $statsService->returnAllUserStatistic($this->getUser());
         $statsForTables = $statsService->returnAllUserStatisticForEachTable($this->getUser());
 
-        return $this->render('UserBundle:Statistic:LoginUserStatistic.html.twig',
+        return $this->render('@User/Statistic/userStatTable.html.twig',
             array('statsForTables' => $statsForTables, 'stats' => $stats, 'user' =>$this->getUser()));
     }
 

@@ -1,72 +1,111 @@
 showAllTeams:
     path: /user/team/showAll
     defaults: {_controller: pitaksTeamBundle:Team:TeamsView}
+    options:
+                expose: true
 oneTeam:
     path: /user/team/review/{teamId}
     defaults: {_controller: pitaksTeamBundle:Team:OneTeamView}
+    options:
+                expose: true
 createTeam:
     path: /user/team/createTeam/{userId}
     defaults: {_controller: pitaksTeamBundle:Team:newTeam}
+    options:
+                expose: true
 #user's teams
 showUserTeam:
     path: /user/team/showMyTeams
     defaults: {_controller: pitaksTeamBundle:Team:showUserTeams}
+    options:
+                expose: true
 #invite to the team
 showInvitedTeams:
     path: /user/team/showInvitedTeams
     defaults: {_controller: pitaksTeamBundle:Team:showUsersInvitedTeams}
+    options:
+                    expose: true
 #user suggest team
 showSuggestedTeams:
     path: /user/team/showSuggestedTeams
     defaults: {_controller: pitaksTeamBundle:Team:showUsersSuggestedTeams}
+    options:
+                    expose: true
 deleteTeam:
     path: /user/team/{teamId}/delete
     defaults: {_controller: pitaksTeamBundle:Team:deleteTeam}
+    options:
+                    expose: true
 acceptTeam:
     path: /user/team/{teamId}/accept
     defaults: {_controller: pitaksTeamBundle:Team:acceptTeam}
+    options:
+                    expose: true
 #team menu rautings....
 
 teamMenu:
     path: /user/teamMenu/{teamId}
     defaults: {_controller: pitaksTeamBundle:Team:TeamMenu}
+    options:
+                    expose: true
 teamEachTableStat:
     path: /user/teamMenu/{teamId}/eachStat
     defaults: {_controller: pitaksTeamBundle:TeamStats:showEachStatsForTable}
+    options:
+                    expose: true
 #bendra statistika
 commonTeamStat:
     path: /user/teamMenu/{teamId}/stats
     defaults: {_controller: pitaksTeamBundle:TeamStats:showAllTeamStatistic}
+    options:
+                    expose: true
 
 
 #teams search
 teamSearchForm:
     path: user/teamMenu/{teamId}/searchTeams
     defaults: {_controller: pitaksTeamBundle:Team:teamSearchView}
+    options:
+                    expose: true
 
 
 teamSearchResults:
     path: user/teamMenu/{teamId}/searchTeamsResults
     defaults: {_controller: pitaksTeamBundle:Team:teamListsBySearch}
+    options:
+                    expose: true
 
 teamsNames:
     path: user/teamsNames
     defaults: {_controller: pitaksTeamBundle:Team:teamsNamesList}
+    options:
+                    expose: true
 
 #challengess
 
 challengeTeam:
     path: user/teamMenu/{teamId}/challene/{anotherTeamId}
     defaults: {_controller: pitaksTeamBundle:TeamChallenge:ChallengePage}
+    options:
+                    expose: true
 saveTeamChallenge:
     path: user/teamMenu/{teamId}/challene/{anotherTeamId}/save
     defaults: {_controller: pitaksTeamBundle:TeamChallenge:saveChallenge}
+    options:
+                    expose: true
 sendedChallengeReview:
     path: user/teamMenu/{teamId}/sendedChallenges
     defaults: {_controller: pitaksTeamBundle:TeamChallenge:showSendedChallengesTeams}
+    options:
+                    expose: true
 recievedChallengeReview:
     path: user/teamMenu/{teamId}/recievedChallenges
     defaults: {_controller: pitaksTeamBundle:TeamChallenge:showReceivedChallengesTeams}
+    options:
+                    expose: true
+
 confirmedChallengeReview:
     path: user/teamMenu/{teamId}/confirmedChallenges
     defaults: {_controller: pitaksTeamBundle:TeamChallenge:showConfirmedChallengesTeams}
+    options:
+                    expose: true

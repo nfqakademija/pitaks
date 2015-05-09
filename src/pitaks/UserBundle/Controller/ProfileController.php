@@ -85,13 +85,39 @@ class ProfileController extends BaseController
         ));
     }
 
+    public function userSentReservationsAction()
+    {
+        $em = $this->getDoctrine();
+        $user = $this->getUser();
+        $username = $user->getUsername();
+        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('userId' => $username ,'isConfirmed' => false), array('reservationStart' => 'ASC'));
+        $userReservations = array();
+        foreach ($reservations as $reservation) {
+            $tableId = $em->getRepository('pitaksKickerBundle:Reservation')->
+            findOneBy(array('registeredReservationId' => $reservation->getId()))->getTableId();
+            $tableName = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId)->getName();
+            $record = array(
+                "id" => $reservation->getId(),
+                "tableName" => $tableName,
+                "startDate" => $reservation->getReservationStart()->format('Y-m-d H:i'),
+                "endDate" => $reservation->getReservationEnd()->format('Y-m-d H:i'),
+                "tableId" => $tableId,
+                "friend" => $reservation->getFriendId(),
+                "confirmed" => $reservation->getIsConfirmed()
+            );
+            $userReservations[] = $record;
+        }
+        return $this->render('@User/Reservations/userReservationsList.html.twig', array(
+            'reservations' => $userReservations, 'user' => $user
+        ));
+    }
     /*need to get all reservations*/
     public function userRegisteredReservationsAction()
     {
         $em = $this->getDoctrine();
         $user = $this->getUser();
         $username = $user->getUsername();
-        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('userId' => $username), array('reservationStart' => 'ASC'));
+        $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('userId' => $username ,'isConfirmed' => true), array('reservationStart' => 'ASC'));
         $userReservations = array();
         foreach ($reservations as $reservation) {
             $tableId = $em->getRepository('pitaksKickerBundle:Reservation')->

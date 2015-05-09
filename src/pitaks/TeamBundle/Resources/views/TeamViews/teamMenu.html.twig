@@ -15,6 +15,7 @@
                 <div class="panel-heading">
                     <h2 class="panel-title" >
                         {{ team.name }}
+                        <input id="teamId" hidden value="{{ team.id }}">
                     </h2>
                 </div>
                 <div class="panel-body" style="color:#000000">
@@ -45,11 +46,11 @@
                 <div role="tabpanel" class="tab-pane" id="stats">
                     <h2>Team stat:</h2>
                     <div id="teamStats">
-
+                       {{ render(controller('pitaksTeamBundle:TeamStats:showAllTeamStatistic',{'teamId': team.id} )) }}
                     </div>
                     <h2>Team Stat for each table:</h2>
                     <div id="teamEachTableStat">
-
+                        {{ render(controller('pitaksTeamBundle:TeamStats:showEachStatsForTable',{'teamId': team.id} )) }}
                     </div>
 
                 </div>
@@ -59,15 +60,15 @@
                     <button id="challengeMaker" class="btn btn-danger">create a challenge</button>
                         <h2>Received Challenges</h2>
                         <div id="recievedTeamChallenges">
-
+                            {{ render(controller('pitaksTeamBundle:TeamChallenge:showReceivedChallengesTeams',{'teamId': team.id} )) }}
                         </div>
                         <h2>Your team Challenges</h2>
                         <div id="confirmedTeamChallenges">
-
+                            {{ render(controller('pitaksTeamBundle:TeamChallenge:showConfirmedChallengesTeams',{'teamId': team.id} )) }}
                         </div>
                         <h2>Your suggested challenges</h2>
                         <div id="sendedTeamChallenges">
-
+                            {{ render(controller('pitaksTeamBundle:TeamChallenge:showSendedChallengesTeams',{'teamId': team.id} )) }}
                         </div>
                     </div>
                 </div>
@@ -76,93 +77,7 @@
         </div>
     </div>
 </div>
-    <script>
-        function showStat(){
-            $.ajax({
-                url:  "{{path('commonTeamStat',{'teamId': team.id})}}",
-                type: "get",
-                success: function(data){
-                    $('#teamStats').html(data);
-                },
-                error:function(){
-                    $('#teamStats').html("Where was some errors while loading your stats");
-                }
-            });
-        }
-        showStat();
-
-        function showEachStat(){
-            $.ajax({
-                url:  "{{path('teamEachTableStat',{'teamId': team.id})}}",
-                type: "get",
-                success: function(data){
-                    $('#teamEachTableStat').html(data);
-                },
-                error:function(){
-                    $('#teamEachTableStat').html("Where was some errors while loading your stats");
-                }
-            });
-        }
-        showEachStat();
-        function challenges()
-        {
-            $("#challengeMaker").click(function()
-            {
-                $.ajax({
-                    url:  "{{path('teamSearchForm',{'teamId': team.id})}}",
-                    type: "get",
-                    success: function(data){
-                        $('#challengeView').html(data);
-                    },
-                    error:function(){
-                        $('#challengeView').html("Where was some errors while loading challenge form");
-                    }
-                });
-
-            }
-            )
-        }
+    <script src="{{ asset('bundles/pitaksteam/js/teamMenu.js')}}">
         challenges();
-       function recievedTeamChallenges(){
-            $.ajax({
-                url:  "{{path('recievedChallengeReview', {'teamId':team.id})}}",
-                type: "get",
-                success: function(data){
-                    $('#recievedTeamChallenges').html(data);
-                },
-                error:function(){
-                    $('#recievedTeamChallenges').html("Error while loading your challenges");
-                }
-            });
-        }
-        recievedTeamChallenges();
-        function sendTeamChallenges(){
-            $.ajax({
-                url:  "{{ path('sendedChallengeReview',  {'teamId':team.id})}}",
-                type: "get",
-                success: function(data){
-                    $('#sendedTeamChallenges').html(data);
-                },
-                error:function(){
-                    $('#sendedTeamChallenges').html("Error while loading your teams");
-                }
-            });
-        }
-        sendTeamChallenges();
-
-        function confirmedTeamChallenges(){
-            $.ajax({
-                url:  "{{ path('confirmedChallengeReview',  {'teamId':team.id})}}",
-                type: "get",
-                success: function(data){
-                    $('#confirmedTeamChallenges').html(data);
-                },
-                error:function(){
-                    $('#confirmedTeamChallenges').html("Error while loading your teams");
-                }
-            });
-        }
-        confirmedTeamChallenges();
-
     </script>
 {% endblock %}

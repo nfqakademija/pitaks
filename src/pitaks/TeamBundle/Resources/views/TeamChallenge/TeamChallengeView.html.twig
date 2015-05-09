@@ -71,7 +71,7 @@
         function showResults(){
             $('.reservation').click(function(){
                         $.ajax({
-                            url:  "{{path('viewRes')}}",
+                            url:  Routing.generate('viewRes'),
                             type: "post",
                             data: ({ tableId: $(this).val()}),
                             success: function(data){

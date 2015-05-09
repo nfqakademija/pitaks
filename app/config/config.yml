@@ -34,7 +34,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ UserBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -84,3 +84,4 @@ fos_user:
 knp_paginator:
     template:
          pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+

@@ -28,13 +28,15 @@
                         <div class="container-fluid">
 
                             <div id="userUnconfirmedReservationsList"> </div>
-
+                            <h2>Your reservations</h2>
                             <div id="userReservationsList"> </div>
+                            <h2>Your suggested reservations</h2>
+                            <div id="userSentReservations"> </div>
 
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="stats">
-
+                        {{ render(controller('UserBundle:UserStatistic:myStats')) }}
                         <div id="userStats"> </div>
 
                     </div>
@@ -69,116 +71,6 @@
             </div>
         </div>
     </div>
-
- <script>
-     function showList(){
-         $.ajax({
-             url:  "{{path('userReservationList')}}",
-             type: "get",
-             success: function(data){
-                 $('#userReservationsList').html(data);
-             },
-             error:function(){
-                 $('#userReservationsList').html("Where was some errors while loading your reservations");
-             }
-         });
-     }
-     showList();
-
-     function showUnconfirmedList(){
-         $.ajax({
-             url:  "{{path('userUnconfirmedReservationList')}}",
-             type: "get",
-             success: function(data){
-                 $('#userUnconfirmedReservationsList').html(data);
-             },
-             error:function(){
-                 $('#userUnconfirmedReservationsList').html("Where was some errors while loading your unconfirmed reservations");
-             }
-         });
-     }
-     showUnconfirmedList();
-     function showUserStats(){
-         $.ajax({
-             url:  "{{path('userStat',{'username': user.username})}}",
-             type: "get",
-             success: function(data){
-                 $('#userStats').html(data);
-             },
-             error:function(){
-                 $('#userStats').html("Where was some errors while loading your stats");
-             }
-         });
-     }
-     showUserStats();
-
-     function showUsersTeams(){
-         $.ajax({
-             url:  "{{path('showUserTeam')}}",
-             type: "get",
-             success: function(data){
-                 $('#usersTeamList').html(data);
-             },
-             error:function(){
-                 $('#usersTeamList').html("Error while loading your teams");
-             }
-         });
-     }
-     showUsersTeams();
-
-     function showSuggestedUsersToTeams(){
-         $.ajax({
-             url:  "{{path('showSuggestedTeams')}}",
-             type: "get",
-             success: function(data){
-                 $('#SuggestedTeamList').html(data);
-             },
-             error:function(){
-                 $('#SuggestedTeamList').html("Error while loading your teams");
-             }
-         });
-     }
-     showSuggestedUsersToTeams();
-
-     function showInvitedUserTeams(){
-         $.ajax({
-             url:  "{{path('showInvitedTeams')}}",
-             type: "get",
-             success: function(data){
-                 $('#userInvitesToCreateATeam').html(data);
-             },
-             error:function(){
-                 $('#userInvitesToCreateATeam').html("Error while loading your teams");
-             }
-         });
-     }
-     showInvitedUserTeams();
-     function showLastUserGames(){
-         $.ajax({
-             url:  "{{path('lastUserGames')}}",
-             type: "get",
-             success: function(data){
-                 $('#userLastGames').html(data);
-             },
-             error:function(){
-                 $('#userLastGames').html("Error while loading your teams");
-             }
-         });
-     }
-     showLastUserGames();
-
-     function showUserTableRating(){
-         $.ajax({
-             url:  "{{path('userTableRates')}}",
-             type: "get",
-             success: function(data){
-                 $('#usersTableRates').html(data);
-             },
-             error:function(){
-                 $('#usersTableRates').html("Error while loading your teams");
-             }
-         });
-     }
-     showUserTableRating();
- </script>
+    <script src="{{ asset('bundles/user/js/profileShow.js') }}">
+    </script>
 {% endblock fos_user_content %}

@@ -26,7 +26,8 @@
         "twbs/bootstrap": "~3.3",
         "doctrine/doctrine-fixtures-bundle": "2.2.",
          "debril/rss-atom-bundle": "1.5",
-        "knplabs/knp-paginator-bundle": "~2.4"
+        "knplabs/knp-paginator-bundle": "~2.4",
+        "friendsofsymfony/jsrouting-bundle": "~1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

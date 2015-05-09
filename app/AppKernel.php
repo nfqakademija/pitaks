@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Debril\RssAtomBundle\DebrilRssAtomBundle(),
             new pitaks\RSSFeedBundle\pitaksRSSFeedBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

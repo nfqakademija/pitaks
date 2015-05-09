@@ -1,5 +1,3 @@
-
-<h2> Your reservations </h2>
 <table id="userReservationTable" class="table table-hover" >
     <tr>
         <th>Table</th>
@@ -32,7 +30,7 @@
 <script>
     $('.removeRegisteredReservation').click(function(){
         var reservationId = $(this).attr('value');
-        alert(reservationId);
+
             $.ajax({
                 url:  "{{path('userDeleteRegisteredReservation')}}",
                 type: "post",

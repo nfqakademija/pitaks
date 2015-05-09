@@ -7,48 +7,79 @@ show_users:
 getUsersName:
     path: /usersList
     defaults: {_controller: UserBundle:User:autocompleteUserNames}
+    options:
+                expose: true
 userslist:
     path: /usersTableList
     defaults: {_controller: UserBundle:User:userList}
+    options:
+                expose: true
 userReservationList:
-    path: /UserReservationsList
+    path: user/UserReservationsList
     defaults: {_controller: UserBundle:Profile:userRegisteredReservations}
+    options:
+                expose: true
 userDeleteRegisteredReservation:
-    path: /UserDeleteRegisteredReservation
+    path: user/UserDeleteRegisteredReservation
     defaults: {_controller: UserBundle:Profile:deleteUserReservation}
+    options:
+            expose: true
 userUnconfirmedReservationList:
-    path: /userUnconfirmedReservationList
+    path: user/userUnconfirmedReservationList
     defaults: {_controller: UserBundle:Profile:userUnconfirmedRegisteredReservations}
+    options:
+            expose: true
 userConfirmRegisteredReservation:
-    path: /userConfirmRegisteredReservation
+    path: user/userConfirmRegisteredReservation
     defaults: {_controller: UserBundle:Profile:acceptUserReservation}
-
+    options:
+           expose: true
+userSendedRegisteredReservation:
+    path: user/userSentReservations
+    defaults: {_controller: UserBundle:Profile:userSentReservations}
+    options:
+            expose: true
 #challenges
 userChallengeMain:
     path: /challenge/{username}
     defaults: {_controller: UserBundle:Challenge:ChallengePage}
-
+    options:
+           expose: true
 userChallengeSave:
      path: /challenge/{username}/save
      defaults: {_controller: UserBundle:Challenge:saveChallenge}
+     options:
+                 expose: true
 #UserStats
 userStat:
     path: /user/stats/{username}
     defaults: {_controller: UserBundle:UserStatistic:showAllLoginUserStatistic}
+    options:
+                expose: true
 myUserStat:
     path: /user/stats
     defaults: {_controller: UserBundle:UserStatistic:myStats}
+    options:
+                expose: true
 #last user games
 lastUserGames:
     path: /user/lastGames
     defaults: {_controller: UserBundle:UserStatistic:lastTenUserGames}
+    options:
+                expose: true
 #user table rating
 userTableRates:
     path: /user/tableRatings
     defaults: {_controller: UserBundle:User:userTableRatesList}
+    options:
+                expose: true
 userImageUnpload:
     path: /user/image
     defaults: {_controller: UserBundle:Image:upload}
+    options:
+                expose: true
 userImageDelete:
     path: /user/image/delete
     defaults: {_controller: UserBundle:Image:delete}
+    options:
+                expose: true

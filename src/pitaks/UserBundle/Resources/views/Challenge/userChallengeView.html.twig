@@ -3,13 +3,12 @@
 {% block title %}CHALLENGE{% endblock %}
 
 {% block body %}
-
+    <div id="alertBox"></div>
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
            {% include('@User/Profile/friendTablo.html.twig') %}
             <input hidden id="friendUsername" value="{{ user.username }}">
-
             <div id="challengeOkBox" style="text-align: center"><p>
                 <span id="challengeOk" style="font-size: 56pt;
                  color :#00CC00;" class="glyphicon glyphicon-ok"></span></p>
@@ -17,6 +16,7 @@
             <button id="anotherTable" class="btn btn-success " style="display: none;"> Choose another table</button>
         </div>
         <div class="col-sm-8">
+
             <div id="tableListForReservation">
                 <h3> Tables </h3>
                 <table class="table table-hover" >
@@ -46,7 +46,32 @@
         </div>
     </div>
 </div>
+
+
+    <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
     <script>
+        function modalAlert(text,redirect) {
+            $('body').prepend(
+            ' <div id="myModal" class="modal fade bs-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">'+
+            '<div class="modal-dialog modal-sm  " >'+
+            '<div class=" modal-content "  style="padding: 5%; font-size: 20pt">'
+            +text+'<div style="text-align: right">'+
+            '<button type="button" class="btn btn-default" data-dismiss="modal" align="right">OK</button>'+'</div>'+'</div>'+
+            '</div>');
+            $('#myModal').modal('show');
+            if(redirect !="") {
+                $('#myModal').on('hidden.bs.modal', function (e) {
+                    document.location.href = redirect;
+                });
+            }
+        }
+
 
         $('#anotherTable').click(function()
         {
@@ -55,9 +80,8 @@
             $("#challengeMenu").html("");
         });
         var friend = $('#friendUsername').val();
-        alert(friend);
-        function showResults(){
 
+        function showResults(){
         $('.rezervation').click(function(){
                         $.ajax({
                             url:  "{{path('viewRes')}}",
@@ -70,6 +94,7 @@
                             },
                             error:function(){
                                 alert("something wrong happends");
+
                             }
                         });
                     }
@@ -80,17 +105,16 @@
             $('#challengeOk').click(function () {
                         var tableId = $('#timesTable').attr('value');
                         var datele = $('#datetimepicker').val();
-                        alert(friend);
                         $.ajax({
                             url: "{{path('userChallengeSave', {'username': user.username })  }}",
                             type: "post",
                             data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
                             success: function (data) {
-                                alert(data);
-                                window.location.reload(true);
+                                modalAlert(data,'/profile');
+
                             },
                             error: function () {
-                                alert("failure");
+                                alert("something wrong happends");
                             }
                         });
                     }
