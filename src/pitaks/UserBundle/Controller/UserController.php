@@ -43,18 +43,25 @@ class UserController extends Controller{
         $userResults = $this->get('fos_user.user_manager')->getUsersByWord($name);
         $statsService = $this->get('user_statistic_service');
         $results = array();
-
+        if($userResults){
         foreach($userResults as $user)
         {
-            $realUser = $this->get('fos_user.user_manager')->findUserByUsername($user['username']);
+            /** @var  User $user */
+            $realUser = $this->get('fos_user.user_manager')->findUserByUsername($user->getUsername());
             $stats = $statsService->returnAllUserStatistic($realUser);
+            if($user->getImage())
+                $image = $user->getImage()->getImageAddress();
+            else
+                $image = 'images/anonymous.png';
             $all=array(
-                "stat" => $stats,
+                "stat" => $stats->getPlusMinusBalance(),
+                "userImage" =>  $image,
                 "user" => $user
             );
             $results []= $all;
         }
         return $this->render('UserBundle:User:usersTableList.html.twig', array('users' => $results));
+        }
     }
 
     /**

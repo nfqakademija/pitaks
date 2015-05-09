@@ -39,7 +39,7 @@ class FeedEntry
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=50000)
      */
     private $description;
 

@@ -59,6 +59,7 @@ class RSSFeedService extends ContainerAware{
         $items = $feed->getItems();
         foreach($items as $item)
         {
+
             if($item->getUpdated() > $provider->getLastUpdated())
             $this->pushFeedItem($item,$provider);
         }

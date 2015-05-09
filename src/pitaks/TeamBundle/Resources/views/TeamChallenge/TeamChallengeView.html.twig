@@ -50,7 +50,7 @@
                             <td> {{ table.getTableRate() }}
                             </td>
                             <td>
-                                <button id="challengeButton" class="btn btn-success" value="{{ table.id }}">Choose</button>
+                                <button id="challengeButton" class="reservation btn btn-success" value="{{ table.id }}">Choose</button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -66,15 +66,15 @@
         {
             $('#tableListForReservation').css("display","block");
             $('#anotherTable').css("display","none");
+            $("#teamChallengeMenu").html("");
         });
         function showResults(){
-            $('#challengeButton').click(function(){
+            $('.reservation').click(function(){
                         $.ajax({
                             url:  "{{path('viewRes')}}",
                             type: "post",
                             data: ({ tableId: $(this).val()}),
                             success: function(data){
-                                alert("OK");
                                 $('#tableListForReservation').css("display","none");
                                 $('#anotherTable').css("display","block");
                                 $("#teamChallengeMenu").html(data);

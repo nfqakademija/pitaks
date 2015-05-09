@@ -180,5 +180,15 @@ class ProfileController extends BaseController
         $this->get('reservation_service')->acceptUnconfirmedRegisteredReservation($reservationId);
         return new JsonResponse("Reservation was accepted " . $reservationId);
     }
+
+    public function upcomingUserReservations()
+    {
+        $userRes = $this->get('reservation_service')->upcomingUserReservations($this->getUser());
+        $userTeamsRes = $this->get('reservation_service')->upcomingUserTeamsReservations($this->getUser());
+        return $this->render('UserBundle:Reservations:upcomingUserReservations.html.twig',
+            array( 'userReservations' => $userRes,
+                    'userTeamsReservations' =>$userTeamsRes));
+    }
+
 }
 

@@ -5,7 +5,6 @@
 
     <div role="tabpanel">
         <div class="row">
-
             <!-- Nav tabs -->
             <div class="col-sm-4">{% include "FOSUserBundle:Profile:show_content.html.twig" %}
                 <ul class="nav nav-pills nav-stacked" role="tablist">
@@ -99,8 +98,6 @@
          });
      }
      showUnconfirmedList();
-
-
      function showUserStats(){
          $.ajax({
              url:  "{{path('userStat',{'username': user.username})}}",

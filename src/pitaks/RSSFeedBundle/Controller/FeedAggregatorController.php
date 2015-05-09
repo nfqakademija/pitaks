@@ -79,6 +79,7 @@ class FeedAggregatorController extends Controller {
     public function deleteFeedProviderAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        /**@var $provider FeedProvider*/
         $provider = $em->getRepository('pitaksRSSFeedBundle:FeedProvider')->find($id);
         if (!$provider) {
             throw $this->createNotFoundException(
@@ -90,6 +91,10 @@ class FeedAggregatorController extends Controller {
             ->getForm();
         $form->handleRequest($request);
         if ($form->isValid()) {
+            foreach($provider->getFeedEntries() as $entry)
+            {
+                $em->remove($entry);
+            }
             $em->remove($provider);
             $em->flush();
             return $this->redirectToRoute('listFeedProvider');

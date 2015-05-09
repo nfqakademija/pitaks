@@ -11,7 +11,9 @@ namespace pitaks\KickerBundle\Services;
 use Doctrine\ORM\EntityManager;
 use pitaks\KickerBundle\Entity\Reservation;
 use pitaks\KickerBundle\Entity\RegisteredReservation;
+use pitaks\TeamBundle\Entity\Team;
 use pitaks\TeamBundle\Entity\TeamReservation;
+use pitaks\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -334,5 +336,50 @@ class ReservationService extends ContainerAware{
             $this->getEm()->flush();
         }
 
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function upcomingUserReservations($user)
+    {
+        //need to find all reservations
+        return $this->getEm()->getRepository('pitaksKickerBundle:RegisteredReservation')
+            ->findAllUserUpcomingReservations($user->getUsername(),new \DateTime());
+    }
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function upcomingUserTeamsReservations($user)
+    {
+        $reservations=array();
+        $teams = $user->getTeams();
+        foreach($teams as $team)
+        {
+            /**
+             * @var Team $team
+             */
+            $teamsReservations = $team->getReservations();
+            foreach($teamsReservations as $reservation)
+            {
+                /** @var  TeamReservation $reservation*/
+                if($reservation->getIsConfirmed() == true && $reservation->getReservationStart() > new \DateTime())
+                {
+                    $reservations[]=$reservation;
+                }
+            }
+            $teamsInvitedReservations=$team->getInvitedReservations();
+            foreach($teamsInvitedReservations as $reservation)
+            {
+                /** @var  TeamReservation $reservation*/
+                if($reservation->getIsConfirmed() == true && $reservation->getReservationStart() > new \DateTime())
+                {
+                    $reservations[]=$reservation;
+                }
+            }
+        }
+       return $reservations;
     }
 }

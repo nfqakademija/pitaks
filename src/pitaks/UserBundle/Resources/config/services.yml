@@ -14,10 +14,10 @@ services:
              arguments: ["@doctrine.orm.entity_manager"]
              calls:
                      - [setContainer, ['@service_container']]
-
     user.after_registration.listener:
         class: pitaks\UserBundle\EventListener\AfterUserRegistrationListener
         calls:
             - [setEntityManager, ["@doctrine.orm.entity_manager"]]
         tags:
             -  { name: kernel.event_listener, event: fos_user.registration.completed, method: onUserRegistered }
+

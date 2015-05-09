@@ -1,26 +1,39 @@
 
     <h2>User list </h2>
-
     <table  class="table-striped" style="width:50%">
 
     <tr>
         <th>User UserName </th>
         <th>User Name</th>
         <th>User LastName</th>
-        <th>User Stats(+/-)</th>
-        <th> CHOOSE </th>
+        <th> Stat</th>
+        {% if app.user %}
+            <th> CHOOSE </th>
+        {% endif %}
     </tr>
     {% for user in users %}
         <tr>
-            <td> {{ user["user"].username }}</td>
-            <td> {{ user["user"].name }}</td>
-            <td> {{ user["user"].lastName }}</td>
-            <td> {{ user["stat"].plusMinusBalance }} <a href="{{ path('userStat', {'username': user["user"].username}) }}">more...</a></td>
             <td>
-            <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('userChallengeMain', {'username': user["user"].username }) }}">challenge</a>
-            <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('createTeam', {'userId': user["user"].id }) }}">Create a team</a>
-
-            </td>
+                <span class="btn" rel="popover" data-img="{{ asset(user['userImage']) }}">{{ user["user"].username }}</span>
+           </td>
+            <td> {{ user["user"].name }} </td>
+            <td> {{ user["user"].lastName }}</td>
+            <td> {{ user["stat"] }} <a href="{{ path('userStat', {'username': user["user"].username}) }}">more...</a></td>
+            {% if app.user %}
+                <td>
+                    <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('userChallengeMain', {'username': user["user"].username }) }}">challenge</a>
+                    <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('createTeam', {'userId': user["user"].id }) }}">Create a team</a>
+                </td>
+            {% endif %}
           </tr>
     {% endfor %}
         </table>
+
+    <script>
+        $('span[rel=popover]').popover({
+            html: true,
+            trigger: 'hover',
+            placement: 'bottom',
+            content: function(){return '<img src="'+$(this).data('img') + '" />';}
+        });
+    </script>

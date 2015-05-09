@@ -16,7 +16,7 @@
         </div>
         <div class="panel-body" style="color:#000000">
             {%  if( user.image) %}
-            <img class="profileIMG" src="{{ asset( user.image.getImageAddress() ) }}">
+            <img class="profileIMG" src="{{ asset( user.image.getImageAddress() )  }}">
                 <p> <a href="{{ path('userImageDelete') }}"> Delete photo</a> </p>
             {% else %}
                 <img class="profileIMG" src="{{ asset('images/anonymous.png') }}">
@@ -32,6 +32,4 @@
 
         </div>
     </div>
-
-
 </div>

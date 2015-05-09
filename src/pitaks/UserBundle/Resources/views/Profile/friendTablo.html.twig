@@ -1,0 +1,35 @@
+<style>
+    .profileIMG{
+max-width: 300px;
+max-height: 300px;
+border-radius: 5%;
+border: solid #000099 4px;
+}
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title" >
+            {{ user.getUsername() }}
+        </h2>
+    </div>
+    <div class="panel-body" style="color:#000000">
+        {%  if( user.image) %}
+            <img class="profileIMG" src="{{ asset( user.image.getImageAddress() )  }}">
+        {% else %}
+            <img class="profileIMG" src="{{ asset('images/anonymous.png') }}">
+        {% endif %}
+        <p> Name: {{ user.name }}</p>
+        <p> Last Name: {{ user.lastName }}</p>
+        <p> Email : {{ user.email }}</p>
+        <p> Card Id: {{ user.cardId }}</p>
+        <td>
+            <a class="btn btn-success" value="{{ user.username }}" name="users" href="{{ path('userChallengeMain', {'username': user.username }) }}">challenge</a>
+            <a class="btn btn-success" value="{{ user.username }}" name="users" href="{{ path('createTeam', {'userId': user.id }) }}">Create a team</a>
+        </td>
+        {% for team in user.teams %}
+            {% if team.confirmed %}
+                <p> {{  team.name }}</p>
+            {% endif  %}
+        {% endfor %}
+    </div>
+</div>

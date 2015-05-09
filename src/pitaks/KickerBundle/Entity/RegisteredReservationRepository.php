@@ -51,4 +51,23 @@ class RegisteredReservationRepository extends EntityRepository
             ->getQuery()->getResult();
         return count($r);
     }
+
+    /**
+     * @param $username
+     * @param $date
+     * @return array
+     */
+    public function findAllUserUpcomingReservations($username,$date)
+    {
+        $r = $this->getQueryBulder()
+            ->select()
+            ->where('r.reservationStart >:date')
+            ->andWhere('r.friendId=:username')
+            ->orWhere('r.userId=:username')
+            ->andWhere('r.isConfirmed=true')
+            ->setParameter('date', $date)
+            ->setParameter('username', $username)
+            ->getQuery()->getResult();
+        return $r;
+    }
 }

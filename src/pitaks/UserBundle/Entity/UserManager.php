@@ -58,7 +58,7 @@ class UserManager extends BaseUserManager {
                ->from("UserBundle:User", 'g')
                ->orderBy('g.username', 'ASC');
        }
-       return $query->getQuery()->getArrayResult();
+       return $query->getQuery()->getResult();
 
    }
 

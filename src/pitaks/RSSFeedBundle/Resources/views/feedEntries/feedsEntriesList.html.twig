@@ -1,3 +1,11 @@
+<style>
+    img
+    {
+        max-height: 200px;
+        max-width: 200px;
+    }
+
+</style>
 <p> news : {{ pagination.getTotalItemCount }}</p>
 <table class="table">
             <tr>
@@ -9,7 +17,7 @@
             <tr {% if loop.index is odd %}class="color"{% endif %}>
                 <td>{{ feedentry.date|date("Y/m/d H:i") }}</td>
                 <td><h5><strong>{{ feedentry.title }}</strong></h5>
-                    <h6>{{ feedentry.description }}</h6>
+                    <h6 class="description">{{ feedentry.description }}</h6>
                 <a href="{{ feedentry.link }}">more</a></td>
             </tr>
             {% endfor %}
@@ -18,3 +26,11 @@
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
+<script>
+    var descriptionArray = $('.description').toArray();
+    for ( var i = 0; i < descriptionArray.length; i++ )
+    {
+        var tektas =$(descriptionArray[ i]).text();
+        $(descriptionArray[i]).html(tektas);
+    }
+</script>

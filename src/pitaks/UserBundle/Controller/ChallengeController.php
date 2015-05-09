@@ -23,7 +23,7 @@ class ChallengeController extends Controller{
         $tables = $this->getDoctrine()->getRepository('pitaksKickerBundle:Tables')->findAll();
         $friend = $this->get('fos_user.user_manager')->findUserByUsername($username);
         return $this->render('@User/Challenge/userChallengeView.html.twig', array(
-                'tables' => $tables , 'friend' => $friend
+                'tables' => $tables , 'user' => $friend
             )
         );
     }

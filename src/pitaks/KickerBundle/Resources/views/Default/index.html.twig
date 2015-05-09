@@ -33,12 +33,16 @@
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <button type="button" class=" tableRate btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" value="{{ table.id }}">Rate</button>
+                                        {% if app.user %}
+                                            <button type="button" class=" tableRate btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" value="{{ table.id }}">Rate</button>
+                                        {% endif %}
                                     </div>
                                     <div class="col-xs-2" value="{{ table.id }}">
-                                        <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                            Rezervation
-                                        </button>
+                                        {% if app.user %}
+                                            <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                                Rezervation
+                                            </button>
+                                        {% endif %}
                                     </div>
                             </div>
                             {% endfor %}
@@ -94,6 +98,7 @@
     </div>
 </div>
     <script>
+
         $('.tableRate').click(function(){
                     var tableId =$(this).val();
                     alert(tableId);
