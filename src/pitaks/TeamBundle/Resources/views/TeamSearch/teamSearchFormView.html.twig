@@ -1,49 +1,10 @@
     <div class="ui-widget">
+        <input id="teamId" hidden value="{{ myteamId }}">
         <label for="tags">Team name: </label>
         <input id="tags">
         <input id="usernameButton" class="btn btn-default" type="submit">
     </div>
     <div id="userTable">
     </div>
-    <script>
-        function autocompleteSearch() {
-            var availableTags = [];
-            $('#tags').keyup(function () {
-                var text = $('#tags').val();
-                $.ajax({
-                    url: "{{path('teamsNames') }}",
-                    type: "post",
-                    data: ({'name': text}),
-                    success: function (data) {
-                        availableTags = [];
-                        for (var i = 0; i < data.length; i++) {
-                            availableTags.push(data[i]);
-                        }
-                        $("#tags").autocomplete({
-                            source: availableTags
-                        });
-                    },
-                    error: function () {
-                        alert("failure");
-                    }
-                });
-            });
-        }
-        autocompleteSearch();
-        $('#usernameButton').click(function(){
-            //take value
-            var text = $('#tags').val();
-            //need to return user list
-            $.ajax({
-                url: "{{path('teamSearchResults', {"teamId":myteamId}) }}",
-                type: "post",
-                data: ({'word': text}),
-                success: function (data) {
-                    $('#userTable').html(data);
-                },
-                error: function () {
-                    alert("failure");
-                }
-            });
-        });
+        <script src="{{ asset('bundles/pitaksteam/js/teamSearch.js')}}">
     </script>

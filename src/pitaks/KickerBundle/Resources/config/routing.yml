@@ -36,6 +36,8 @@ reservationList:
 viewRes:
     path:  view
     defaults: { _controller: pitaksKickerBundle:Reservation:view }
+    options:
+                        expose: true
 ajaxj:
     path:  ajax
     defaults: { _controller: pitaksKickerBundle:Reservation:ajax }

@@ -10,6 +10,8 @@
             <div class="col-sm-offset-1 col-sm-4">
                 <div class="challengeUserView well well-lg btn-success"><h2>{{ myteam.name }}</h2>
                     <div>
+                    <input id="myteamId"hidden value="{{ myteam.id }}">
+                    <input id="friendTeamId"hidden value="{{friend.id }}">
                         {% for user in myteam.users %}
                             {{ user.name }}
                         {% endfor %}
@@ -60,54 +62,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        $('#anotherTable').click(function()
-        {
-            $('#tableListForReservation').css("display","block");
-            $('#anotherTable').css("display","none");
-            $("#teamChallengeMenu").html("");
-        });
-        function showResults(){
-            $('.reservation').click(function(){
-                        $.ajax({
-                            url:  Routing.generate('viewRes'),
-                            type: "post",
-                            data: ({ tableId: $(this).val()}),
-                            success: function(data){
-                                $('#tableListForReservation').css("display","none");
-                                $('#anotherTable').css("display","block");
-                                $("#teamChallengeMenu").html(data);
-                            },
-                            error:function(){
-                                alert("something wrong happends");
-                            }
-                        });
-                    }
-            );
-        }
-        showResults();
 
-         function saveChallenge() {
-            $('#challengeOk').click(function () {
-                        var tableId = $('#timesTable').attr('value');
-                        var datele = $('#datetimepicker').val();
-                        $.ajax({
-                            url: "{{path('saveTeamChallenge', {'teamId':  myteam.id, 'anotherTeamId': friend.id  })  }}",
-                            type: "post",
-                            data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
-                            success: function (data) {
-                                alert(data);
-                                window.location.reload(true);
-                            },
-                            error: function () {
-                                alert("failure");
-                            }
-                        });
-                    }
-            );
-        }
-        saveChallenge();
+    <script src="{{ asset('bundles/pitaksteam/js/teamChallenge.js') }}">
+
     </script>
 
 {% endblock %}
