@@ -47,9 +47,13 @@ show:
 timelist:
     path: timeList
     defaults: {_controller: pitaksKickerBundle:Reservation:timeList}
+    options:
+                         expose: true
 saveReservation:
     path: save
     defaults: {_controller: pitaksKickerBundle:Reservation:saveReservation}
+    options:
+                         expose: true
 isTableFree:
     path: isTableFree/{tableId}
     defaults: {_controller: pitaksKickerBundle:Reservation:isTableFree}

@@ -1,4 +1,3 @@
-
    <table id="timesTable" class="table table-hover" value="{{ tableId }}">
         <tr>
             <th>TIME</th>
@@ -11,14 +10,5 @@
             </tr>
         {% endfor %}
     </table>
-    <script>
-        var verte;
-        var verteEnd;
-        $("input[name='timeListValue']").change(function(){
-            verteEnd = $(this).val();
-            verte = $(this).parent().attr('value');
-            $("#save").prop("disabled",false);
-        });
-
-    </script>
+    <script src="{{ asset('bundles/pitakskicker/js/timeList.js') }}"></script>
 
