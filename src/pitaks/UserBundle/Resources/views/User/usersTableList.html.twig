@@ -29,11 +29,5 @@
     {% endfor %}
         </table>
 
-    <script>
-        $('span[rel=popover]').popover({
-            html: true,
-            trigger: 'hover',
-            placement: 'bottom',
-            content: function(){return '<img src="'+$(this).data('img') + '" />';}
-        });
+    <script src="{{ asset('bundles/user/js/userImagepopover.js') }}">
     </script>

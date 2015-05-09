@@ -24,38 +24,5 @@
             </tr>
         {% endfor %}
     </table>
-    <script>
-        $('.acceptRegisteredReservation').click(function(){
-            var reservationId = $(this).attr('value');
-            alert(reservationId);
-            $.ajax({
-                url:  "{{path('userConfirmRegisteredReservation')}}",
-                type: "post",
-                data: ({reservationId: reservationId}),
-                success: function(data){
-                    alert(data);
-                    window.location.reload(true);
-                },
-                error:function(){
-                    alert("Where was some errors while accepting");
-                }
-            });
-        });
-        $('.removeRegisteredReservation').click(function(){
-            var reservationId = $(this).attr('value');
-            alert(reservationId);
-            $.ajax({
-                url:  "{{path('userDeleteRegisteredReservation')}}",
-                type: "post",
-                data: ({reservationId: reservationId}),
-                success: function(data){
-                    alert(data);
-                    window.location.reload(true);
-                },
-                error:function(){
-                    alert("Where was some errors while deleting");
-                }
-            });
-        });
-
+    <script src="{{ asset('bundles/user/js/deleteAcceptReservations.js') }}">
     </script>

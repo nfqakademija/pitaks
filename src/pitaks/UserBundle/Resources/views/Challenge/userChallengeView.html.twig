@@ -7,6 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
+            <input id="UserUsername" hidden value="{{ user.username }}">
            {% include('@User/Profile/friendTablo.html.twig') %}
             <input hidden id="friendUsername" value="{{ user.username }}">
             <div id="challengeOkBox" style="text-align: center"><p>
@@ -46,81 +47,8 @@
         </div>
     </div>
 </div>
-
-
-    <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                ...
-            </div>
-        </div>
-    </div>
-    <script>
-        function modalAlert(text,redirect) {
-            $('body').prepend(
-            ' <div id="myModal" class="modal fade bs-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">'+
-            '<div class="modal-dialog modal-sm  " >'+
-            '<div class=" modal-content "  style="padding: 5%; font-size: 20pt">'
-            +text+'<div style="text-align: right">'+
-            '<button type="button" class="btn btn-default" data-dismiss="modal" align="right">OK</button>'+'</div>'+'</div>'+
-            '</div>');
-            $('#myModal').modal('show');
-            if(redirect !="") {
-                $('#myModal').on('hidden.bs.modal', function (e) {
-                    document.location.href = redirect;
-                });
-            }
-        }
-
-
-        $('#anotherTable').click(function()
-        {
-            $('#tableListForReservation').css("display","block");
-            $('#anotherTable').css("display","none");
-            $("#challengeMenu").html("");
-        });
-        var friend = $('#friendUsername').val();
-
-        function showResults(){
-        $('.rezervation').click(function(){
-                        $.ajax({
-                            url:  "{{path('viewRes')}}",
-                            type: "post",
-                            data: ({ tableId: $(this).val()}),
-                            success: function(data){
-                                $("#challengeMenu").html(data);
-                                $('#anotherTable').css("display","block");
-                                $('#tableListForReservation').css("display","none");
-                            },
-                            error:function(){
-                                alert("something wrong happends");
-
-                            }
-                        });
-                    }
-            );
-        }
-        showResults();
-        function saveChallenge() {
-            $('#challengeOk').click(function () {
-                        var tableId = $('#timesTable').attr('value');
-                        var datele = $('#datetimepicker').val();
-                        $.ajax({
-                            url: "{{path('userChallengeSave', {'username': user.username })  }}",
-                            type: "post",
-                            data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
-                            success: function (data) {
-                                modalAlert(data,'/profile');
-
-                            },
-                            error: function () {
-                                alert("something wrong happends");
-                            }
-                        });
-                    }
-            );
-        }
-        saveChallenge();
+    <script src="{{ asset('bundles/user/js/AlertModal.js') }}"></script>
+    <script src="{{ asset('bundles/user/js/userChallenge.js') }}">
     </script>
 
 {% endblock %}

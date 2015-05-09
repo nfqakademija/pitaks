@@ -27,22 +27,5 @@
          </tr>
     {% endfor %}
 </table>
-<script>
-    $('.removeRegisteredReservation').click(function(){
-        var reservationId = $(this).attr('value');
-
-            $.ajax({
-                url:  "{{path('userDeleteRegisteredReservation')}}",
-                type: "post",
-                data: ({reservationId: reservationId}),
-                success: function(data){
-                    alert(data);
-                    window.location.reload(true);
-                },
-                error:function(){
-                    alert("Where was some errors while deleting");
-                }
-            });
-        });
-
+<script src="{{ asset('bundles/user/js/userRegservations.js') }}">
 </script>
