@@ -83,3 +83,8 @@ userImageDelete:
     defaults: {_controller: UserBundle:Image:delete}
     options:
                 expose: true
+userUpcomigReservations:
+    path: user/news/upcomingReservations
+    defaults: {_controller: UserBundle:Profile:upcomingUserReservations}
+    options:
+                    expose: true

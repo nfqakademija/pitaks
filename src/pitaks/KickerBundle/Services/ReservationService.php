@@ -384,7 +384,7 @@ class ReservationService extends ContainerAware{
     {
         //need to find all reservations
         return $this->getEm()->getRepository('pitaksKickerBundle:RegisteredReservation')
-            ->findAllUserUpcomingReservations($user->getUsername(),new \DateTime());
+            ->findAllUserUpcomingReservations($user->getUsername(),(new \DateTime())->format("Y-m-d"));
     }
     /**
      * @param User $user
@@ -403,7 +403,7 @@ class ReservationService extends ContainerAware{
             foreach($teamsReservations as $reservation)
             {
                 /** @var  TeamReservation $reservation*/
-                if($reservation->getIsConfirmed() == true && $reservation->getReservationStart() > new \DateTime())
+                if($reservation->getIsConfirmed() == true && $reservation->getReservationStart()->format('Y-m-d') == (new \DateTime())->format('Y-m-d'))
                 {
                     $reservations[]=$reservation;
                 }
@@ -412,7 +412,7 @@ class ReservationService extends ContainerAware{
             foreach($teamsInvitedReservations as $reservation)
             {
                 /** @var  TeamReservation $reservation*/
-                if($reservation->getIsConfirmed() == true && $reservation->getReservationStart() > new \DateTime())
+                if($reservation->getIsConfirmed() == true && $reservation->getReservationStart()->format('Y-m-d') == (new \DateTime())->format('Y-m-d'))
                 {
                     $reservations[]=$reservation;
                 }

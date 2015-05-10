@@ -32,4 +32,24 @@ class UserCountsController extends Controller{
         $count = $this->get('user_lastviews_service')->getUserNewTeamsSuggestionCount($user);
         return new Response($count);
     }
+
+    /**
+     * @return Response
+     */
+    public function userGetInvitedTeamsCountAction()
+    {
+        $user=$this->getUser();
+        $count = $this->get('user_lastviews_service')->getInvitedTeamsCount($user);
+        return new Response($count);
+    }
+
+    /**
+     * @return Response
+     */
+    public function userGetInvitedReservationsCountAction()
+    {
+        $user=$this->getUser();
+        $count = $this->get('user_lastviews_service')->getInvitedRegistrationsForUserCount($user);
+        return new Response($count);
+    }
 }

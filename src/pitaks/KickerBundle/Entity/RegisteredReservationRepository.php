@@ -61,11 +61,12 @@ class RegisteredReservationRepository extends EntityRepository
     {
         $r = $this->getQueryBulder()
             ->select()
-            ->where('r.reservationStart >:date')
-            ->andWhere('r.friendId=:username')
+            ->where('r.friendId=:username')
             ->orWhere('r.userId=:username')
             ->andWhere('r.isConfirmed=true')
-            ->setParameter('date', $date)
+            ->andWhere(  $this->getQueryBulder()->expr()->like('r.reservationStart', ':date'))
+            ->orderBy('r.reservationStart','ASC')
+            ->setParameter('date', $date.'%')
             ->setParameter('username', $username)
             ->getQuery()->getResult();
         return $r;

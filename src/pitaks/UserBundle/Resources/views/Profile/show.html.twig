@@ -8,31 +8,34 @@
             <!-- Nav tabs -->
             <div class="col-sm-4">{% include "FOSUserBundle:Profile:show_content.html.twig" %}
                 <ul class="nav nav-pills nav-stacked" role="tablist">
-                    <li role="presentation" class=""><a href="#teams" aria-controls="teams" role="tab" data-toggle="tab">TEAMS
-                        <span class="badge" style="float: right">{{ render(controller('UserBundle:UserCounts:userNewTeamsCount')) }}</span></a></li>
+                    <li role="presentation"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">NEWS</a></li>
+                    <li role="presentation" class=""><a href="#teams" aria-controls="teams" role="tab" data-toggle="tab">Teams
+                            <span class="badge" style="float: right">{{ render(controller('UserBundle:UserCounts:userGetInvitedTeamsCount')) }}</span>  </a>
+                    </li>
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">
                             Reservations
-                             <span class="badge" style="float: right">{{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }}</span>  </a>
-                      </li>
+                             <span class="badge" style="float: right">{{ render(controller('UserBundle:UserCounts:userGetInvitedReservationsCount')) }}</span>  </a>
+                    </li>
                     <li role="presentation"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
-                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-                    <li role="presentation"><a href="#rates" aria-controls="rates" role="tab" data-toggle="tab">Settings</a></li>
                     <li role="presentation"><a href="#games" aria-controls="games" role="tab" data-toggle="tab">Games</a></li>
-
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Your Comments</a></li>
+                    <li role="presentation"><a href="#rates" aria-controls="rates" role="tab" data-toggle="tab">Your table rates</a></li>
                 </ul>
             </div>
             <!-- Tab panes -->
             <div class="col-sm-8">
-                <div class="tab-content">
+                <div class="tab-content" style="background-color: rgba(191, 226, 181, 0.37); border-radius: 10px; padding: 20px ">
+                    <div role="tabpanel" class="tab-pane" id="news">
+                        {{ render(controller('UserBundle:Profile:upcomingUserReservations')) }}
+                    </div>
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div class="container-fluid">
-
+                            <a href="{{ path('show_users') }}" class="btn btn-success">Make reservation </a>
                             <div id="userUnconfirmedReservationsList"> </div>
                             <h2>Your reservations</h2>
                             <div id="userReservationsList"> </div>
                             <h2>Your suggested reservations</h2>
                             <div id="userSentReservations"> </div>
-
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="stats">
@@ -41,16 +44,15 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="messages"> where will be user's comments</div>
+
                     <div role="tabpanel" class="tab-pane" id="rates">
                         <h2>Your table rates</h2>
                         <div id="usersTableRates">
-
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="games">
                         <h2>Last 5 games</h2>
                         <div id="userLastGames"> </div>
-
                     </div>
                     <div role="tabpanel" class="tab-pane" id="teams">
                         <div>
@@ -61,11 +63,8 @@
 
                         <h2> TEAMS </h2>
                         <div id="usersTeamList"> </div>
-
-
                         <h2> Your team suggestions:</h2>
                         <div id="SuggestedTeamList"></div>
-
                     </div>
                 </div>
             </div>

@@ -11,7 +11,9 @@ namespace pitaks\UserBundle\Controller;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
+use pitaks\TeamBundle\Entity\TeamReservation;
 use pitaks\UserBundle\Entity\LastReviews;
+use Proxies\__CG__\pitaks\KickerBundle\Entity\RegisteredReservation;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,55 +25,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProfileController extends BaseController
 {
-
-    public function registerAction(Request $request)
-    {
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.registration.form.factory');
-        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-        $userManager = $this->get('fos_user.user_manager');
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
-
-        $user = $userManager->createUser();
-        $user->setEnabled(true);
-
-        $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
-
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
-        }
-
-        $form = $formFactory->createForm();
-        $form->setData($user);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-            echo "something";
-            $revews = new LastReviews();
-            $this->getDoctrine()->getManager()->persist($revews);
-            $this->getDoctrine()->getManager()->flush();
-            $user->setReviews($revews);
-            $userManager->updateUser($user);
-
-            if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_registration_confirmed');
-                $response = new RedirectResponse($url);
-            }
-
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-            return $response;
-        }
-
-        return $this->render('FOSUserBundle:Registration:register.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
 
     public function showAction()
     {
@@ -207,13 +160,46 @@ class ProfileController extends BaseController
         return new JsonResponse("Reservation was accepted " . $reservationId);
     }
 
-    public function upcomingUserReservations()
+    public function upcomingUserReservationsAction()
     {
         $userRes = $this->get('reservation_service')->upcomingUserReservations($this->getUser());
         $userTeamsRes = $this->get('reservation_service')->upcomingUserTeamsReservations($this->getUser());
+       
+        $startReservationUser=null;
+        $startReservationUserTeam=null;
+        $reservationFirstTime=null;
+        $isUserReservation=true;
+        if($userRes) {
+            /**
+             * @var RegisteredReservation $userFirst
+             */
+            $userFirst = $userRes[0];
+            $startReservationUser = $userFirst->getReservationStart();
+        }
+        if($userTeamsRes){
+            /**
+             * @var  TeamReservation $teamFirst
+             */
+            $teamFirst= $userTeamsRes[0];
+            $startReservationUserTeam = $teamFirst->getReservationStart();
+        }
+        if($startReservationUserTeam && $startReservationUser){
+            if( $startReservationUserTeam<$startReservationUser){
+                $isUserReservation = false;
+                $reservationFirstTime=$startReservationUserTeam;
+            }
+            else
+                $reservationFirstTime=$startReservationUser;
+        }
+        elseif($startReservationUser)
+            $reservationFirstTime=$startReservationUser;
+        elseif($startReservationUserTeam ){
+            $isUserReservation = false;
+            $reservationFirstTime=$startReservationUserTeam;
+        }
         return $this->render('UserBundle:Reservations:upcomingUserReservations.html.twig',
-            array( 'userReservations' => $userRes,
-                    'userTeamsReservations' =>$userTeamsRes));
+            array( 'userReservations' => $userRes,'userTeamsReservations' =>$userTeamsRes,
+                'firstReservation' => $reservationFirstTime, 'isUserReservation' => $isUserReservation));
     }
 
 }
