@@ -1,18 +1,16 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
-
-
     <div role="tabpanel">
         <div class="row">
             <!-- Nav tabs -->
             <div class="col-sm-4">{% include "FOSUserBundle:Profile:show_content.html.twig" %}
                 <ul class="nav nav-pills nav-stacked" role="tablist">
-                    <li role="presentation"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">NEWS</a></li>
-                    <li role="presentation" class=""><a href="#teams" aria-controls="teams" role="tab" data-toggle="tab">Teams
+                    <li role="presentation"class="active" id="NewsHome"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">NEWS</a></li>
+                    <li role="presentation" id="TeamsHome"><a href="#teams" aria-controls="teams" role="tab" data-toggle="tab">Teams
                             <span class="badge" style="float: right">{{ render(controller('UserBundle:UserCounts:userGetInvitedTeamsCount')) }}</span>  </a>
                     </li>
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                    <li role="presentation" id="ReservationHome"><a  href="#home" aria-controls="home" role="tab" data-toggle="tab">
                             Reservations
                              <span class="badge" style="float: right">{{ render(controller('UserBundle:UserCounts:userGetInvitedReservationsCount')) }}</span>  </a>
                     </li>
@@ -25,10 +23,17 @@
             <!-- Tab panes -->
             <div class="col-sm-8">
                 <div class="tab-content" style="background-color: rgba(191, 226, 181, 0.37); border-radius: 10px; padding: 20px ">
-                    <div role="tabpanel" class="tab-pane" id="news">
+                    <div role="tabpanel" class="tab-pane active" id="news">
+                        <div id="newAcions">
+                            <h2>Today NEWS</h2>
+                            <h4>You have  {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }} new invite(s) to create a team from yout last visit  </h4>
+                            <h4>You have  {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }} newinvite(s) from your last visit  </h4>
+                        </div>
                         {{ render(controller('UserBundle:Profile:upcomingUserReservations')) }}
+                        <a id="moreTeams"href="#teams" class="btn bg-primary" data-toggle="tab">more Teams</a>
+                        <a id="moreReservations" href="#home" class="btn bg-primary"  data-toggle="tab" >more Reservations</a>
                     </div>
-                    <div role="tabpanel" class="tab-pane active" id="home">
+                    <div role="tabpanel" class="tab-pane" id="home">
                         <div class="container-fluid">
                             <a href="{{ path('show_users') }}" class="btn btn-success">Make reservation </a>
                             <div id="userUnconfirmedReservationsList"> </div>
@@ -41,10 +46,8 @@
                     <div role="tabpanel" class="tab-pane" id="stats">
                         {{ render(controller('UserBundle:UserStatistic:myStats')) }}
                         <div id="userStats"> </div>
-
                     </div>
                     <div role="tabpanel" class="tab-pane" id="messages"> where will be user's comments</div>
-
                     <div role="tabpanel" class="tab-pane" id="rates">
                         <h2>Your table rates</h2>
                         <div id="usersTableRates">
@@ -60,7 +63,6 @@
                         </div>
                         <h2> Invites to create a team </h2>
                         <div id="userInvitesToCreateATeam"></div>
-
                         <h2> TEAMS </h2>
                         <div id="usersTeamList"> </div>
                         <h2> Your team suggestions:</h2>

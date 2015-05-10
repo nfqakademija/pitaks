@@ -108,3 +108,13 @@ function showUserTableRating(){
     });
 }
 showUserTableRating();
+$('#moreReservations').click( function()
+{
+    $('#NewsHome').removeClass('active');
+    $('#ReservationHome').addClass('active');
+});
+$('#moreTeams').click( function()
+{
+    $('#NewsHome').removeClass('active');
+    $('#TeamsHome').addClass('active');
+});

@@ -1,7 +1,6 @@
 {% if firstReservation  %}
             <input hidden id="NextReservationTime" value="{{ firstReservation|date("H:i:s") }}">
             <div id="nextTime">
-
             </div>
         {% if isUserReservation %}
             <table class="table bg-success" >
@@ -20,55 +19,41 @@
         {% else  %}
             <table class="table bg-success" >
                 <tr>
-                    <th id="firstTime">{{ userTeamsReservations[0].reservationStart|date("H:i") }} </th>
-                    <th >{{ userTeamsReservations[0].reservationEnd|date("H:i") }} </th>
+                    <td id="firstTime">{{ userTeamsReservations[0].reservationStart|date("H:i") }} </td>
+                    <td >{{ userTeamsReservations[0].reservationEnd|date("H:i") }} </td>
 
                 </tr>
             </table>
         {% endif %}
     {% endif  %}
-<h2>Upcoming Today  User reservations</h2>
+<h3> User reservations</h3>
     <table class="table">
         <tr>
             <th>Start</th>
             <th>End</th>
-        </tr>{% for res in userReservations %}
+            <th>Table</th>
+        </tr>
+        {% for res in userReservations %}
         <tr>
-            <th> {{ res.reservationStart|date("Y/m/d H:i") }}</th>
-            <th> {{ res.reservationEnd|date("Y/m/d H:i") }}</th>
+            <td> {{ res.reservationStart|date("Y/m/d H:i") }}</td>
+            <td> {{ res.reservationEnd|date("Y/m/d H:i") }}</td>
+            <td>{{ res.reservations.first().tableId.name }} </td>
         </tr>
         {% endfor %}
     </table>
-<h2>Upcoming User's teams reservations</h2>
+<h3>User's teams reservations</h3>
     <table class="table">
         <tr>
             <th>Start</th>
             <th>End</th>
-
+            <th>Table</th>
         </tr>{% for res in userTeamsReservations %}
         <tr>
-            <th> {{ res.reservationStart|date("Y/m/d H:i") }}</th>
-            <th> {{ res.reservationEnd|date("Y/m/d H:i") }}</th>
+            <td> {{ res.reservationStart|date("Y/m/d H:i") }}</td>
+            <td> {{ res.reservationEnd|date("Y/m/d H:i") }}</td>
+            <td>{{ res.reservations.first().tableId.name }} </td>
         </tr>
         {% endfor %}
     </table>
-    <script>
-        $( document ).ready(function() {
-                    window.setInterval(function(){
-                        timeDown();
-                    }, 1000);
-                }
-           );
-            function timeDown() {
-                var reservationTime = $('#NextReservationTime').val();
-                // alert(new Date(reservationTime).getTime());
-                var dt = new Date();
-                var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-                var day = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + " ";
-                var day2 = new Date(day + reservationTime);
-                var milliseconds = (dt.getTime() - day2.getTime());
-                var mydate = new Date(milliseconds);
-                var humandate = mydate.getUTCHours() + " hours, " + mydate.getUTCMinutes() + " minutes and " + mydate.getUTCSeconds() + " second(s)"
-                $('#nextTime').text(humandate);
-            }
+    <script src="{{ asset('bundles/user/js/Timer.js') }}">
     </script>
