@@ -10,6 +10,7 @@ namespace pitaks\TeamBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class TeamChallengeController extends Controller{
@@ -55,7 +56,7 @@ class TeamChallengeController extends Controller{
     {
        $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->findBy(array('team' => $teamId, 'isConfirmed'=>false));
         return $this->render('pitaksTeamBundle:TeamChallenge:reviewTeamChallenges.html.twig',
-            array('reservations' => $reservations) );
+            array('reservations' => $reservations, 'teamId' =>$teamId) );
 
     }
 
@@ -67,7 +68,7 @@ class TeamChallengeController extends Controller{
     {
         $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->findBy(array('competitorTeam' => $teamId, 'isConfirmed'=>false));
         return $this->render('pitaksTeamBundle:TeamChallenge:reviewTeamChallenges.html.twig',
-            array('reservations' => $reservations) );
+            array('reservations' => $reservations, 'teamId' =>$teamId) );
     }
 
     /**
@@ -78,7 +79,7 @@ class TeamChallengeController extends Controller{
     {
         $reservations = $this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->getConfirmedReservations($teamId);
         return $this->render('pitaksTeamBundle:TeamChallenge:reviewTeamChallenges.html.twig',
-            array('reservations' => $reservations) );
+            array('reservations' => $reservations, 'teamId' =>$teamId) );
     }
 
     /**
@@ -90,5 +91,26 @@ class TeamChallengeController extends Controller{
         $count = count($this->getDoctrine()->getRepository('pitaksTeamBundle:TeamReservation')->
         findBy(array('competitorTeam' => $teamId, 'isConfirmed'=>false)));
         return new Response($count);
+    }
+
+
+    /**
+     * @return JsonResponse
+     */
+    public function acceptTeamReservationAction()
+    {
+        $reservationId = $this->get('request')->request->get('reservationId');
+        $this->get('reservation_service')->acceptUnconfirmedTeamRegisteredReservation($reservationId);
+        return new JsonResponse("Reservation was accepted " . $reservationId);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function deleteTeamReservationAction()
+    {
+        $reservationId = $this->get('request')->request->get('reservationId');
+        $this->get('reservation_service')->deleteTeamRegisteredReservation($reservationId);
+        return new JsonResponse("Reservation was deleted " . $reservationId);
     }
 }

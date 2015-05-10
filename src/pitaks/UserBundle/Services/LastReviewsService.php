@@ -38,8 +38,6 @@ class LastReviewsService extends ContainerAware{
         $this->em = $em;
     }
 
-
-    //reikes grazinti countus nuo praejusio apsilankymo ir updatinti
     /**
      * @param User $user
      * @return int
@@ -63,7 +61,6 @@ class LastReviewsService extends ContainerAware{
         $this->getEm()->flush();
     }
 
-    /**Iskosim nauju pakvietimu i komandas*/
     /**
      * @param User $user
      * @return int
@@ -90,5 +87,30 @@ class LastReviewsService extends ContainerAware{
         $this->getEm()->flush();
     }
 
+    /**
+     * @param User $user
+     * @return integer
+     */
+    public function getInvitedTeamsCount($user)
+    {
+        $count = 0;
+        $teams =$user->getTeams();
+        foreach($teams as $team)
+        {
+            /**@var Team $team */
+            if($team->getAuthor()!=$user && $team->getConfirmed()==false)
+                $count++;
+        }
+        return $count;
+    }
+    /**
+     * @param User $user
+     * @return integer
+     */
+    public function getInvitedRegistrationsForUserCount($user)
+    {
+       return count($this->em->getRepository('pitaksKickerBundle:RegisteredReservation')
+            ->findBy(array('friendId' => $user->getUsername(),'isConfirmed'=>false)));
+    }
     
 }

@@ -109,3 +109,14 @@ confirmedChallengeReview:
     defaults: {_controller: pitaksTeamBundle:TeamChallenge:showConfirmedChallengesTeams}
     options:
                     expose: true
+teamDeleteRegisteredReservation:
+    path: user/teamDeleteRegisteredReservation
+    defaults: {_controller: pitaksTeamBundle:TeamChallenge:deleteTeamReservation}
+    options:
+            expose: true
+teamConfirmRegisteredReservation:
+    path: user/teamAcceptRegisteredReservation
+    defaults: {_controller: pitaksTeamBundle:TeamChallenge:acceptTeamReservation}
+    options:
+           expose: true
+

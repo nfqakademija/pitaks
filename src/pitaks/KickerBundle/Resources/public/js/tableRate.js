@@ -15,10 +15,8 @@ $('#saveRate').click(function(){
         type: "post",
         data: ({rating: ratingValue}),
         success: function(data){
-            alert('success');
         },
         error:function(){
-            alert("failure");
         }
     });
 

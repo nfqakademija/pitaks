@@ -139,7 +139,7 @@ class TeamController extends Controller{
             if(!$team->getConfirmed() && $team->getAuthor() != $this->getUser()) {
                 //draugas bus ne jis tj kitas
                 $friend = $this->get('team_service')->returnTeamFriend($this->getUser(),$team);
-                echo $friend->getId();
+
                 $a = array(
                     "team" => $team,
                     "friend" => $friend

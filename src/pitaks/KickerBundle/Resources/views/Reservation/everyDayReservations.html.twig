@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row" >
+        <input id="tableId" hidden value="{{ table.id }}">
+        <h4 id="tableName">{{ table.name }}</h4>
+    </div>
+    <div class="row">
+        <div class=" col-sm-5">
+            <label for="datepicker">Select date</label>
+            <input class="form-control" id="datepicker" type="text" >
+            <button type="submit" id="showReservations" class="btn btn-info"> Show Reservations </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="reservationList" class="col-xs-8">
+        </div>
+    </div>
+</div>
+<script src="{{ asset('bundles/pitakskicker/js/showAllreservations.js') }}">
+</script>

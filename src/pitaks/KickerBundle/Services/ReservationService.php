@@ -290,7 +290,7 @@ class ReservationService extends ContainerAware{
     {
         $registeredReservation=$this->getEm()->
         getRepository('pitaksKickerBundle:RegisteredReservation')->find($registeredReservationId);
-
+        if($registeredReservation){
         $reservations = $registeredReservation->getReservations();
         foreach($reservations as $reservation)
         {
@@ -299,7 +299,7 @@ class ReservationService extends ContainerAware{
         }
         $this->getEm()->flush();
         $this->getEm()->remove($registeredReservation);
-        $this->getEm()->flush();
+        $this->getEm()->flush();}
     }
 
     /**
@@ -308,8 +308,46 @@ class ReservationService extends ContainerAware{
     public function acceptUnconfirmedRegisteredReservation($registeredReservationId){
         $registeredReservation=$this->getEm()->
         getRepository('pitaksKickerBundle:RegisteredReservation')->find($registeredReservationId);
-        $registeredReservation->setIsConfirmed(true);
+        if($registeredReservation) {
+            $registeredReservation->setIsConfirmed(true);
+            $this->getEm()->flush();
+        }
+    }
+
+
+    /**
+     * @param integer $registeredReservationId
+     */
+    public function deleteTeamRegisteredReservation($registeredReservationId)
+    {
+        $registeredReservation=$this->getEm()->
+        getRepository('pitaksTeamBundle:TeamReservation')->find($registeredReservationId);
+        if($registeredReservation){
+        $reservations = $registeredReservation->getReservations();
+        foreach($reservations as $reservation)
+        {
+            $registeredReservation->removeReservation($reservation);
+            /** @var Reservation $reservation */
+            $reservation->setIsFree(true);
+            $reservation->setTeamReservation(null);
+        }
+        $registeredReservation->getTeam()->removeReservation($registeredReservation);
+        $registeredReservation->getCompetitorTeam()->removeInvitedReservation($registeredReservation);
+            $registeredReservation->setTeam(null);
+            $registeredReservation->setCompetitorTeam(null);
+        $this->getEm()->remove($registeredReservation);
         $this->getEm()->flush();
+        }
+    }
+    /**
+     * @param $registeredReservationId
+     */
+    public function acceptUnconfirmedTeamRegisteredReservation($registeredReservationId){
+        $registeredReservation=$this->getEm()->
+        getRepository('pitaksTeamBundle:TeamReservation')->find($registeredReservationId);
+        if($registeredReservation){
+        $registeredReservation->setIsConfirmed(true);
+        $this->getEm()->flush();}
     }
 
     /*Need to erase reservation blocks and Registered Reservations*/

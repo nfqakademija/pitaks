@@ -108,8 +108,6 @@ class ReservationController extends Controller
 
     }
 
-
-
     /**
      * @param $tableId
      * @return Response
@@ -133,34 +131,7 @@ class ReservationController extends Controller
 
 
     }
-//later we need to add user data
-    /**
-     * @return Response
-     */
-    public function newReservationAction(Request $request, $tableId)
-    {
-        $reservation = new Reservation();
-        $em = $this->getDoctrine()->getManager();
-        $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
-        $form = $this->createForm(new ReservationType(), $reservation);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $reservation->setTableId($table);
-            //base value for now
-            $reservation->setUserId(1);
-            $date = new \DateTime();
-            $reservation->setDate($date);
-            $em->persist($reservation);
-            $em->flush();
 
-            return $this->redirectToRoute('reservationList', array(
-                'tableId' => $tableId
-            ));
-        }
-        return $this->render('pitaksKickerBundle:Reservation:newReservation.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
 
     /**
      * @return Response
@@ -203,4 +174,23 @@ class ReservationController extends Controller
                 'form' => $form->createView(),
         ));
     }
+
+    public function showReservationViewSelectorAction($tableId)
+    {
+        $table = $this->getDoctrine()->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+        if (!$table) {
+            throw $this->createNotFoundException(
+                'No table found for id ' . $tableId
+            );
+        }
+        return $this->render('pitaksKickerBundle:Reservation:everyDayReservations.html.twig', array('table' =>$table));
+    }
+
+    //listas kiekvienai dienai
+    public function everyDayReservationsListAction(Request $request, $tableId)
+    {   $date = $this->get('request')->request->get('dateValue');
+        $list = $this->getDoctrine()->getRepository('pitaksKickerBundle:Reservation')->findByDate($tableId,$date);
+        return $this->render('pitaksKickerBundle:Reservation:everyDayReservationView.html.twig', array('list'=>$list));
+    }
+
 }

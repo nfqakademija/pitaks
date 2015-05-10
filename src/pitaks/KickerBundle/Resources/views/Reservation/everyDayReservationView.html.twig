@@ -1,0 +1,13 @@
+
+    <table align="center" class="table" style="width: 80%">
+        <tr>
+            <th>Start</th>
+            <th>End</th>
+        </tr>
+        {% for item in list %}
+            <tr{% if item.isFree %} class="bg-success" {% else %} class="bg-danger" {% endif %}>
+                <td> {{ item.reservationStart|date("H:i")}} </td>
+                <td> {{ item.reservationEnd|date("H:i")}} </td>
+            </tr>
+        {% endfor %}
+    </table>

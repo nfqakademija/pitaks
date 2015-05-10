@@ -3,15 +3,60 @@
         <th>Competitor </th>
         <th> Start Date </th>
         <th> End Date </th>
-        <th> Table </th>
+        <th> Table  </th>
+        <th> Action </th>
     </tr>
     {% for reservation in reservations  %}
     <tr>
-        <td> {{ reservation.team.name }} </td>
+        {% if reservation.team.id == teamId %}
+        <td> {{ reservation.competitorTeam.name }} </td>
+            {% else %}
+                <td> {{ reservation.team.name }} </td>
+        {% endif %}
         <td> {{ reservation.reservationStart|date("Y-m-d H:i") }}</td>
         <td> {{ reservation.reservationEnd|date("Y-m-d H:i") }}</td>
-        <td> lalallalal</td>
+        <td>
+             {{ reservation.reservations.first().tableId.name }}
+        </td>
+        {% if reservation.isConfirmed == false and teamId != reservation.team.id%}
+        <td><span  class=" acceptRegisteredReservations glyphicon glyphicon-ok" style="cursor: pointer"value="{{  reservation.id }}"></span> </td>
+        {% endif %}
+        <td><span  class=" removeRegisteredReservations glyphicon glyphicon-remove" style="cursor: pointer"value="{{ reservation.id  }}"></span> </td>
     </tr>
     {% endfor %}
 
 </table>
+<script src="{{ asset('bundles/user/js/AlertModal.js') }}"></script>
+<script>
+
+    $('.acceptRegisteredReservations').click(function(){
+        var reservationId = $(this).attr('value');
+        $.ajax({
+            url:  Routing.generate('teamConfirmRegisteredReservation'),
+            type: "post",
+            data: ({reservationId: reservationId}),
+            success: function(data){
+                modalAlert(data);
+                window.location.reload(true);
+            },
+            error:function(){
+                alert("Where was some errors while accepting");
+            }
+        });
+    });
+    $('.removeRegisteredReservations').click(function(){
+        var reservationId = $(this).attr('value');
+        $.ajax({
+            url: Routing.generate('teamDeleteRegisteredReservation'),
+            type: "post",
+            data: ({reservationId: reservationId}),
+            success: function(data){
+                modalAlert(data);
+                window.location.reload(true);
+            },
+            error:function(){
+                alert("Where was some errors while deleting");
+            }
+        });
+    });
+</script>

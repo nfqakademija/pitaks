@@ -74,3 +74,14 @@ tableComment:
 tableResult:
     path: /table/{tableId}/result
     defaults: {_controller: pitaksKickerBundle:Table:showTableResults}
+
+tableEveryDayReservations:
+    path: /table/{tableId}/reservationSelector
+    defaults: {_controller: pitaksKickerBundle:Reservation:showReservationViewSelector}
+    options:
+                        expose: true
+tableEveryDayReservationsList:
+    path: /table/{tableId}/everyDayReservationsList
+    defaults: {_controller: pitaksKickerBundle:Reservation:everyDayReservationsList}
+    options:
+                        expose: true
