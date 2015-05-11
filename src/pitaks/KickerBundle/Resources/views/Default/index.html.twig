@@ -43,7 +43,10 @@
                                     <div class="col-xs-2" value="{{ table.id }}">
                                         {% if app.user %}
                                             <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                                Rezervation
+                                                Reservation
+                                            </button>
+                                            <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                                Comment
                                             </button>
                                         {% endif %}
                                     </div>
@@ -67,13 +70,14 @@
             {{ include('pitaksRSSFeedBundle:feedEntries:feedsEntriesList.html.twig') }}
         </div>
     </div>
+    
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Rezervation</h4>
+                    <h4 class="modal-title" id="myModalLabel">Reservation</h4>
                 </div>
                 <div class="modal-body">
                     <section id="registarcija" style="min-height: 300px">
