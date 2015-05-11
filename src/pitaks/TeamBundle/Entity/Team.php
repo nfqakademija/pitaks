@@ -79,6 +79,7 @@ class Team
      * @ORM\OneToMany(targetEntity="\pitaks\TeamBundle\Entity\TeamStatistic", mappedBy="team")
      */
     private $stats;
+
     function __construct()
     {
         $this->users = new ArrayCollection();

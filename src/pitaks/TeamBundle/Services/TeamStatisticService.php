@@ -48,28 +48,24 @@ class TeamStatisticService extends ContainerAware{
         $card21 = $game->getUser1Team2();
         $card22 = $game->getUser2Team2();
         $table = $this->getEm()->getRepository('pitaksKickerBundle:Tables')->find($game->getTableId());
-        if($card11 && $card12 || $card21 && $card22)
-        {
-            //taht meen we have a team congrats now we need to find players by card id
+        if($card11 && $card12 || $card21 && $card22) {
             $user11 = $this->container->get('fos_user.user_manager')->findUserByCardId($card11);
-            $user12 = $this->container->get('fos_user.user_manager')->findUserByCardId($card11);
-            $team1Exits = $this->container->get('team_service')->checkIfTeamExits($user11->getId(), $user12->getId());
-            /*if exits do something cool*/
-            if($team1Exits){
-                /*Need to save the data*/
-                $team1= $this->container->get('team_service')->findTeamByTwoUser($user11,$user12);
-                $this->setTeamData($game,0,$team1,$table);
+            $user12 = $this->container->get('fos_user.user_manager')->findUserByCardId($card12);
+            if($user11 && $user12){
+                $team1Exits = $this->container->get('team_service')->checkIfTeamExits($user11->getId(), $user12->getId());
+                if($team1Exits){
+                    $team1= $this->container->get('team_service')->findTeamByTwoUser($user11,$user12);
+                    $this->setTeamData($game,0,$team1,$table);
+                }
             }
-
-            $user21 = $this->container->get('fos_user.user_manager')->findUserByCardId($card11);
-            $user22 = $this->container->get('fos_user.user_manager')->findUserByCardId($card11);
-            $team2Exits = $this->container->get('team_service')->checkIfTeamExits($user11->getId(), $user12->getId());
-
-            if($team2Exits)
-            {
-                /*Need to save the data*/
-                $team2= $this->container->get('team_service')->findTeamByTwoUser($user21,$user22);
-                $this->setTeamData($game,0,$team2,$table);
+            $user21 = $this->container->get('fos_user.user_manager')->findUserByCardId($card21);
+            $user22 = $this->container->get('fos_user.user_manager')->findUserByCardId($card22);
+            if($user21 && $user22) {
+                $team2Exits = $this->container->get('team_service')->checkIfTeamExits($user21->getId(), $user22->getId());
+                if ($team2Exits) {
+                    $team2 = $this->container->get('team_service')->findTeamByTwoUser($user21, $user22);
+                    $this->setTeamData($game, 1, $team2, $table);
+                }
             }
 
         }
@@ -85,10 +81,10 @@ class TeamStatisticService extends ContainerAware{
     {
         $teamStatistic = $this->getEm()->getRepository('pitaksTeamBundle:TeamStatistic')
             ->findOneBy(array('team' => $team->getId(), 'table' => $table->getId()));
-        /*pasiziuret ar turi data ar ne jei ne tj sukurt ir idet su nulais*/
-        /*Create new statistic for user*/
         if($teamStatistic == null){
             $teamStatistic = new TeamStatistic();
+            $team->addStat($teamStatistic);
+            $table->addTableTeamStatistic($teamStatistic);
             $teamStatistic->setTeam($team);
             $teamStatistic->setTable($table);
             $this->getEm()->persist($teamStatistic);

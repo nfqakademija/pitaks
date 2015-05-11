@@ -188,10 +188,11 @@ class APIDataService extends ContainerAware
             $recordTime = $record['timeSec'];
             echo "time1: " . $recordTime . " time2 " . $game->getLastTime() . "  " . ($recordTime - $game->getLastTime()) . "\n";
             if ($recordTime - $game->getLastTime() > $this::MIN_GAME_TIME) {
-                echo "GALAS LAIKA";
+                echo "END TIME\n";
                 $game->setEndEventId($record['id']);
                 $this->getEm()->flush();
                 $this->container->get('user_statistic_service')->addUserStatistic($game);
+                $this->container->get('team_statistic_service')->addTeamStatistic($game);
                 $scoreTeam1 = 0;
                 $scoreTeam2 = 0;
                 $game = $this->createNewGame($table, $records, $record);
@@ -199,7 +200,7 @@ class APIDataService extends ContainerAware
                 $game->setLastAddedEventId($record['id']);
                 $game->setLastTime($record['timeSec']);
                 if ($record['type'] == "TableShake") {
-                    echo "table shake  <br/>";
+                    echo "table shake\n";
                 } elseif ($record['type'] == "AutoGoal") {
                     $team = json_decode($record['data'], true);
                     if ($team['team'] == 0) {
@@ -207,14 +208,15 @@ class APIDataService extends ContainerAware
                     } else {
                         $scoreTeam2 += 1;
                     }
-                    echo "goal <br/>" . $scoreTeam1 . " : " . $scoreTeam2;
+                    echo "Goal" . $scoreTeam1 . " : " . $scoreTeam2;
                     if ($scoreTeam1 == 10 || $scoreTeam2 == 10) {
-                        echo "Game End";
+                        echo "Game End\n";
                         $game->setScoreTeam1($scoreTeam1);
                         $game->setScoreTeam2($scoreTeam2);
                         $game->setEndEventId($record['id']);
                         $this->getEm()->flush();
                         $this->container->get('user_statistic_service')->addUserStatistic($game);
+                        $this->container->get('team_statistic_service')->addTeamStatistic($game);
                         $scoreTeam1 = 0;
                         $scoreTeam2 = 0;
                         $game = $this->createNewGame($table, $records, $record);
@@ -281,8 +283,6 @@ class APIDataService extends ContainerAware
         $game->setTableId($table);//pasiduosim stalo id paskui
         $game->setScoreTeam1(0);
         $game->setScoreTeam2(0);
-
-        /*count vietoj sizeof*/
         if (sizeof($this->getEm()->getRepository('pitaksKickerBundle:Game')->findAll()) < 1 || $lastRecord == null) {
             $game->setStartEventId($records[0]['id']);
             $game->setLastAddedEventId($records[0]['id']);
@@ -291,21 +291,16 @@ class APIDataService extends ContainerAware
         } else {
             $lastGame = $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($table->getId());
             $game->setBeginTime($lastRecord['timeSec']);
-            $game->setStartEventId($lastRecord['id']);//turetu uždėti pirmą?
+            $game->setStartEventId($lastRecord['id']);
             $game->setLastAddedEventId($lastRecord['id']);
             $game->setLastTime($lastRecord['timeSec']);
-
-            //tikrinti laiko skirtuma nuo buvusio
-            //tikrinsime ar zaidzia tie patys zaidejai
-            if ($game->getLastTime() - $lastGame->getLastTime() > $this::MIN_GAME_TIME) {
-                //reikia uzdeti buvusius vartotojus
+            if ($game->getLastTime() - $lastGame->getLastTime() < $this::MIN_GAME_TIME) {
                 if (!is_null($lastGame->getUser1Team1()) || !is_null($lastGame->getUser2Team1()) ||
                     !is_null($lastGame->getUser1Team2()) || !is_null($lastGame->getUser2Team2())
                 ) {
-                    //uzmesti
                     $game->setUser1Team1($lastGame->getUser1Team1());
-                    $game->setUser1Team2($lastGame->getUser2Team1());
-                    $game->setUser2Team1($lastGame->getUser1Team2());
+                    $game->setUser1Team2($lastGame->getUser1Team2());
+                    $game->setUser2Team1($lastGame->getUser2Team1());
                     $game->setUser2Team2($lastGame->getUser2Team2());
                 }
 

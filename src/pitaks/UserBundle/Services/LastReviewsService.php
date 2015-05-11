@@ -118,7 +118,9 @@ class LastReviewsService extends ContainerAware{
      */
     public function updateRankDate($user)
     {
-        $user->getReviews()->setLastRankUpdate(new \DateTime());
-        $this->container->get('doctrine.orm.entity_manager')->flush();
+        if($user->getReviews()) {
+            $user->getReviews()->setLastRankUpdate(new \DateTime());
+            $this->container->get('doctrine.orm.entity_manager')->flush();
+        }
     }
 }

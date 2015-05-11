@@ -9,6 +9,8 @@
 namespace pitaks\KickerBundle\Command;
 
 use pitaks\KickerBundle\Entity\Game;
+use pitaks\TeamBundle\Entity\TeamStatistic;
+use pitaks\TeamBundle\Services\TeamStatisticService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,7 +28,7 @@ class TestCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-      $game = new Game();
+        $game = new Game();
         $game->setTableId(4);
         $game->setBeginTime(1);
         $game->setEndEventId(15);
@@ -35,9 +37,10 @@ class TestCommand extends ContainerAwareCommand
         $game->setScoreTeam1(10);
         $game->setScoreTeam2(7);
         $game->setUser1Team1(2);
-        $game->setUser1Team2(3);
-        $game->setUser2Team1(4);
-        $this->getContainer()->get('user_statistic_service')->addUserStatistic($game);
+        $game->setUser1Team2(4);
+        $game->setUser2Team1(13132);
+        $game->setUser2Team2(1);
+       $this->getContainer()->get('team_statistic_service')->addTeamStatistic($game);
     }
 
 }
