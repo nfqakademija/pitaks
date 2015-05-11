@@ -53,18 +53,23 @@
                     </div>
                 </div>
                 <div class="myPanelAreaLeft col-sm-6 ">
-
                     <div class="refreshInfo">
-
                     </div>
                 </div>
             </div>
         </div>
 
     {# Rss feeds#}
-        <h4>Foosball news...</h4>
-        <div id="rssFeeds" class="col-sm-12">
-            {{ include('pitaksRSSFeedBundle:feedEntries:feedsEntriesList.html.twig') }}
+        <div class="row">
+            <h4>Top Players</h4>
+            <div id ="topScored" class="col-sm-6">
+                {{ render(controller('pitaksKickerBundle:Table:bestPlayersForTable', {'tableId':1})) }}
+            </div>
+            <h4>Foosball news...</h4>
+            <div id="rssFeeds" class="col-xs-12 col-sm-6">
+                {{ include('pitaksRSSFeedBundle:feedEntries:feedsEntriesList.html.twig') }}
+            </div>
+
         </div>
     </div>
     <!-- Modal -->

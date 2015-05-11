@@ -2,16 +2,15 @@
 
 namespace pitaks\KickerBundle\Controller;
 
-use GuzzleHttp\Client;
 use pitaks\KickerBundle\Entity\Game;
 use pitaks\KickerBundle\Entity\TableRate;
 use pitaks\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use pitaks\KickerBundle\Entity\Tables;
 use pitaks\KickerBundle\Form\Type\TableType;
+use pitaks\UserBundle\Entity\Rank;
 
 class TableController extends Controller
 {
@@ -145,32 +144,6 @@ class TableController extends Controller
         $em->flush();
         return new Response("RATE WAS ADDED");
     }
-    public function ShowResultAction(){
-
-        $client = new Client();
-        $fromID = 96610;
-        $lastID = 96815;
-
-        $em = $this->getDoctrine()->getManager();
-        $table = $em->getRepository('pitaksKickerBundle:Tables')->findById(1);
-
-        $stalas = new Tables();
-
-        $skaitliukas1 = 0;//$table->getResultFirst();
-        $skaitliukas2 =0;//$table->getResultSecond();
-        while($fromID<$lastID){
-            $data = $client->get(
-                "http://wonderwall.ox.nfq.lt/kickertable/api/v1/events?rows=".(100)."&from-id=".$fromID, ['auth' =>  ['nfq', 'labas']]
-            );
-
-            $rez = $data->json();
-            $this->get('api_data')->handlerApiData($table,$rez['records']);
-            $fromID += 100;
-        }
-        return new Response('<b> pirma: '.$skaitliukas1.' : '.$skaitliukas2.' antra </b> </br>
-         DATA DROM TABLE: asdfasdf');
-
-    }
 
     public function showTableInfoAction($tableId)
     {
@@ -179,12 +152,7 @@ class TableController extends Controller
         $em =$this->getDoctrine()->getManager();
         $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
         $comments = $em->getRepository('pitaksKickerBundle:Comment')->findBy(array('tableId'=>$tableId));
-        $last10Games =$em->getRepository('pitaksKickerBundle:Game')
-            ->findBy(array('tableId'=>$tableId),array('lastAddedEventId'=>"DESC"),10);
-        return $this->render(
-            '',
-            array('tables' => $tables)
-        );
+
 
     }
 
@@ -223,5 +191,17 @@ class TableController extends Controller
             'team1' => $team1,
             'team2' =>$team2,
         ));
+    }
+    public function bestPlayersForTableAction($tableId)
+    {
+        $table = $this->getDoctrine()->getRepository('pitaksKickerBundle:Tables')->find($tableId);
+        if (!$table) {
+            throw $this->createNotFoundException(
+                'No table found for id ' . $tableId
+            );
+        }
+        $usersStatistic = $this->getDoctrine()->getRepository('UserBundle:UserTableStatistic')
+            ->findBy(array('tableId'=>$tableId), array('gamesWin' => 'DESC', 'pointsScored'=> 'DESC'),5 );
+        return $this->render('pitaksKickerBundle:Table:topUserForTable.html.twig', array('users'=>$usersStatistic));
     }
 }

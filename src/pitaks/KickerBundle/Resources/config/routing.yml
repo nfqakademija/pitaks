@@ -41,9 +41,6 @@ viewRes:
 ajaxj:
     path:  ajax
     defaults: { _controller: pitaksKickerBundle:Reservation:ajax }
-show:
-    path: rez
-    defaults: {_controller: pitaksKickerBundle:Table:ShowResult }
 timelist:
     path: timeList
     defaults: {_controller: pitaksKickerBundle:Reservation:timeList}

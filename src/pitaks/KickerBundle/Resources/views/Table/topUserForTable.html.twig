@@ -1,0 +1,16 @@
+<table class="table">
+    <tr>
+        <th>User</th>
+        <th>Wins</th>
+        <th>Scored</th>
+        <th>Rank</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.userId.username}}</td>
+        <td>{{ user.gamesWin }}</td>
+        <td>{{ user.pointsScored }}</td>
+        <td>{% if user.userId.rank %}{{ user.userId.rank.name }}{% else %} Not ranked {% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
