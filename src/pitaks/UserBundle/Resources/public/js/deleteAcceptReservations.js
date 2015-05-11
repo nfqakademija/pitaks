@@ -9,7 +9,6 @@ $('.acceptRegisteredReservation').click(function(){
         type: "post",
         data: ({reservationId: reservationId}),
         success: function(data){
-            alert(data);
             window.location.reload(true);
         },
         error:function(){
@@ -25,7 +24,6 @@ $('.removeRegisteredReservation').click(function(){
         type: "post",
         data: ({reservationId: reservationId}),
         success: function(data){
-            alert(data);
             window.location.reload(true);
         },
         error:function(){

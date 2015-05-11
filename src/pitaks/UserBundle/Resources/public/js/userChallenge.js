@@ -22,8 +22,6 @@ function showResults(){
                     $('#tableListForReservation').css("display","none");
                 },
                 error:function(){
-                    alert("something wrong happends");
-
                 }
             });
         }
@@ -41,10 +39,8 @@ function saveChallenge() {
                 data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
                 success: function (data) {
                     modalAlert(data,'/profile');
-
                 },
                 error: function () {
-                    alert("something wrong happends");
                 }
             });
         }

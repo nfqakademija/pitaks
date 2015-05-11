@@ -42,26 +42,34 @@ class UserController extends Controller{
         $name = $this->get('request')->request->get('word');
         $userResults = $this->get('fos_user.user_manager')->getUsersByWord($name);
         $statsService = $this->get('user_statistic_service');
-        $results = array();
+        $resultsAll = array();
         if($userResults){
-        foreach($userResults as $user)
-        {
-            /** @var  User $user */
-            $realUser = $this->get('fos_user.user_manager')->findUserByUsername($user->getUsername());
-            $stats = $statsService->returnAllUserStatistic($realUser);
-            if($user->getImage())
-                $image = $user->getImage()->getImageAddress();
-            else
-                $image = 'images/anonymous.png';
-            $all=array(
-                "stat" => $stats->getPlusMinusBalance(),
-                "userImage" =>  $image,
-                "user" => $user
+            foreach($userResults as $user)
+            {
+                /** @var  User $user */
+                $realUser = $this->get('fos_user.user_manager')->findUserByUsername($user->getUsername());
+                $stats = $statsService->returnAllUserStatistic($realUser);
+                if($user->getImage())
+                    $image = $user->getImage()->getImageAddress();
+                else
+                    $image = 'images/anonymous.png';
+                $all=array(
+                    "stat" => $stats->getPlusMinusBalance(),
+                    "userImage" =>  $image,
+                    "user" => $user
+                );
+                $resultsAll []= $all;
+            }
+            $paginator  = $this->get('knp_paginator');
+            $results = $paginator->paginate(
+                $resultsAll,
+                $request->query->get('page', 1),
+                10/*limit per page*/
             );
-            $results []= $all;
+            $results->setUsedRoute('show_users');
+            return $this->render('UserBundle:User:usersTableList.html.twig', array('users' => $results));
         }
-        return $this->render('UserBundle:User:usersTableList.html.twig', array('users' => $results));
-        }
+
     }
 
     /**

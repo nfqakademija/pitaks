@@ -7,7 +7,7 @@
         <th>User Name</th>
         <th>User LastName</th>
         <th> Stat</th>
-        <th> Rank </th>
+        <th> Rank</th>
         {% if app.user %}
             <th> CHOOSE </th>
         {% endif %}
@@ -20,7 +20,7 @@
             <td> {{ user["user"].name }} </td>
             <td> {{ user["user"].lastName }}</td>
             <td> {{ user["stat"] }} <a href="{{ path('userStat', {'username': user["user"].username}) }}">more...</a></td>
-            <td>  {% if user["user"].rank %} {{ user["user"].rank.name }} {% else %} not ranked {% endif %} </td>
+            <td> Rank: {% if user["user"].rank %} {{ user["user"].rank.name }} {% else %} not ranked {% endif %}</td>
             {% if app.user %}
                 <td>
                     <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('userChallengeMain', {'username': user["user"].username }) }}">challenge</a>
@@ -30,6 +30,8 @@
           </tr>
     {% endfor %}
         </table>
-
+    <div class="navigation">
+        {{ knp_pagination_render(users) }}
+    </div>
     <script src="{{ asset('bundles/user/js/userImagepopover.js') }}">
     </script>
