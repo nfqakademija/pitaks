@@ -36,10 +36,34 @@ class LastReviews
      */
     private $lastTeamReview;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="lastRankUpdate", type="datetime")
+     */
+    private $lastRankUpdate;
+
     function __construct()
     {
         $this->lastTeamReview = new \DateTime();
+        $this->lastRankUpdate = new \DateTime();
         $this->lastReservationReview = new \DateTime();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastRankUpdate()
+    {
+        return $this->lastRankUpdate;
+    }
+
+    /**
+     * @param \DateTime $lastRankUpdate
+     */
+    public function setLastRankUpdate($lastRankUpdate)
+    {
+        $this->lastRankUpdate = $lastRankUpdate;
     }
 
 

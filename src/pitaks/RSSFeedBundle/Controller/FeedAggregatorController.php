@@ -99,7 +99,7 @@ class FeedAggregatorController extends Controller {
             $em->flush();
             return $this->redirectToRoute('listFeedProvider');
         }
-        return $this->render('pitaksKickerBundle:Table:deleteTable.html.twig', array(
+        return $this->render('pitaksRSSFeedBundle:FeedAggregatorView:deleteFeedProvider.html.twig', array(
             'form' => $form->createView(),
         ));
     }

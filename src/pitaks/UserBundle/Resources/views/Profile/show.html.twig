@@ -25,9 +25,13 @@
                 <div class="tab-content" style="background-color: rgba(191, 226, 181, 0.37); border-radius: 10px; padding: 20px ">
                     <div role="tabpanel" class="tab-pane active" id="news">
                         <div id="newAcions">
-                            <h2>Today NEWS</h2>
+
+                            <h2>Today's NEWS</h2>
+                            {% if user.getLastLogin() < user.reviews.lastRankUpdate %}
+                            <h4> your rank has been changed to {{ user.rank.name}} </h4>
+                            {% endif %}
                             <h4>You have  {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }} new invite(s) to create a team from yout last visit  </h4>
-                            <h4>You have  {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }} newinvite(s) from your last visit  </h4>
+                            <h4>You have  {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }} new invite(s) from your last visit  </h4>
                         </div>
                         {{ render(controller('UserBundle:Profile:upcomingUserReservations')) }}
                         <a id="moreTeams"href="#teams" class="btn bg-primary" data-toggle="tab">more Teams</a>

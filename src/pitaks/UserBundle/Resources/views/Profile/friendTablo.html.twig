@@ -22,6 +22,7 @@ border: solid #000099 4px;
         <p> Last Name: {{ user.lastName }}</p>
         <p> Email : {{ user.email }}</p>
         <p> Card Id: {{ user.cardId }}</p>
+        <h4> Rank: {% if user.rank %} {{ user.rank.name }} {% else %} not ranked {% endif %} </h4>
         <td>
             <a class="btn btn-success" value="{{ user.username }}" name="users" href="{{ path('userChallengeMain', {'username': user.username }) }}">challenge</a>
             <a class="btn btn-success" value="{{ user.username }}" name="users" href="{{ path('createTeam', {'userId': user.id }) }}">Create a team</a>

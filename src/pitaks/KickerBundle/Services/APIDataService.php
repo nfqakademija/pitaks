@@ -174,7 +174,6 @@ class APIDataService extends ContainerAware
         set_time_limit(0);
         if (sizeof($this->getEm()->getRepository('pitaksKickerBundle:Game')->findAll()) > 0) {
             $game = $this->getLastGame($table->getId());
-            //tikriname ar nustatyta kokia reiksme
             if ($game->getEndEventId()) {
                 $game = $this->createNewGame($table, $records);
             }
@@ -183,7 +182,6 @@ class APIDataService extends ContainerAware
         }
         $scoreTeam1 = $game->getScoreTeam1();
         $scoreTeam2 = $game->getScoreTeam2();
-        //vykdysime = žaidimą eidami per mačą;
         foreach ($records as $record) {
 
             //tikrinam laiko tarpa
@@ -193,50 +191,37 @@ class APIDataService extends ContainerAware
                 echo "GALAS LAIKA";
                 $game->setEndEventId($record['id']);
                 $this->getEm()->flush();
-
                 $this->container->get('user_statistic_service')->addUserStatistic($game);
-
                 $scoreTeam1 = 0;
                 $scoreTeam2 = 0;
                 $game = $this->createNewGame($table, $records, $record);
-
             } else {
                 $game->setLastAddedEventId($record['id']);
                 $game->setLastTime($record['timeSec']);
                 if ($record['type'] == "TableShake") {
-                    //for now just do nothing....
                     echo "table shake  <br/>";
                 } elseif ($record['type'] == "AutoGoal") {
                     $team = json_decode($record['data'], true);
-                    //tikriname kuri komanda imuso
                     if ($team['team'] == 0) {
-                        //didiname ivarciu skaiciu
                         $scoreTeam1 += 1;
                     } else {
-                        //didiname ivarciu skaiciu
                         $scoreTeam2 += 1;
                     }
                     echo "goal <br/>" . $scoreTeam1 . " : " . $scoreTeam2;
-                    //need to add logic if one team score more then 10
                     if ($scoreTeam1 == 10 || $scoreTeam2 == 10) {
                         echo "Game End";
-                        //nustatyti rezultata
                         $game->setScoreTeam1($scoreTeam1);
                         $game->setScoreTeam2($scoreTeam2);
                         $game->setEndEventId($record['id']);
-                        /*Ideda objekta*/
                         $this->getEm()->flush();
-                        /* Prideti zaidimo info i duombaze*/
                         $this->container->get('user_statistic_service')->addUserStatistic($game);
-
                         $scoreTeam1 = 0;
                         $scoreTeam2 = 0;
                         $game = $this->createNewGame($table, $records, $record);
                     }
-                    /*Pakeisti i klases*/
                 } elseif ($record['type'] == "CardSwipe") {
-                    //add users to game
                     $player = json_decode($record['data'], true);
+                    $this->checkCardSwipe($table,$player['card_id']);
                     if ($player['team'] == 0) {
                         if ($player['player'] == 0) {
                             $game->setUser1Team1($player['card_id']);
@@ -250,7 +235,6 @@ class APIDataService extends ContainerAware
                             $game->setUser2Team2($player['card_id']);
                         }
                     }
-                    //pasiupdatinam
                     $this->getEm()->flush();
                 }
                 $game->setLastTime($record['timeSec']);
@@ -258,6 +242,32 @@ class APIDataService extends ContainerAware
                 $game->setScoreTeam2($scoreTeam2);
                 $this->getEm()->flush();
             }
+        }
+    }
+
+    /**
+     * @param $table
+     * @param $cardID
+     */
+    public function checkCardSwipe($table,$cardID )
+    {
+        /** @var Game $game */
+        $game= $this->getEm()->getRepository('pitaksKickerBundle:Game')->getLastGame($table->getId());
+        if($cardID == $game->getUser1Team1()){
+            $game->setUser1Team1(null);
+            $this->em->flush();
+        }
+        elseif($cardID == $game->getUser1Team2() ){
+            $game->setUser1Team2(null);
+            $this->em->flush();
+        }
+        elseif($cardID == $game->getUser2Team1()){
+            $game->setUser2Team1(null);
+            $this->em->flush();
+        }
+        elseif($cardID == $game->getUser2Team2()){
+            $game->setUser2Team2(null);
+            $this->em->flush();
         }
     }
     /**

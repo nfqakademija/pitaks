@@ -48,12 +48,12 @@ timelist:
     path: timeList
     defaults: {_controller: pitaksKickerBundle:Reservation:timeList}
     options:
-                         expose: true
+           expose: true
 saveReservation:
     path: save
     defaults: {_controller: pitaksKickerBundle:Reservation:saveReservation}
     options:
-                         expose: true
+           expose: true
 isTableFree:
     path: isTableFree/{tableId}
     defaults: {_controller: pitaksKickerBundle:Reservation:isTableFree}
@@ -61,6 +61,8 @@ isTableFree:
 saveTableRate:
     path: /table/{tableId}/saveRating
     defaults: {_controller: pitaksKickerBundle:Table:saveTableRate}
+    options:
+           expose: true
 tableRateModal:
     path: /table/RateModal
     defaults: {_controller: pitaksKickerBundle:Table:rateTableView}
@@ -79,9 +81,9 @@ tableEveryDayReservations:
     path: /table/{tableId}/reservationSelector
     defaults: {_controller: pitaksKickerBundle:Reservation:showReservationViewSelector}
     options:
-                        expose: true
+           expose: true
 tableEveryDayReservationsList:
     path: /table/{tableId}/everyDayReservationsList
     defaults: {_controller: pitaksKickerBundle:Reservation:everyDayReservationsList}
     options:
-                        expose: true
+            expose: true

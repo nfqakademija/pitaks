@@ -25,7 +25,7 @@
             {% else %}
                 anonymous
             {% endif %}</td>
-        <td> {% if game['friend'] is not null  %}
+        <td> {% if game['friend'] %}
                 {{ game['friend'].username }}
             {% else %}
                 anonymous

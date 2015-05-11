@@ -28,6 +28,7 @@
             <p> Last Name: {{ user.lastName }}</p>
             <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
             <p> Card Id: {{ user.cardId }}</p>
+            <h4> Rank: {% if user.rank %} {{ user.rank.name }} {% else %} not ranked {% endif %} </h4>
             <a href="#">edit</a>
 
         </div>

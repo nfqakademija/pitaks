@@ -88,3 +88,23 @@ userUpcomigReservations:
     defaults: {_controller: UserBundle:Profile:upcomingUserReservations}
     options:
                     expose: true
+newRank:
+    path: admin/rank/new
+    defaults: {_controller: UserBundle:Rank:newRank}
+    options:
+                    expose: true
+editRank:
+    path: admin/rank/{id}/edit
+    defaults: {_controller: UserBundle:Rank:editRank}
+    options:
+                    expose: true
+deleteRank:
+    path: admin/rank/{id}/delete
+    defaults: {_controller: UserBundle:Rank:deleteRank}
+    options:
+                    expose: true
+listRank:
+    path: admin/rank/list
+    defaults: {_controller: UserBundle:Rank:index}
+    options:
+                    expose: true
