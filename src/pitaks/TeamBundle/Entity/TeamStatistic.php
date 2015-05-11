@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint as UniqueConstraint;
 /**
  * TeamStatistic
  *
- * @ORM\Table( uniqueConstraints={@UniqueConstraint(name="rating_unique", columns={"table", "team"})})
+ * @ORM\Table( uniqueConstraints={@UniqueConstraint(name="rating_unique", columns={"tableId", "teamId"})})
  * @ORM\Entity(repositoryClass="pitaks\TeamBundle\Entity\TeamStatisticRepository")
  */
 class TeamStatistic
@@ -25,40 +25,40 @@ class TeamStatistic
     /**
      * @var integer
      *
-     * @ORM\Column(name="`gamesPlayed`", type="integer",nullable=true)
+     * @ORM\Column(name="gamesPlayed", type="integer",nullable=true)
      */
     private $gamesPlayed;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="`gamesWin`", type="integer",nullable=true)
+     * @ORM\Column(name="gamesWin", type="integer",nullable=true)
      */
     private $gamesWin;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="`pointsScored`", type="integer",nullable=true)
+     * @ORM\Column(name="pointsScored", type="integer",nullable=true)
      */
     private $pointsScored;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="`pointsMissed`", type="integer",nullable=true)
+     * @ORM\Column(name="pointsMissed", type="integer",nullable=true)
      */
     private $pointsMissed;
 
     /**
      * @ORM\ManyToOne(targetEntity="\pitaks\KickerBundle\Entity\Tables", inversedBy="tableTeamStatistic")
-     * @ORM\JoinColumn(name="`table`", referencedColumnName="id")
+     * @ORM\JoinColumn(name="tableId", referencedColumnName="id")
      */
     private $table;
 
     /**
      * @ORM\ManyToOne(targetEntity="Team", inversedBy="stats")
-     * @ORM\JoinColumn(name="`team`", referencedColumnName="id")
+     * @ORM\JoinColumn(name="teamId", referencedColumnName="id")
      */
     private $team;
 

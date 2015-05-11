@@ -96,9 +96,12 @@
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-
-             <!-- ratingo uzkrovimas-->
-                <div id="ratingArea">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div id="ratingArea">
+                    </div>
                 </div>
 
             </div>
@@ -134,11 +137,10 @@
                      $("#reservationsListArea").html('There is error while submit');
                  }
              });
-         })
+         });
 
         $('.tableRate').click(function(){
                     var tableId =$(this).val();
-                    alert(tableId);
                     $.ajax({
                         url:  "{{path('tableRateModal')}}",
                         type: "post",
@@ -148,7 +150,6 @@
                             $("#ratingArea").html(data);
                         },
                         error:function(){
-                            alert("failure");
                             $("#ratingArea").html('There is error while submit');
                         }
                     });
@@ -156,7 +157,6 @@
         );
         $("#save").prop("disabled",true);
         $('.rezervation').click(function(){
-                    alert($(this).val());
                     $.ajax({
                         url:  "{{path('viewRes')}}",
                         type: "post",
@@ -165,7 +165,6 @@
                             $("#registarcija").html(data);
                         },
                         error:function(){
-                            alert("failure");
                             $("#registracija").html('There is error while submit');
                         }
                     });

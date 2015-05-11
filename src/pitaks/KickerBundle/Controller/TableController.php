@@ -122,7 +122,7 @@ class TableController extends Controller
             array('table' => $table)
         );
         else{
-            return new Response('<div class="btn btn-danger" style="padding: 50px">You have voted.Your score was: '.$Rating->getRating().'</div>' );
+            return new Response('<h3>You have voted.Your score was: '.$Rating->getRating().'</h3>' );
         }
 
     }

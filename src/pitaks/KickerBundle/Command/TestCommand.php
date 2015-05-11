@@ -9,6 +9,7 @@
 namespace pitaks\KickerBundle\Command;
 
 use pitaks\KickerBundle\Entity\Game;
+use pitaks\TeamBundle\Entity\Team;
 use pitaks\TeamBundle\Entity\TeamStatistic;
 use pitaks\TeamBundle\Services\TeamStatisticService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

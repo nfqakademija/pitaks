@@ -5,12 +5,7 @@
 {% block body %}
 <div role="tabpanel">
     <div class="row">
-
-        <!-- Nav tabs -->
         <div class="col-sm-4">
-
-            {#Team info will be there#}
-
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2 class="panel-title" >
@@ -20,24 +15,27 @@
                 </div>
                 <div class="panel-body" style="color:#000000">
                     <p> Created Data: {{ team.registeredDate|date('Y-m-d  h:m:sa')  }}</p>
-                    {#reikes pasiduoti ir userius#}
                     <p> {% for user in team.users %}
+                        {%  if( user.image) %}
+                        <img class="profileIMGTeam" src="{{ asset( user.image.getImageAddress() )  }}">
+                    {% else %}
+                        <img class="profileIMGTeam" src="{{ asset('images/anonymous.png') }}">
+
+                    {% endif %}
                             {{ user.username }}
                         {% endfor %}
                     </p>
-                    <a href="#">edit</a>
                 </div>
             </div>
 
-            {#navigation for team wil be where#}
             <ul class="nav nav-pills nav-stacked" role="tablist">
-                <li role="presentation" class="">
+                <li role="presentation" class="active">
                     <a href="#challenges" aria-controls="challenges" role="tab" data-toggle="tab">Challenges
                         <span class="badge" style="float:right">
                             {{ render(controller('pitaksTeamBundle:TeamChallenge:getTeamUnconfirmedChallengesCount', {"teamId":team.id})) }}
                         </span>
                     </a></li>
-                <li role="presentation" class="active"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
+                <li role="presentation"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
             </ul>
         </div>
         <!-- Tab panes -->
@@ -52,10 +50,8 @@
                     <div id="teamEachTableStat">
                         {{ render(controller('pitaksTeamBundle:TeamStats:showEachStatsForTable',{'teamId': team.id} )) }}
                     </div>
-
                 </div>
-
-                <div role="tabpanel" class="tab-pane" id="challenges">
+                <div role="tabpanel" class="tab-pane active" id="challenges">
                     <div id="challengeView">
                     <button id="challengeMaker" class="btn btn-danger">create a challenge</button>
                         <h2>Received Challenges</h2>
