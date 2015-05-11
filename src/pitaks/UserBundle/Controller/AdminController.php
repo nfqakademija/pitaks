@@ -16,9 +16,7 @@ class AdminController extends Controller {
 
     public function indexAction()
     {
-        /**
-         * @var $user User
-         */
+        /**@var User $user */
         $user = $this->getUser();
         if($user->hasRole('ROLE_ADMIN'))
         {

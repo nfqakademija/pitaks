@@ -8,9 +8,7 @@
 
 namespace pitaks\UserBundle\Controller;
 
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Model\UserInterface;
 use pitaks\TeamBundle\Entity\TeamReservation;
 use pitaks\UserBundle\Entity\LastReviews;
 use Proxies\__CG__\pitaks\KickerBundle\Entity\RegisteredReservation;
@@ -21,13 +19,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\User\UserInterface;
-
+use pitaks\UserBundle\Entity\User;
 class ProfileController extends BaseController
 {
 
     public function showAction()
-    {
+    {/** @var User $user */
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');

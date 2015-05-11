@@ -26,7 +26,6 @@ class TeamStatsController extends Controller{
            return $this->redirectToRoute('fos_user_profile_show');
         }
         else{
-
             return $this->render('pitaksTeamBundle:TeamStatsViews:teamEachTableStatView.html.twig', array(
             'stats' =>$team->getStats()
         ));}

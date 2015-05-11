@@ -3,11 +3,12 @@
 namespace pitaks\TeamBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint as UniqueConstraint;
 
 /**
  * TeamStatistic
  *
- * @ORM\Table()
+ * @ORM\Table( uniqueConstraints={@UniqueConstraint(name="rating_unique", columns={"tableId", "teamId"})})
  * @ORM\Entity(repositoryClass="pitaks\TeamBundle\Entity\TeamStatisticRepository")
  */
 class TeamStatistic
@@ -24,34 +25,34 @@ class TeamStatistic
     /**
      * @var integer
      *
-     * @ORM\Column(name="gamesPlayed", type="integer")
+     * @ORM\Column(name="gamesPlayed", type="integer",nullable=true)
      */
     private $gamesPlayed;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="gamesWin", type="integer")
+     * @ORM\Column(name="gamesWin", type="integer",nullable=true)
      */
     private $gamesWin;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="pointsScored", type="integer")
+     * @ORM\Column(name="pointsScored", type="integer",nullable=true)
      */
     private $pointsScored;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="pointsMissed", type="integer")
+     * @ORM\Column(name="pointsMissed", type="integer",nullable=true)
      */
     private $pointsMissed;
 
     /**
      * @ORM\ManyToOne(targetEntity="\pitaks\KickerBundle\Entity\Tables", inversedBy="tableTeamStatistic")
-     * @ORM\JoinColumn(name="table", referencedColumnName="id")
+     * @ORM\JoinColumn(name="tableId", referencedColumnName="id")
      */
     private $table;
 
@@ -61,14 +62,13 @@ class TeamStatistic
      */
     private $team;
 
-    function __construct()
+   function __construct()
     {
         $this->gamesPlayed = 0;
-        $this->gamesWin =0;
+        $this->gamesWin = 0;
         $this->pointsScored = 0;
         $this->pointsMissed = 0;
     }
-
 
     /**
      * Get id

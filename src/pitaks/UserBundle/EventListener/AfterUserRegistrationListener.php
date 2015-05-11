@@ -44,7 +44,9 @@ class AfterUserRegistrationListener
         $user = $event->getUser();
 
         // custom logika
-
+        $rank =$this->entityManager->getRepository('UserBundle:Rank')->findOneBy(array('scored'=>0,'win'=>0));
+        if($rank)
+            $user->setRank($rank);
         $reviews = new LastReviews();
         $user->setReviews( $reviews);
         $this->entityManager->persist($user);

@@ -25,3 +25,8 @@ services:
      arguments: ["@doctrine.orm.entity_manager"]
      calls:
              - [setContainer, ['@service_container']]
+  rank_service:
+       class: pitaks\UserBundle\Services\RankService
+       arguments: ["@doctrine.orm.entity_manager"]
+       calls:
+               - [setContainer, ['@service_container']]

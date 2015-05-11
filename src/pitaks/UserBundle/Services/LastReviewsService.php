@@ -112,5 +112,15 @@ class LastReviewsService extends ContainerAware{
        return count($this->em->getRepository('pitaksKickerBundle:RegisteredReservation')
             ->findBy(array('friendId' => $user->getUsername(),'isConfirmed'=>false)));
     }
-    
+
+    /**
+     * @param User $user
+     */
+    public function updateRankDate($user)
+    {
+        if($user->getReviews()) {
+            $user->getReviews()->setLastRankUpdate(new \DateTime());
+            $this->container->get('doctrine.orm.entity_manager')->flush();
+        }
+    }
 }

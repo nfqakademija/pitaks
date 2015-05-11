@@ -28,7 +28,8 @@
             <p> Last Name: {{ user.lastName }}</p>
             <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
             <p> Card Id: {{ user.cardId }}</p>
-            <a href="#">edit</a>
+            <h4> Rank: {% if user.rank %} {{ user.rank.name }} {% else %} not ranked {% endif %} </h4>
+            <a href="{{ path('fos_user_profile_edit') }}">edit</a>
 
         </div>
     </div>

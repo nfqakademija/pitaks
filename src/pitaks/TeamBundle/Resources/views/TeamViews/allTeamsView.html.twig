@@ -14,7 +14,7 @@
                 <td> {{ team['team'].registeredDate|date('Y-m-d  h:m:sa') }}</td>
 
                 <td> <a class="btn btn-default" href="{{ path('userStat', {'username': team['friend'].username}) }}">{{ team['friend'].username}} </a>  </td>
-                <td>not available yet</td>
+                <td> {% if team['teamStat'] and team['team'].confirmed %}{{ team['teamStat']['plusMinus']|number_format(2) }} {% else %} not available {% endif %}</td>
                 <td> <a class="btn btn-danger" href="{{ path('deleteTeam',{'teamId':team['team'].id}) }}">reject</a>
                 </td>
                 {% if team['team'].confirmed %}

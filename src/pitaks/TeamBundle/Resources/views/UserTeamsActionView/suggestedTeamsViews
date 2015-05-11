@@ -3,16 +3,13 @@
             <th>Team Name</th>
             <th>Created Data</th>
             <th> Users</th>
-            <th> Stat </th>
             <th> Actions </th>
         </tr>
         {% for team in teamAndFriend %}
             <tr>
                 <td> {{ team['team'].name }}</td>
                 <td> {{ team['team'].registeredDate|date('Y-m-d  h:m:sa') }}</td>
-
                 <td> <a class="btn btn-default" href="{{ path('userStat', {'username': team['friend'].username}) }}">{{ team['friend'].username}} </a>  </td>
-                <td>not available yet</td>
                 <td> <a class="btn btn-danger" href="{{ path('deleteTeam',{'teamId':team['team'].id}) }}">reject</a>
                     <a class="btn btn-success" href="{{ path('acceptTeam',{'teamId':team['team'].id}) }}">accept</a>
                 </td>

@@ -48,8 +48,11 @@ class UserStatisticController extends Controller{
         $info = array();
         foreach($games as $game)
         {
-            //$game =  new Game();
+            /** @var Game $game */
             //0 pirma 1-antra
+            $friend =null;
+            $competitor1=null;
+            $competitor2=null;
             if($this->get('user_statistic_service')->whichTeamUserBelongTo($user,$game) == 0)
             {
                 $friend=null;

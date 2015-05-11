@@ -3,15 +3,14 @@
 {% block title %}ADMIN{% endblock %}
 
 {% block body %}
-    <div class="container">
         <h2>Hello admin</h2>
         <h4> Menu: </h4>
         <div>
             <ul>
                 <li> <a class="btn btn-info" href="{{ path('tableList') }}">Table list</a> </li>
                 <li><a class="btn btn-info" href="{{ path('listFeedProvider') }}"> Feed providers list</a></li>
+                <li><a class="btn btn-info" href="{{ path('listRank') }}"> Ranks list</a></li>
             </ul>
         </div>
-    </div>
 
 {% endblock %}

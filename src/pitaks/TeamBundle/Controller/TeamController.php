@@ -111,13 +111,17 @@ class TeamController extends Controller{
         $teamAndUser = array();
         foreach($teams as $team)
         {
+            /**@var Team $team */
             if($team->getConfirmed()){
-            $friend = $this->get('team_service')->returnTeamFriend($this->getUser(),$team);
+                $teamStat = $this->get('team_statistic_service')->returnAllTeamStatistic($team);
+                $friend = $this->get('team_service')->returnTeamFriend($this->getUser(),$team);
                 $a = array(
                     "team" => $team,
-                    "friend" => $friend
+                    "friend" => $friend,
+                    "teamStat" => $teamStat
                 );
-                $teamAndUser[] = $a;}
+                $teamAndUser[] = $a;
+            }
         }
         return $this->render(
             'pitaksTeamBundle:TeamViews:allTeamsView.html.twig',
@@ -139,10 +143,11 @@ class TeamController extends Controller{
             if(!$team->getConfirmed() && $team->getAuthor() != $this->getUser()) {
                 //draugas bus ne jis tj kitas
                 $friend = $this->get('team_service')->returnTeamFriend($this->getUser(),$team);
-
+                $teamStat = $this->get('team_statistic_service')->returnAllTeamStatistic($team);
                 $a = array(
                     "team" => $team,
-                    "friend" => $friend
+                    "friend" => $friend,
+                    "teamStat" => $teamStat
                 );
                 $teamAndUser[] = $a;
             }
@@ -163,9 +168,11 @@ class TeamController extends Controller{
         {
             if(!$team->getConfirmed() ) {
             $friend = $this->get('team_service')->returnTeamFriend($this->getUser(),$team);
+            $teamStat = $this->get('team_statistic_service')->returnAllTeamStatistic($team);
             $a=array(
                 "team"=>$team,
-                "friend"=>$friend
+                "friend"=>$friend,
+                "teamStat" => $teamStat
             );
             $teamAndUser[]=$a;
             }
@@ -224,7 +231,7 @@ class TeamController extends Controller{
         $teams = $this->get('team_service')->returnAllTeamsNoUserTeams($name,$this->getUser());
 
         $myteam = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($teamId);
-       // $teams = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->getTeamsByFirstLetters($name);
+
         return $this->render(
             'pitaksTeamBundle:TeamSearch:teamSerchResultView.html.twig',
             array('teams' => $teams, 'myTeam' => $myteam)

@@ -81,6 +81,9 @@ fos_user:
     registration:
             form:
                 type: pitaks_user_registration
+    profile:
+            form:
+                 type: pitaks_user_profile
 knp_paginator:
     template:
          pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig

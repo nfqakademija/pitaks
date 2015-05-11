@@ -57,6 +57,7 @@ class UserStatisticService extends ContainerAware {
                 $user = $this->getEm()->getRepository('UserBundle:User')->findOneBy(array('cardId'=>$card11));
                 if($user) {
                     $this->setUserData($game, 0,$user,$table);
+
                 }
             }
             if($card12!=null)
@@ -122,6 +123,7 @@ class UserStatisticService extends ContainerAware {
             $userStatistic->setPointsMissed($game->getScoreTeam1()+$userStatistic->getPointsMissed());
             $this->getEm()->flush();
         }
+        $this->container->get('rank_service')->setUserRank($user);
     }
 
     /**

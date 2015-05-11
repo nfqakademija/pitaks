@@ -1,0 +1,28 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Rank Menu{% endblock %}
+
+{% block body %}
+    <div class="conteiner">
+        <h2> List of ranks</h2>
+        <a class="btn btn-success" href="{{ path('newRank') }}"> Create a new rank</a>
+        <table class="table">
+            <tr>
+                <th> Name</th>
+                <th> Win</th>
+                <th> Scored</th>
+                <th> </th>
+            </tr>
+            {% for rank in ranks %}
+                <tr>
+                    <td> {{rank.name }}</td>
+                    <td> {{ rank.win }}</td>
+                    <td> {{ rank.scored }}</td>
+                    <td> <a class="btn btn-danger" href="{{ path('deleteRank', {'id': rank.id}) }}">Delete</a>
+                        <a class="btn btn-info" href="{{ path('editRank', {'id': rank.id}) }}">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

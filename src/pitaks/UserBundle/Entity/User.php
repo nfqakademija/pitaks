@@ -44,7 +44,11 @@ class User extends BaseUser{
      */
     protected $lastName;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="Rank", inversedBy="users")
+     * @ORM\JoinColumn(name="rank", referencedColumnName="id")
+     */
+    protected $rank;
     /**
      * @var integer
      *
@@ -500,5 +504,28 @@ class User extends BaseUser{
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set rank
+     *
+     * @param \pitaks\UserBundle\Entity\Rank $rank
+     * @return User
+     */
+    public function setRank(\pitaks\UserBundle\Entity\Rank $rank = null)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
+     *
+     * @return \pitaks\UserBundle\Entity\Rank 
+     */
+    public function getRank()
+    {
+        return $this->rank;
     }
 }

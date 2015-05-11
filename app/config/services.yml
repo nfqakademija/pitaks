@@ -11,3 +11,7 @@ services:
   pitaksUserManager:
     class: pitaks\UserBundle\Entity\UserManager
     arguments: [@security.encoder_factory, @fos_user.util.username_canonicalizer, @fos_user.util.email_canonicalizer, @fos_user.entity_manager, pitaks\UserBundle\Entity\User]
+  pitaks.profile.form.type:
+    class: pitaks\UserBundle\Form\Type\ProfileFormType
+    tags:
+        - { name: form.type, alias: pitaks_user_profile }
