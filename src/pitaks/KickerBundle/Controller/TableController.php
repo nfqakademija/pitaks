@@ -152,8 +152,6 @@ class TableController extends Controller
         $em =$this->getDoctrine()->getManager();
         $table = $em->getRepository('pitaksKickerBundle:Tables')->find($tableId);
         $comments = $em->getRepository('pitaksKickerBundle:Comment')->findBy(array('tableId'=>$tableId));
-
-
     }
 
     /**
