@@ -133,7 +133,7 @@
   min-height: 300px;
   padding: 20px;
   margin-left: 20px;
-  background-color: rgba(0, 204, 0, 0.5);
+  background-color: #2F8F75;
   color: white; }
   .tableFormat .score {
     color: white;
@@ -151,5 +151,63 @@
     opacity: 0.9; }
   .tableFormat .player-card {
     display: block; }
+
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 20pt;
+  color: inherit;
+  font-family: inherit; }
+
+.panel-default {
+  padding: 0;
+  border: none; }
+  .panel-default .panel-heading {
+    font-size: 25pt;
+    color: #FFFDFD;
+    background-color: #262626;
+    padding: 40px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid; }
+
+.panel-body {
+  background-color: #F2F2F2;
+  color: #A1A1A1;
+  padding: 20px;
+  padding-top: 30px; }
+  .panel-body .table > thead > tr > th, .panel-body .table > tbody > tr > th, .panel-body .table > tfoot > tr > th, .panel-body .table > thead > tr > td, .panel-body .table > tbody > tr > td, .panel-body .table > tfoot > tr > td {
+    border: none;
+    text-align: inherit; }
+  .panel-body .table > thead > tr > th {
+    display: inline; }
+
+.navigation {
+  text-align: center; }
+  .navigation .pagination > li > a, .navigation .pagination > li > span {
+    color: #FFF;
+    background-color: #262626;
+    border: none; }
+  .navigation .pagination > .disabled > span, .navigation .pagination > .disabled > span:hover, .navigation .pagination > .disabled > span:focus {
+    color: #FFF;
+    background-color: #262626; }
+  .navigation .pagination > li:last-child > a, .navigation .pagination > li:last-child > span {
+    border-radius: 0px; }
+  .navigation .pagination > li:first-child > a, .navigation .pagination > li:first-child > span {
+    border-radius: 0px; }
+  .navigation .pagination > .active > a, .navigation .pagination > .active > span, .navigation .pagination > .active > a:hover, .navigation .pagination > .active > span:hover, .navigation .pagination > .active > a:focus, .navigation .pagination > .active > span:focus {
+    z-index: 2;
+    color: #fff;
+    background-color: #969292;
+    border-color: #969292;
+    cursor: default; }
+
+.myFooter {
+  padding-top: 10px;
+  text-align: right;
+  color: #969292;
+  margin-top: -30px;
+  background-color: #202020;
+  height: 45px;
+  padding: 0 20px; }
 
 /*# sourceMappingURL=index.css.map */

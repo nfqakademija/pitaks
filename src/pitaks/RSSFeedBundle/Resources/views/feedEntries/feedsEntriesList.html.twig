@@ -5,22 +5,18 @@
         max-width: 100px;
     }
 </style>
-<p> news : {{ pagination.getTotalItemCount }}</p>
 <table class="table">
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'Date', 'a.date') }}</th>
-                <th> news</th>
+            <tr align="right">
+                <th align="left">{{ knp_pagination_sortable(pagination, 'Sort by Date', 'a.date') }}</th>
             </tr>
             {% for feedentry in pagination %}
             <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>{{ feedentry.date|date("Y/m/d H:i") }}</td>
-                <td><h5><strong>{{ feedentry.title }}</strong></h5>
+                <td><h5><strong>{{ feedentry.title }}</strong> {{ feedentry.date|date("Y/m/d H:i") }}</h5>
                     <h6 class="description">{{ feedentry.description }}</h6>
                 <a href="{{ feedentry.link }}">more</a></td>
             </tr>
             {% endfor %}
     </table>
-    {# display navigation #}
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
