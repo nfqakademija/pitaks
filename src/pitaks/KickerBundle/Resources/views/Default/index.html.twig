@@ -29,9 +29,12 @@
                                     <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary " data-toggle="modal" data-target="#myModal">
                                         Reservation
                                     </button>
-                                    <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary " data-toggle="modal" data-target="#myModal">
-                                        Comment
-                                    </button>
+                                    {#<button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary " data-toggle="modal" data-target="#myModal">#}
+                                        {#Comment#}
+                                    {#</button>#}
+                                    <a href="{{ path('pitaks_comments_index', {'id': table.id}) }}" class="rezervation btn btn-primary">
+                                        Comments
+                                    </a>
                                 {% endif %}
                             </div>
                             <div id="table-score" class="col-sm-8">
