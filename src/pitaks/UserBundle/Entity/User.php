@@ -360,10 +360,10 @@ class User extends BaseUser{
     /**
      * Add comments
      *
-     * @param \pitaks\KickerBundle\Entity\Comment $comments
+     * @param \pitaks\CommentsBundle\Entity\Comment $comments
      * @return User
      */
-    public function addComment(\pitaks\KickerBundle\Entity\Comment $comments)
+    public function addComment(\pitaks\CommentsBundle\Entity\Comment $comments)
     {
         $this->comments[] = $comments;
 
@@ -373,9 +373,9 @@ class User extends BaseUser{
     /**
      * Remove comments
      *
-     * @param \pitaks\KickerBundle\Entity\Comment $comments
+     * @param \pitaks\CommentsBundle\Entity\Comment $comments
      */
-    public function removeComment(\pitaks\KickerBundle\Entity\Comment $comments)
+    public function removeComment(\pitaks\CommentsBundle\Entity\Comment $comments)
     {
         $this->comments->removeElement($comments);
     }
