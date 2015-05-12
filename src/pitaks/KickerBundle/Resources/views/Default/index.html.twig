@@ -173,7 +173,7 @@
 
         function refreshTable(){
             $('.refreshInfo').load('{{  path('tableResult',{'tableId': 1}) }}', function(){
-                setTimeout(refreshTable, 40000);
+                setTimeout(refreshTable, 10000);
             });
         }
     </script>
