@@ -3,79 +3,59 @@
 {% block title %}Pagrindinis{% endblock %}
 
 {% block body %}
-<div id="main" class="row">
-
-    <div class="myPanel col-sm-offset-1 col-sm-10" >
+<div class="container-fluid">
+    <div id="mainBar" class="container-fluid">
         <div class="row">
-            <div class="myPanelHeader col-sm-4 col-sm-offset-8">
-                <span class="glyphicon glyphicon-list"></span> Pagrindinis
-            </div>
-        </div>
-        <div class="row">
-            <div class="myPanelArea">
-                <div class="myPanelAreaLeft col-sm-6">
-                    <div class="tableList">
-                        <div class="row">
-                            {% for table in tables %}
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <div class="status"></div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {{ table.name }}
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div id="result" class="scoreSmall">
-                                            5 : 0
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <button type="button" class=" calendarClick btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" value="{{ table.id }}">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </button>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        {% if app.user %}
-                                            <button type="button" class=" tableRate btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" value="{{ table.id }}">Rate</button>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-xs-2" value="{{ table.id }}">
-                                        {% if app.user %}
-                                            <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                                Reservation
-                                            </button>
-                                            <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                                Comment
-                                            </button>
-                                        {% endif %}
-                                    </div>
-                            </div>
-                            {% endfor %}
-                        </div>
+            <div class=" col-sm-6">
+                {% for table in tables %}
+                    <div class="row">
+                        {{ table.name }}
+                        <button type="button" class=" calendarClick btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" value="{{ table.id }}">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </button>
+                        {% if app.user %}
+                            <button type="button" class=" tableRate btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" value="{{ table.id }}">Rate</button>
+                        {% endif %}
+                        {% if app.user %}
+                            <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                Reservation
+                            </button>
+                            <button type="button" value="{{ table.id }}" class=" rezervation btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                Comment
+                            </button>
+                        {% endif %}
                     </div>
-                </div>
-                <div class="myPanelAreaLeft col-sm-6 ">
-                    <div class="refreshInfo">
-                    </div>
-                </div>
+                {% endfor %}
             </div>
-        </div>
-
-    {# Rss feeds#}
-        <div class="row">
-            <h4>Top Players</h4>
-            <div id ="topScored" class="col-sm-6">
-                {{ render(controller('pitaksKickerBundle:Table:bestPlayersForTable', {'tableId':1})) }}
+            <div class="col-sm-6 ">
+                <div class="refreshInfo"></div>
             </div>
-            <h4>Foosball news...</h4>
-            <div id="rssFeeds" class="col-xs-12 col-sm-6">
-                {{ include('pitaksRSSFeedBundle:feedEntries:feedsEntriesList.html.twig') }}
-            </div>
-
         </div>
     </div>
-    
+    {# Rss feeds#}
+        <div class="row">
+            {# top players#}
+            <div class="panel panel-default col-sm-6">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Top Players</h3>
+                </div>
+                <div id ="topScored" class="panel-body">
+                    {{ render(controller('pitaksKickerBundle:Table:bestPlayersForTable', {'tableId':1})) }} </div>
+            </div>
+            {#news panel#}
+            <div class="panel panel-default col-sm-6">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Foosball news</h3>
+                </div>
+                <div class="panel-body">
+                    {{ include('pitaksRSSFeedBundle:feedEntries:feedsEntriesList.html.twig') }}
+                </div>
+            </div>
+
+        </div>
+
+
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -86,7 +66,6 @@
                 </div>
                 <div class="modal-body">
                     <section id="registarcija" style="min-height: 300px">
-
                     </section>
                 </div>
                 <div class="modal-footer">
@@ -126,7 +105,9 @@
             </div>
         </div>
     </div>
+
 </div>
+    </div>
     <script>
          $('.calendarClick').click(function(){
              var tableId= $(this).attr('value');

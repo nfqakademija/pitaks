@@ -1,0 +1,92 @@
+.navbar {
+  height: 100px;
+  background-color: white;
+  padding-top: 40px; }
+
+.navbar-nav > li > a {
+  text-transform: uppercase;
+  color: #969292;
+  font-size: 18px;
+  font-weight: 900;
+  font-family: "museo-sans", "Book Antiqua", sans-serif; }
+
+.navbar-nav > li > a:hover {
+  color: #1E2624;
+  background-color: white;
+  border-bottom: solid 4px #39f8c5; }
+
+.navbar-collapse {
+  position: relative;
+  z-index: 5;
+  background-color: white; }
+
+.navbar-toggle {
+  background-color: #212121; }
+
+.navbar-default {
+  background-color: white;
+  border-color: transparent; }
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding-top: 0;
+    height: 40px; }
+
+  .navbar-nav > li > a {
+    font-size: 30px;
+    font-weight: lighter;
+    padding: 25px;
+    color: white; }
+
+  .navbar-toggle {
+    height: 60px;
+    width: 60px;
+    position: relative;
+    float: right;
+    margin-right: 0;
+    margin-top: -1px;
+    margin-bottom: 0;
+    border: none;
+    border-radius: 0;
+    background: #262626 url("../images/open-menu.png") no-repeat center center; }
+
+  .navbar-collapse {
+    color: white;
+    text-align: center;
+    background-color: #262626; }
+
+  .navbar-nav > li > a:hover {
+    background-color: #212121;
+    border: none;
+    color: white; }
+
+  .navbar-brand {
+    height: 50px;
+    font-size: 30px;
+    margin-top: -1px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #262626; }
+
+  .navbar-default .navbar-toggle .icon-bar {
+    background-color: white; }
+
+  .navbar-default .navbar-toggle .icon-bar:hover {
+    background-color: #E2FF33; }
+
+  .navbar-default .navbar-toggle:focus {
+    background-color: #262626; }
+
+  .navbar-default .navbar-toggle:hover {
+    background: #262626 url("../images/menu_hover.png") no-repeat center center; } }
+#mainBar {
+  background: url("../images/mainBar.gif") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 500px;
+  padding: 20px;
+  margin: -15px; }
+
+/*# sourceMappingURL=index.css.map */
