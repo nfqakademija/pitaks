@@ -166,19 +166,19 @@ class TableController extends Controller
         $game = $this->getDoctrine()->getManager()->getRepository('pitaksKickerBundle:Game')->
         getLastGame($table->getId());
         if($game->getUser1Team1())
-        $user11 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser1Team1());
+            $user11 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser1Team1());
         else $user11=null;
         if($game->getUser1Team1())
-        $user12 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser2Team1());
+            $user12 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser2Team1());
         else $user12=null;
         if($game->getUser1Team1())
-        $user21 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser1Team2());
+            $user21 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser1Team2());
         else $user21=null;
         if($game->getUser1Team1())
-        $user22 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser2Team2());
+            $user22 = $this->get('fos_user.user_manager')->findUserByCardId( $game->getUser2Team2());
         else $user22=null;
-        $team1 = $this->get('team_service')->findTeamByTwoUser($user11,$user12);
-        $team2 = $this->get('team_service')->findTeamByTwoUser($user21,$user22);
+            $team1 = $this->get('team_service')->findTeamByTwoUser($user11,$user12);
+            $team2 = $this->get('team_service')->findTeamByTwoUser($user21,$user22);
         return $this->render('pitaksKickerBundle:Table:tableResultReview.html.twig',array(
             'game' => $game,
             'tableStatus' => $tableStatus,

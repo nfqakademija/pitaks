@@ -1,0 +1,4 @@
+services:
+#    pitaks_comments.example:
+#        class: pitaks\CommentsBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

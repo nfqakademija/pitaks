@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "35e274317abec85d8da23eaf3584810d",
+    "hash": "91fc02b4d43bfabdbb53b00c640d6cdc",
     "packages": [
         {
             "name": "debril/rss-atom-bundle",

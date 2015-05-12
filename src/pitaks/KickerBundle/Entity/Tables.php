@@ -87,8 +87,9 @@ class Tables
     protected $ratings;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="tableId")
-     */
+     * @ORM\ManyToMany(targetEntity="pitaks\CommentsBundle\Entity\Comment", inversedBy="tableId")
+     * @ORM\JoinTable(name="comments")
+     **/
     protected $comments;
 
     /**

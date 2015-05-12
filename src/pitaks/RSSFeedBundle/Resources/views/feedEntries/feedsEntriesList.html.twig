@@ -1,18 +1,15 @@
 <style>
     img
     {
-        max-height: 200px;
-        max-width: 200px;
+        max-height: 100px;
+        max-width: 100px;
     }
-
 </style>
-<script src="{{ asset('bundles/pitaksrssfeed/js/rssFeedJs.js') }}"></script>
 <p> news : {{ pagination.getTotalItemCount }}</p>
 <table class="table">
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'Date', 'a.date') }}</th>
-                <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
-                    {{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
+                <th> news</th>
             </tr>
             {% for feedentry in pagination %}
             <tr {% if loop.index is odd %}class="color"{% endif %}>

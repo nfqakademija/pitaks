@@ -1,0 +1,10 @@
+pitaks_comments_index:
+    path:     /table/{id}/comments
+    defaults: { _controller: pitaksCommentsBundle:Default:index }
+    methods: [GET]
+
+pitaks_comments_comment:
+    path:     /table/{id}/comments
+    defaults: { _controller: pitaksCommentsBundle:Default:comment }
+    methods: [POST]
+

@@ -17,7 +17,7 @@
 
 .navbar-collapse {
   position: relative;
-  z-index: 5;
+  z-index: 50;
   background-color: white; }
 
 .navbar-toggle {
@@ -43,11 +43,11 @@
     width: 60px;
     position: relative;
     float: right;
-    margin-right: 0;
     margin-top: -1px;
     margin-bottom: 0;
     border: none;
     border-radius: 0;
+    margin-right: -15px;
     background: #262626 url("../images/open-menu.png") no-repeat center center; }
 
   .navbar-collapse {
@@ -78,15 +78,78 @@
     background-color: #262626; }
 
   .navbar-default .navbar-toggle:hover {
-    background: #262626 url("../images/menu_hover.png") no-repeat center center; } }
+    background: #262626 url("../images/menu_hover.png"); } }
 #mainBar {
   background: url("../images/mainBar.gif") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
   min-height: 500px;
   padding: 20px;
   margin: -15px; }
+  #mainBar .tableName {
+    font-size: 60px;
+    color: #262626; }
+  #mainBar .btn-primary {
+    background-color: #262626;
+    border-color: #1E2624; }
+  #mainBar .btn {
+    border-radius: 0;
+    margin: 15px; }
+  #mainBar .btn-primary:nth-child(odd) {
+    background-color: #C5E261;
+    border-color: #8AFA80; }
+  #mainBar .btn-primary:nth-child(even) {
+    background-color: #7DCF5B;
+    border-color: #87E261; }
+  #mainBar .btn-primary:nth-child(2) {
+    background-color: #E2FF33;
+    border-color: #87E261; }
+
+#table-score {
+  padding: 15px;
+  background-color: rgba(38, 38, 38, 0.6);
+  color: #FFFDFD;
+  border: none; }
+  #table-score .table-score-name {
+    padding: 5px;
+    font-size: 25pt; }
+  #table-score .table > thead > tr > th, #table-score .table > tbody > tr > th, #table-score .table > tfoot > tr > th, #table-score .table > thead > tr > td, #table-score .table > tbody > tr > td, #table-score .table > tfoot > tr > td {
+    border: inherit; }
+  #table-score .table > tbody > tr:first-child {
+    font-weight: 600;
+    font-size: larger; }
+  #table-score .table > tbody > tr:nth-child(2) {
+    font-weight: 600;
+    font-size: larger;
+    color: #E2FF33; }
+
+.table-buttons {
+  margin-left: 15px;
+  padding: 15px; }
+
+.refreshInfo {
+  padding-top: 50px;
+  top: 50px; }
+
+.tableFormat {
+  min-height: 300px;
+  padding: 20px;
+  margin-left: 20px;
+  background-color: rgba(0, 204, 0, 0.5);
+  color: white; }
+  .tableFormat .score {
+    color: white;
+    font-size: 24pt;
+    padding: 5px; }
+  .tableFormat .tableLeftSide {
+    text-align: right; }
+  .tableFormat .tableCenterSide {
+    text-align: center; }
+  .tableFormat .table-user-photo {
+    opacity: 0.7;
+    max-height: 100px;
+    max-width: 100px; }
+  .tableFormat .table-user-photo:hover {
+    opacity: 0.9; }
+  .tableFormat .player-card {
+    display: block; }
 
 /*# sourceMappingURL=index.css.map */

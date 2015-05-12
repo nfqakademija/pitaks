@@ -16,23 +16,25 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new pitaks\KickerBundle\pitaksKickerBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new pitaks\UserBundle\UserBundle(),
-            new pitaks\TeamBundle\pitaksTeamBundle(),
             new Debril\RssAtomBundle\DebrilRssAtomBundle(),
-            new pitaks\RSSFeedBundle\pitaksRSSFeedBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
-            new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle()
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            // pitaks bundles
+            new pitaks\KickerBundle\pitaksKickerBundle(),
+            new pitaks\UserBundle\UserBundle(),
+            new pitaks\TeamBundle\pitaksTeamBundle(),
+            new pitaks\RSSFeedBundle\pitaksRSSFeedBundle(),
+            new pitaks\CommentsBundle\pitaksCommentsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            
+
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
 
         }
 

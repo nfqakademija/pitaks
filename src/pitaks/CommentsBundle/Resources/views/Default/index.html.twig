@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% block comments_list %}
+        {% if list|length > 0 %}
+            {% for comment in list %}
+                {{ comment.comment }}
+            {% endfor %}
+        {% else %}
+            {{ 'No comments'|trans }}
+        {% endif %}
+    {% endblock %}
+
+    {% block comments_form %}
+        {% if app.user %}
+            {% include 'pitaksCommentsBundle:Default:_form.html.twig' %}
+        {% endif %}
+    {% endblock %}
+{% endblock %}

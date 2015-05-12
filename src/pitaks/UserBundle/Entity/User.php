@@ -85,7 +85,7 @@ class User extends BaseUser{
     protected $userTablesStatistic;
 
     /**
-     * @ORM\OneToMany(targetEntity="\pitaks\KickerBundle\Entity\Comment", mappedBy="userId")
+     * @ORM\OneToMany(targetEntity="\pitaks\CommentsBundle\Entity\Comment", mappedBy="userId")
      */
     protected $comments;
 

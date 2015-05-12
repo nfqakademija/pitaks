@@ -13,6 +13,7 @@ $bgGrey :#F2F2F2;
 //profile colors
 $profileLightGreen : #87E261;
 $profileDarkGreen : #7DCF5B;
+$profileYellow: #E2FF33;
 
 .navbar{
   height: 100px;
@@ -33,7 +34,7 @@ $profileDarkGreen : #7DCF5B;
 }
 .navbar-collapse {
   position: relative;
-  z-index: 5;
+  z-index:50;
   background-color: white;
 }
 .navbar-toggle{
@@ -59,11 +60,11 @@ $profileDarkGreen : #7DCF5B;
     width: 60px;
     position: relative;
     float: right;
-    margin-right: 0;
     margin-top: -1px;
     margin-bottom: 0;
     border: none;
     border-radius: 0;
+    margin-right: -15px;
     background:  $fontMoreBlack url('../images/open-menu.png') no-repeat center center;
   }
 
@@ -95,16 +96,100 @@ $profileDarkGreen : #7DCF5B;
     background-color: $fontMoreBlack;
   }
   .navbar-default .navbar-toggle:hover {
-    background: $fontMoreBlack url('../images/menu_hover.png') no-repeat center center;
+    background: $fontMoreBlack url('../images/menu_hover.png');
   }
 }
 #mainBar {
   background: url("../images/mainBar.gif") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
   min-height: 500px;
   padding: 20px ;
   margin: -15px;
+  .tableName{
+    font-size: 60px;
+    color:$fontMoreBlack ;
+  }
+  .btn-primary{
+    background-color:$fontMoreBlack ;
+    border-color:$fontBlack;
+  }
+  .btn{
+    border-radius: 0;
+    margin: 15px;
+  }
+  .btn-primary:nth-child(odd){
+    background-color: #C5E261;
+    border-color: #8AFA80;
+  }
+  .btn-primary:nth-child(even)
+  {
+    background-color:$profileDarkGreen ;
+    border-color:$profileLightGreen;
+  }
+  .btn-primary:nth-child(2)
+  {
+    background-color:$profileYellow ;
+    border-color:$profileLightGreen;
+  }
+}
+#table-score{
+  padding: 15px;
+  background-color: rgba(38, 38, 38, 0.6);
+  color: #FFFDFD;
+  border: none;
+  .table-score-name{
+  padding: 5px;
+  font-size: 25pt;
+}
+  .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td
+  {
+   border:inherit;
+ }
+  .table>tbody>tr:first-child{
+     font-weight: 600;
+     font-size: larger;
+   }
+  .table>tbody>tr:nth-child(2){
+    font-weight: 600;
+    font-size: larger;
+    color:$profileYellow;
+  }
+}
+
+.table-buttons {
+  margin-left: 15px;
+  padding: 15px;
+}
+.refreshInfo{
+  padding-top: 50px;
+  top:50px;
+}
+.tableFormat
+{
+  min-height: 300px;
+  padding:20px;
+  margin-left: 20px;;
+  background-color: rgba(0, 204, 0, 0.50);
+  color: white;
+  .score{
+    color: white;
+    font-size: 24pt;
+    padding: 5px;}
+  .tableLeftSide
+  {
+    text-align: right;
+  }
+  .tableCenterSide
+  {
+    text-align: center;
+  }
+  .table-user-photo{
+    opacity: 0.7;
+    max-height: 100px;
+    max-width: 100px;
+  }.table-user-photo:hover{
+       opacity: 0.9;
+   }
+  .player-card{
+    display: block;
+  }
 }

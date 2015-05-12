@@ -1,75 +1,46 @@
-
-<style>
-    .tableLeftSide
-    {
-       text-align: right;
-    }
-      .tableCenterSide
-    {
-       text-align: center;
-    }
-    .userCard
-    {
-    border-radius: 5px;
-    border: #000000 1px solid ;
-    padding: 5px;
-}
-.tableFormat
-{
-    margin-left: 20px;;
-background-color: rgba(0, 204, 0, 0.50);
-border-radius: 10px;
-border: 5px #fefefe solid;
-color: white;
-//border-right:5px #fefefe solid ;
-padding:20px;
-}
-.score{
-color: white;
-font-size: 24pt;
-padding: 5px;
-border: 5px #fefefe solid;
-border-radius: 10px;
-}
-
-
-</style>
-
    <div class="tableFormat">
-
     {% if tableStatus  %}
         <div class="row">
             <div class="row ">
                 <div class="col-xs-5 tableLeftSide">
                     {% if team1 %}
-                        <div>   {{ team1.name}}</div>
-                        {% else %}
+                        <div class="team-name">{{ team1.name}}</div>
+                    {% else %}
                       <br/>
                     {% endif %}
-
-                {% if user11 %}
-                        {{ user11.username }}
-                {% else %}
-                    anonymous
+                    <div class="player-card">
+                    {% if user11 %}
+                        {%  if( user11.image) %}
+                            <img class="table-user-photo" src="{{ asset( user11.image.getImageAddress() )  }}">
+                        {% else %}
+                            <img class="table-user-photo" src="{{ asset('images/anonymous.png') }}">
+                        {% endif %}
+                        <span class="player-name"> {{ user11.username }}</span>
+                    {% else %}
+                        <span class="player-name">  anonymous</span>
+                    {% endif %}
                     </div>
-                {% endif %}
-
                 </div>
                 <div class="col-xs-2">
-
                 </div>
                 <div class="col-xs-5">
                     {% if team2 %}
-                     <div>   {{ team2.name}}</div>
+                     <div class="team-name">{{ team2.name}}</div>
                     {% else %}
                         <br/>
                     {% endif %}
-
+                    <div class="player-card">
                     {% if user21 %}
-                            {{ user21.username }}
+                        {%  if( user21.image) %}
+                            <img class="table-user-photo" src="{{ asset( user21.image.getImageAddress() )  }}">
+                        {% else %}
+                            <img class="table-user-photo" src="{{ asset('images/anonymous.png') }}">
+                        {% endif %}
+                           <span class="player-name">{{ user21.username }}</span>
                     {% else %}
-                            anonymous
+                            <span class="player-name"> anonymous</span>
                     {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -83,23 +54,36 @@ border-radius: 10px;
             </div>
             <div class="row">
                 <div class="col-xs-5 tableLeftSide">
+                    <div class="player-card">
                 {% if user12 %}
-                    <span class="userCard">{{ user12.username }}</span>
+                    {%  if( user12.image) %}
+                        <img class="table-user-photo" src="{{ asset( user12.image.getImageAddress() )  }}">
                     {% else %}
-                    anonymous
+                        <img class="table-user-photo" src="{{ asset('images/anonymous.png') }}">
+                    {% endif %}
+                        <span class="player-name">{{ user12.username }}</span>
+                    {% else %}
+                         <span class="player-name">anonymous</span>
                 {% endif %}
+                    </div>
                 </div>
                 <div class="col-xs-2">
                 </div>
                 <div class="col-xs-5">
+                    <div class="player-card">
                     {% if user22 %}
-                    {{ user22.username }}
+                        {%  if( user22.image) %}
+                            <img class="table-user-photo" src="{{ asset( user22.image.getImageAddress() )  }}">
+                        {% else %}
+                            <img class="table-user-photo" src="{{ asset('images/anonymous.png') }}">
+                        {% endif %}
+                        <span class="player-name">{{ user22.username }}</span>
                     {% else %}
-                        anonymous
+                        <span class="player-name">anonymous</span>
                     {% endif %}
+                    </div>
                 </div>
             </div>
-
         </div>
 {% else %}
     <div class="tableCenterSide ">
