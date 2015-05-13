@@ -28,22 +28,3 @@ function showResults(){
     );
 }
 showResults();
-function saveChallenge() {
-    $('#challengeOk').click(function () {
-            var userUsername = $('#UserUsername').val();
-            var tableId = $('#timesTable').attr('value');
-            var datele = $('#datetimepicker').val();
-            $.ajax({
-                url: Routing.generate('userChallengeSave', {'username': userUsername }),
-                type: "post",
-                data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
-                success: function (data) {
-                    modalAlert(data,'/profile');
-                },
-                error: function () {
-                }
-            });
-        }
-    );
-}
-saveChallenge();

@@ -4,9 +4,10 @@
 $('#mygtukas').click(function(){
         var duration = $('#selectDuration').val();
         var startTime = $('#timepicker').val();
-        alert(startTime);
         var tableId =  $('#tableName').attr('value');
         $("#save").prop("disabled",true);
+        $("#challengeOk").prop("disabled",true);
+        $("#challengeTeamOk").prop("disabled",true);
         var verte = $('#datetimepicker').val();
         if(verte!=""){
             $.ajax({
@@ -19,7 +20,6 @@ $('#mygtukas').click(function(){
                     alert('success');
                 },
                 error:function(){
-                    alert("failure");
                     $("#laukas").html('There is error while submit');
                 }
             });
@@ -46,7 +46,7 @@ $('#timepicker').datetimepicker({
 
 $('#save').click(function(){
         var tableId= $('#timesTable').attr('value');
-        var datele = $('#datetimepicker').val();
+        var datele = $('#dayValueFromCalendar').val();
         $.ajax({
             url: Routing.generate('saveReservation'),
             type: "post",
@@ -56,8 +56,49 @@ $('#save').click(function(){
                 window.location.reload(true);
             },
             error:function(){
-                alert("failure");
             }
         });
     }
 );
+function saveChallenge() {
+    $('#challengeOk').click(function () {
+            var userUsername = $('#UserUsername').val();
+            var tableId = $('#timesTable').attr('value');
+            var datele = $('#dayValueFromCalendar').val();
+            $.ajax({
+                url: Routing.generate('userChallengeSave', {'username': userUsername }),
+                type: "post",
+                data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
+                success: function (data) {
+                    modalAlert(data,'/profile');
+                },
+                error: function () {
+                }
+            });
+        }
+    );
+}
+saveChallenge();
+
+function saveTeamChallenge() {
+    $('#challengeTeamOk').click(function () {
+            var tableId = $('#timesTable').attr('value');
+            var datele = $('#dayValueFromCalendar').val();
+            var myId = $('#myteamId').val();
+            var friendId = $('#friendTeamId').val();
+            $.ajax({
+                url: Routing.generate('saveTeamChallenge', {'teamId':  myId, 'anotherTeamId': friendId  }),
+                type: "post",
+                data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
+                success: function (data) {
+                    alert(data);
+                    window.location.reload(true);
+                },
+                error: function () {
+                    alert("failure");
+                }
+            });
+        }
+    );
+}
+saveTeamChallenge();

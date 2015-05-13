@@ -11,8 +11,8 @@
            {% include('@User/Profile/friendTablo.html.twig') %}
             <input hidden id="friendUsername" value="{{ user.username }}">
             <div id="challengeOkBox" style="text-align: center"><p>
-                <span id="challengeOk" style="font-size: 56pt;
-                 color :#00CC00;" class="glyphicon glyphicon-ok"></span></p>
+               <button id="challengeOk" class="btn btn-success"> <span  style="font-size: 56pt;
+                 color :#00CC00;" class="glyphicon glyphicon-ok"></span></button></p>
             </div>
             <button id="anotherTable" class="btn btn-success " style="display: none;"> Choose another table</button>
         </div>
@@ -50,5 +50,5 @@
     <script src="{{ asset('bundles/user/js/AlertModal.js') }}"></script>
     <script src="{{ asset('bundles/user/js/userChallenge.js') }}">
     </script>
-
+    <script> $("#challengeOk").prop("disabled",true);</script>
 {% endblock %}

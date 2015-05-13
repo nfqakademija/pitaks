@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col-sm-1 ">
-                 <button class="btn btn-primary center-block">   <span id="challengeOk" style="font-size: 56pt;
+                 <button id="challengeTeamOk" class="btn btn-success"><span  style="font-size: 56pt;
                  color :#00CC00;" class="glyphicon glyphicon-ok"></span></button>
             </div>
             <div class="col-sm-4">
@@ -64,7 +64,7 @@
         </div>
 
     <script src="{{ asset('bundles/pitaksteam/js/teamChallenge.js') }}">
-
     </script>
+    <script> $("#challengeTeamOk").prop("disabled",true);</script>
 
 {% endblock %}

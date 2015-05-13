@@ -7,4 +7,6 @@ $("input[name='timeListValue']").change(function(){
     verteEnd = $(this).val();
     verte = $(this).parent().attr('value');
     $("#save").prop("disabled",false);
+    $("#challengeOk").prop("disabled",false);
+    $("#challengeTeamOk").prop("disabled",false);
 });
