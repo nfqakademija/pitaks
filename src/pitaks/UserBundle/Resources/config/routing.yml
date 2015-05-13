@@ -1,17 +1,21 @@
 adminView:
     path: admin/
     defaults: {_controller: UserBundle:Admin:index}
-show_users:
-    path: /allUsers
-    defaults: {_controller: UserBundle:User:showUsers}
 getUsersName:
     path: /usersList
     defaults: {_controller: UserBundle:User:autocompleteUserNames}
     options:
                 expose: true
 userslist:
-    path: /usersTableList
-    defaults: {_controller: UserBundle:User:userList}
+    path: /usersTableList/{text}
+    defaults: {_controller: UserBundle:User:userListSearch,  text:""}
+    methods: [POST]
+    options:
+                expose: true
+userslistSearch:
+    path: /usersTableList/{text}
+    defaults: {_controller: UserBundle:User:userList,  text:""}
+    methods: [GET]
     options:
                 expose: true
 userReservationList:

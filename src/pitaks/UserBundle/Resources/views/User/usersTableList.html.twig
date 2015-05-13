@@ -1,30 +1,39 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block fos_user_content %}
+    <div class="ui-widget">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
 
+        {{ form_end(form) }}
+    </div> {% if users|length > 0 %}
     <h2>User list </h2>
-    <table  class="table-striped" style="width:50%">
-
+    <table  class="table" >
     <tr>
-        <th>User UserName </th>
-        <th>User Name</th>
-        <th>User LastName</th>
-        <th> Stat</th>
-        <th> Rank</th>
+        <th> username </th>
+        <th> name</th>
+        <th> win </th>
+        <th> score </th>
+        <th> +/- </th>
+        <th> rank</th>
         {% if app.user %}
             <th> CHOOSE </th>
         {% endif %}
     </tr>
+
     {% for user in users %}
         <tr>
             <td>
-                <span class="btn" rel="popover" data-img="{{ asset(user['userImage']) }}">{{ user["user"].username }}</span>
+                <span class="btn" rel="popover" data-img="{{ asset(user['userImage']) }}">{{ user["username"] }}</span>
            </td>
-            <td> {{ user["user"].name }} </td>
-            <td> {{ user["user"].lastName }}</td>
-            <td> {{ user["stat"] }} <a href="{{ path('userStat', {'username': user["user"].username}) }}">more...</a></td>
-            <td> Rank: {% if user["user"].rank %} {{ user["user"].rank.name }} {% else %} not ranked {% endif %}</td>
+            <td> {{ user["name"] }} </td>
+            <td> {{ user["win"]}}</td>
+            <td> {{ user["scored"] }}</td>
+            <td> {{ user["plusMinus"] }} <a href="{{ path('userStat', {'username': user["username"]}) }}">more...</a></td>
+            <td> {% if user["rank"] %} {{ user["rank"] }} {% else %} not ranked {% endif %}</td>
             {% if app.user %}
                 <td>
-                    <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('userChallengeMain', {'username': user["user"].username }) }}">challenge</a>
-                    <a class="btn btn-success" value="{{ user["user"].username  }}" name="users" href="{{ path('createTeam', {'userId': user["user"].id }) }}">Create a team</a>
+                    <a class="btn btn-success" value="{{ user["username"]  }}" name="users" href="{{ path('userChallengeMain', {'username': user["username"] }) }}">challenge</a>
+                    <a class="btn btn-success" value="{{ user["username"]  }}" name="users" href="{{ path('createTeam', {'userId': user["userId"] }) }}">Create a team</a>
                 </td>
             {% endif %}
           </tr>
@@ -33,5 +42,11 @@
     <div class="navigation">
         {{ knp_pagination_render(users) }}
     </div>
+    {% else %}
+        no results
+    {% endif %}
     <script src="{{ asset('bundles/user/js/userImagepopover.js') }}">
+</script>
+    <script src="{{ asset('bundles/user/js/userIndex.js') }}">
     </script>
+{% endblock fos_user_content %}

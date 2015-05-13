@@ -3,8 +3,8 @@
  */
 function autocompleteSearch() {
     var availableTags = [];
-    $('#tags').keyup(function () {
-        var text = $('#tags').val();
+    $('#form_name').keyup(function () {
+        var text = $('#form_name').val();
         $.ajax({
             url: Routing.generate('getUsersName'),
             type: "post",
@@ -14,30 +14,13 @@ function autocompleteSearch() {
                 for (var i = 0; i < data.length; i++) {
                     availableTags.push(data[i]);
                 }
-                $("#tags").autocomplete({
+                $("#form_name").autocomplete({
                     source: availableTags
                 });
             },
             error: function () {
-                alert("failure");
             }
         });
     });
 }
 autocompleteSearch();
-$('#usernameButton').click(function(){
-    //take value
-    var text = $('#tags').val();
-    //need to return user list
-    $.ajax({
-        url: Routing.generate('userslist'),
-        type: "post",
-        data: ({'word': text}),
-        success: function (data) {
-            $('#userTable').html(data);
-        },
-        error: function () {
-            alert("failure");
-        }
-    });
-});
