@@ -20,6 +20,17 @@ class ChallengeController extends Controller{
      */
     public function ChallengePageAction($username)
     {
+        $user = $this->get('fos_user.user_manager')->findUserByUsername($username);
+        if(!$user)
+        {
+            throw $this->createNotFoundException(
+                'No user found ' . $username
+            );
+        }
+        if($username == $this->getUser()->getUsername())
+        {
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
         $tables = $this->getDoctrine()->getRepository('pitaksKickerBundle:Tables')->findAll();
         $friend = $this->get('fos_user.user_manager')->findUserByUsername($username);
         return $this->render('@User/Challenge/userChallengeView.html.twig', array(

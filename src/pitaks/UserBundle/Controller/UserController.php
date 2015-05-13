@@ -57,7 +57,6 @@ class UserController extends Controller{
     {
         $userResults = $this->get('fos_user.user_manager')->getUsersByWord($text);
         $form = $this->getCommentForm();
-        if ($userResults) {
             $resultsAll = $this->getUserWithStats($userResults);
             $paginator = $this->get('knp_paginator');
             $results = $paginator->paginate(
@@ -71,7 +70,7 @@ class UserController extends Controller{
                     'form' => $form->createView(),
                 )
             );
-        }
+
     }
 
     /**

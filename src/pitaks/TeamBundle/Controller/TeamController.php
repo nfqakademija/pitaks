@@ -72,8 +72,18 @@ class TeamController extends Controller{
      */
     public function newTeamAction(Request $request,$userId)
     {
-        $team = new Team();
         $friend = $this->get('fos_user.user_manager')->findUserById($userId);
+        if(!$friend)
+        {
+            throw $this->createNotFoundException(
+                'No user found ' . $userId
+            );
+        }
+        if($userId == $this->getUser()->getId())
+        {
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+        $team = new Team();
         $form = $this->createForm(new TeamType(), $team);
         $form->handleRequest($request);
         $exits = $this->get('team_service')->checkIfTeamExits($userId,$this->getUser()->getId());
