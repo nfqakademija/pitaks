@@ -45,7 +45,6 @@ class RankService extends ContainerAware{
     {
         $allStatistic = $this->container->get('user_statistic_service')->returnAllUserStatistic($user);
         $rank = $user->getRank();
-        $dispatcher = $this->container->get('event_dispatcher');
         if($rank)
         {
             if($allStatistic->getGamesWon()>$rank->getWin() && $allStatistic->getPointsScored()>$rank->getScored())
@@ -69,7 +68,7 @@ class RankService extends ContainerAware{
         }
         else {
             $newRank = $this->em->getRepository('UserBundle:Rank')->findOneBy(array('win' => 0, 'scored' => 0));
-            if($newRank)
+            if(!$newRank)
             {
                 $rank = new Rank();
                 $rank->setName('begemotas');
@@ -81,6 +80,30 @@ class RankService extends ContainerAware{
             }
         }
     }
+    /**
+     * @param Rank $rank
+     * @return null
+     */
+    public function findHigherRank($rank)
+    {
+        $repo = $this->getRankRepository();
+        $ranks = $repo->getOrderedRanks();
+        if(!$rank)
+            return $ranks->first();
+        foreach($ranks as $rowq)
+        {
+            if($rank->getWin()<= $rowq->getWin() && $rank->getScored() < $rowq->getScored())
+                return $rowq;
+        }
+        return null;
+    }
 
+    /**
+     * @return \pitaks\UserBundle\Entity\RankRepository
+     */
+    protected function getRankRepository()
+    {
+       return $this->em->getRepository('UserBundle:Rank');
+    }
 
 }

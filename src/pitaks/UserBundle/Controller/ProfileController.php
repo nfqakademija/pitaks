@@ -29,10 +29,28 @@ class ProfileController extends BaseController
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-
+        //ranks
+        $sum = 0;
+        $score = 0;
+        $rank = $this->get('rank_service')->findHigherRank($user->getRank());
+        $stat = $this->getAllUserStat($user);
+        if($rank) {
+            $sum = $rank->getWin() - $stat->getGamesWon();
+            $score = $rank->getScored() - $stat->getPointsScored();
+                }
         return $this->render('UserBundle:Profile:show.html.twig', array(
-            'user' => $user
+            'user' => $user,'nextRank' => $rank,'sum'=> $sum, 'score' =>$score
         ));
+    }
+
+    /**
+     * @param $user
+     * @return \pitaks\UserBundle\Model\UserAllStatistic
+     */
+    protected function getAllUserStat($user)
+    {
+        return $this->get('user_statistic_service')->returnAllUserStatistic($user);
+
     }
 
     public function userSentReservationsAction()

@@ -25,8 +25,15 @@
                 <div class="tab-content" style="background-color: rgba(191, 226, 181, 0.37); border-radius: 10px; padding: 20px ">
                     <div role="tabpanel" class="tab-pane active" id="news">
                         <div id="newAcions">
-
                             <h2>Today's NEWS</h2>
+                            {# next rank#}
+                            {% if nextRank %}
+                                next rank :{{ nextRank.name }}
+                                <p> you need to win : {% if sum > 0 %} {{ sum }} more games{% else %} - {% endif %}</p>
+                                <p> you need to score : {% if score > 0 %} {{ score }} more goals{% else %} - {% endif %}</p>
+                            {% else %}
+                                Dude, you are incredible!!!
+                            {% endif %}
                             {% if user.getLastLogin() < user.reviews.lastRankUpdate %}
                             <h4> your rank has been changed to {{ user.rank.name}} </h4>
                             {% endif %}
