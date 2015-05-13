@@ -202,4 +202,112 @@ class TableController extends Controller
             ->findBy(array('tableId'=>$tableId), array('gamesWin' => 'DESC', 'pointsScored'=> 'DESC'),5 );
         return $this->render('pitaksKickerBundle:Table:topUserForTable.html.twig', array('users'=>$usersStatistic));
     }
+
+    /**
+     * @return \pitaks\KickerBundle\Entity\TablesRepository
+     */
+    protected function getTableRepository()
+    {
+        return $this->getDoctrine()->getRepository('pitaksKickerBundle:Tables');
+    }
+    /**
+     * @param null $id
+     * @return null|\pitaks\KickerBundle\Entity\Tables
+     */
+    protected function getTable($id = null)
+    {
+        $tablesrepository = $this->getTableRepository();
+        $table = $tablesrepository->findById($id);
+        if ($table) {
+            return $table;
+        }
+        return null;
+    }
+
+    /**
+     * @return \pitaks\KickerBundle\Entity\GameRepository
+     */
+    protected function getGameRepository()
+    {
+        return $this->getDoctrine()->getRepository('pitaksKickerBundle:Game');
+    }
+
+    /**
+     * @param $tableId
+     * @return Response
+     */
+    public function showTableGamesAction($tableId,Request $request)
+    {
+       $table = $this->getTable($tableId);
+        if(!$table)
+        {
+            throw $this->createNotFoundException(
+                'No table found for id ' . $tableId
+            );
+        }
+        $games = $this->getGameRepository()->getGamesForTableWhereResult($tableId);
+        $results = $this->gamesList($games);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $results,
+            $request->query->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+        return  $this->render('pitaksKickerBundle:Default:tableGames.html.twig',
+            array('pagination'=>$pagination, 'table'=>$table));
+
+    }
+
+    /**
+     * @return \pitaks\UserBundle\Entity\UserManager
+     */
+    protected function getUserRepository()
+    {
+        return $this->get('fos_user.user_manager');
+    }
+
+    /**
+     * @param null $cardId
+     * @return \FOS\UserBundle\Model\UserInterface|null|object
+     */
+    protected function getUserByCard($cardId = null)
+    {
+        $userRepository = $this->getUserRepository();
+        if($cardId) {
+            $user = $userRepository->findUserByCardId($cardId);
+            if ($user) {
+                return $user;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param $games
+     * @return array
+     */
+    protected function gamesList($games)
+    {
+        $results=array();
+        foreach($games as $game)
+        {/** @var Game $game */
+            $user11=$this->getUserByCard($game->getUser1Team1());
+            $user12=$this->getUserByCard($game->getUser1Team2());
+            $user21=$this->getUserByCard($game->getUser2Team1());
+            $user22=$this->getUserByCard($game->getUser2Team2());
+            $row=array(
+                'user11'=>$user11,
+                'user12'=>$user12,
+                'user21'=>$user21,
+                'user22'=>$user22,
+                'begin'=> date('Y-m-d H:i',  $game->getBeginTime()),
+                'end'=>date('Y-m-d H:i',  $game->getLastTime()),
+                'duration'=> date('Y-m-d H:i', $game->getLastTime()-$game->getBeginTime()),
+                'score1'=>$game->getScoreTeam1(),
+                'score2'=>$game->getScoreTeam2()
+            );
+            $results[]=$row;
+        }
+        return $results;
+    }
 }

@@ -1,0 +1,39 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Pagrindinis{% endblock %}
+
+{% block body %}
+    <h2>
+        {{ table.name }} games
+    </h2>
+
+<table class="table">
+    <tr>
+        <th>Begin date </th>
+        <th>End date </th>
+        <th> Score team1</th>
+        <th> Score team2</th>
+        <th> Team1</th>
+        <th> Team2</th>
+        <th> game duration</th>
+        <th> </th>
+    </tr>
+    {% for result in pagination %}
+        <tr>
+            <td>{{ result['begin']|date('Y/m/d H:i') }}</td>
+            <td>{{ result['end']|date('Y/m/d H:i') }}</td>
+            <td>{{ result['score1'] }}</td>
+            <td>{{ result['score2'] }}</td>
+            <td>{% if result['user11'] %} {{ result['user11'].username }} {% else %} tinginys {% endif %}
+                {% if result['user21'] %} {{ result['user21'].username }} {% else %} tinginys  {% endif %}</td>
+            <td>{% if result['user12'] %} {{ result['user12'].username }} {% else %} tinginys  {% endif %}
+                {% if result['user22'] %} {{ result['user22'].username }} {% else %} tinginys  {% endif %}</td>
+            <td>{{ result['duration']|date('i') }} mins</td>
+        </tr>
+    {% endfor %}
+</table>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
+{% endblock %}
+

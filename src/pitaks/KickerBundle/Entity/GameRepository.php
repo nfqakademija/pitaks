@@ -70,4 +70,22 @@ class GameRepository extends EntityRepository
             return $query->getQuery()->getResult();
     }
 
+    /**
+     * @param $tableId
+     * @return \Doctrine\ORM\Query
+     */
+    public function getGamesForTableWhereResult($tableId)
+    {
+        return $this->getQueryBulder()
+            ->select('g')
+            ->where('g.scoreTeam1 > :number1')
+            ->andWhere('g.scoreTeam2 > :number2')
+            ->andWhere('g.tableId='.$tableId)
+            ->setParameter('number1', '0')
+            ->setParameter('number2', '0')
+            ->orderBy('g.beginTime','DESC')
+            ->getQuery()->getResult();
+
+    }
+
 }

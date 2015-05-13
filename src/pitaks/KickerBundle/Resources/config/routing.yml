@@ -84,3 +84,6 @@ tableEveryDayReservationsList:
     defaults: {_controller: pitaksKickerBundle:Reservation:everyDayReservationsList}
     options:
             expose: true
+tableGames:
+    path: /table/{tableId}/games
+    defaults: {_controller: pitaksKickerBundle:Table:showTableGames}
