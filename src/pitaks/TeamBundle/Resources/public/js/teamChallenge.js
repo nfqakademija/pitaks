@@ -4,9 +4,9 @@
 
 $('#anotherTable').click(function()
 {
-    $('#tableListForReservation').css("display","block");
-    $('#anotherTable').css("display","none");
-    $("#teamChallengeMenu").html("");
+    var friendId = $('#friendTeamId').val();
+    document.location.href = friendId;
+
 });
 function showResults(){
     $('.reservation').click(function(){

@@ -80,7 +80,7 @@ function saveChallenge() {
 }
 saveChallenge();
 
-function saveTeamChallenge() {
+function saveTeamChallenges() {
     $('#challengeTeamOk').click(function () {
             var tableId = $('#timesTable').attr('value');
             var datele = $('#dayValueFromCalendar').val();
@@ -101,4 +101,4 @@ function saveTeamChallenge() {
         }
     );
 }
-saveTeamChallenge();
+saveTeamChallenges();

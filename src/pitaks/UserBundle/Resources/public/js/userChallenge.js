@@ -3,10 +3,7 @@
  */
 
 $('#anotherTable').click(function()
-{
-    $('#tableListForReservation').css("display","block");
-    $('#anotherTable').css("display","none");
-    $("#challengeMenu").html("");
+{    document.location.href = $('#UserUsername').val();
 });
 var friend = $('#friendUsername').val();
 
