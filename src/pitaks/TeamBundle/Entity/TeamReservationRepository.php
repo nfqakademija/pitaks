@@ -30,4 +30,17 @@ class TeamReservationRepository extends EntityRepository
             getQuery();
         return $query->getResult();
     }
+
+    /**
+     * @param string $date
+     * @return array
+     */
+    public function findOlderThenData($date){
+        $r = $this->getQueryBulder()
+            ->select()
+            ->where('t.reservationEnd < :date')
+            ->setParameter('date', $date)
+            ->getQuery()->getResult();
+        return $r;
+    }
 }

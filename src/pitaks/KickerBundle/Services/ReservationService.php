@@ -363,6 +363,8 @@ class ReservationService extends ContainerAware{
             ->findOlderThenData($date);
         $ReservationBlocks = $this->getEm()->getRepository('pitaksKickerBundle:Reservation')
             ->findOlderThenData($date);
+        $RegisteredReservationsTeam = $this->getEm()->getRepository('pitaksTeamBundle:TeamReservation')
+            ->findOlderThenData($date);
         echo "Reservations which are older then ".$date.". Deleting";
 
         foreach($ReservationBlocks as $row){
@@ -372,6 +374,9 @@ class ReservationService extends ContainerAware{
         foreach($RegisteredReservations as $row){
             $this->getEm()->remove($row);
             $this->getEm()->flush();
+        }
+        foreach($RegisteredReservationsTeam as $row){
+           $this->deleteTeamRegisteredReservation($row->getId());
         }
 
     }
