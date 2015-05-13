@@ -32,12 +32,14 @@ class ProfileController extends BaseController
         //ranks
         $sum = 0;
         $score = 0;
-        $rank = $this->get('rank_service')->findHigherRank($user->getRank());
-        $stat = $this->getAllUserStat($user);
-        if($rank) {
-            $sum = $rank->getWin() - $stat->getGamesWon();
-            $score = $rank->getScored() - $stat->getPointsScored();
-                }
+        if($user->getRank()) {
+            $rank = $this->get('rank_service')->findHigherRank($user->getRank());
+            $stat = $this->getAllUserStat($user);
+            if ($rank) {
+                $sum = $rank->getWin() - $stat->getGamesWon();
+                $score = $rank->getScored() - $stat->getPointsScored();
+            }
+        }
         return $this->render('UserBundle:Profile:show.html.twig', array(
             'user' => $user,'nextRank' => $rank,'sum'=> $sum, 'score' =>$score
         ));
