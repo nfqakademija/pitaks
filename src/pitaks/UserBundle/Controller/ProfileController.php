@@ -11,7 +11,6 @@ namespace pitaks\UserBundle\Controller;
 use FOS\UserBundle\Model\UserInterface;
 use pitaks\TeamBundle\Entity\TeamReservation;
 use pitaks\UserBundle\Entity\LastReviews;
-use Proxies\__CG__\pitaks\KickerBundle\Entity\RegisteredReservation;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
