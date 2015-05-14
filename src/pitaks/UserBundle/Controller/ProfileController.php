@@ -87,6 +87,7 @@ class ProfileController extends BaseController
         $user = $this->getUser();
         $username = $user->getUsername();
         $reservations = $em->getRepository('pitaksKickerBundle:RegisteredReservation')->findBy(array('userId' => $username ,'isConfirmed' => true), array('reservationStart' => 'ASC'));
+
         $userReservations = array();
         foreach ($reservations as $reservation) {
             $tableId = $em->getRepository('pitaksKickerBundle:Reservation')->

@@ -1,6 +1,7 @@
 /**
  * Created by Aurimas on 2015.05.09.
  */
+    var timeValue = $('#dayValueFromCalendar').val();
 var verte;
 var verteEnd;
 $("input[name='timeListValue']").change(function(){

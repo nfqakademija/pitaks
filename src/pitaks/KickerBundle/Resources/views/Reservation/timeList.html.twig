@@ -1,6 +1,5 @@
    <table id="timesTable" class="table table-hover" value="{{ tableId }}">
-       <input hidden id="dayValueFromCalendar" {{ data }}>
-       {{ data }}
+       <input hidden id="dayValueFromCalendar" value="{{ data }}">
         <tr>
             <th>TIME</th>
             <th>action </th>
@@ -13,4 +12,3 @@
         {% endfor %}
     </table>
     <script src="{{ asset('bundles/pitakskicker/js/timeList.js') }}"></script>
-

@@ -14,9 +14,10 @@ function showResults(){
                 type: "post",
                 data: ({ tableId: $(this).val()}),
                 success: function(data){
-                    $("#challengeMenu").html(data);
+
+                    $('#tableListForReservations').css("display","none");
                     $('#anotherTable').css("display","block");
-                    $('#tableListForReservation').css("display","none");
+                    $("#challengeMenu").html(data);
                 },
                 error:function(){
                 }

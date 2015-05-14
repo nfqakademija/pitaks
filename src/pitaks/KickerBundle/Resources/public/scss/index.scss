@@ -17,7 +17,7 @@ $profileDarkGreen : #7DCF5B;
 $profileYellow: #E2FF33;
 $tableGreen2: rgba(38, 38, 38, 0.6);
 $tableGreen: #2F8F75;
-
+$greenForButtons: #2F8F78;
 $fontGreyForGrey: #A1A1A1;
 .navbar{
   height: 100px;
@@ -195,6 +195,7 @@ $fontGreyForGrey: #A1A1A1;
    }
   .player-card{
     display: block;
+    text-align: center;
   }
 }
 
@@ -268,4 +269,128 @@ $fontGreyForGrey: #A1A1A1;
     background-color: #202020;
     height: 45px;
 
+}
+
+.myModal{
+  .failModal{
+    background-color: red;
+  }
+  .defaultModal{
+    background-color: #00AA88;
+  }
+  .successModal{
+    background-color: $profileLightGreen;
+  }
+  .modal-header {
+     padding: 10px;
+     border-bottom: none;
+     min-height: 0;
+  }
+  .modal-content{
+    border-radius: 0;
+  }
+}
+
+.myModalBIG{
+  .modal-header {
+    font-size: 25pt;
+    color: #FFFDFD;
+    background-color: #262626;
+    padding: 40px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+    .modal-title {
+      font-size: 22pt;
+    }
+    .close{
+      color: #FFF8F8;
+    }
+  }
+  .modal-content{
+    border-radius: 0;
+  }
+  .modal-body {
+    background-color: #F2F2F2;
+  }
+}
+
+//profile
+
+.nav-pills{
+  li{
+    a{
+      border-radius: 0;
+    }
+  }
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus
+{
+  background-color: $fontMoreBlack;
+
+  border-radius: 0;
+}
+.buttons-Green,.btn-success{
+  background-color: #2F8F78;
+  border:inherit;
+  border-radius: 0;
+}
+.btn-danger{
+  border:inherit;
+  border-radius: 0;
+}
+.userImageKeaper{
+  text-align: right;
+  background-color: $fontMoreBlack;
+  color: white;
+  .profileIMG{
+    min-width: 100px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+   a ,a:hover, a:focus{
+    text-align:right;
+    color:white;
+  }
+}
+.nav-pills {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.profileMeniu{
+  padding-left: 20px;
+
+}
+.rankView{
+  padding: 10px;
+  text-align: center;
+  background-color: #95FF6C;
+}
+.tab-content{
+  background: $fontMoreBlack url('../images/mainBar.gif') no-repeat center center;
+  padding: 20px;
+}
+.popover-content{
+  img{
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
+.nextRankView{
+  color: $fontGrey;
+  padding: 10px;
+  background-color: $tableGreen2;
+}
+@media screen  and (max-width: 980px) {
+  .table-score {
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+
+      font-size: 9pt;
+      padding: 2px;
+    }
+  }
+}
+.profileIMGTeam{
+  max-width: 150px;
+  max-height: 150px;
 }

@@ -1,12 +1,5 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<style>
-    .profileIMG{
-        max-width: 300px;
-        max-height: 300px;
-        border-radius: 5%;
-        border: solid #000099 4px;
-    }
-</style>
+
 <div class="fos_user_user_show">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -15,20 +8,29 @@
             </h2>
         </div>
         <div class="panel-body" style="color:#000000">
-            {%  if( user.image) %}
-            <img class="profileIMG" src="{{ asset( user.image.getImageAddress() )  }}">
-                <p> <a href="{{ path('userImageDelete') }}"> Delete photo</a> </p>
-            {% else %}
-                <img class="profileIMG" src="{{ asset('images/anonymous.png') }}">
-                <p> <a href="{{ path('userImageUnpload') }}"> add <strong>YOUR</strong> photo</a> </p>
-            {% endif %}
-            <p> NEWS:   {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }}</p>
-
-            <p> Name: {{ user.name }}</p>
-            <p> Last Name: {{ user.lastName }}</p>
-            <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-            <p> Card Id: {{ user.cardId }}</p>
-            <h4> Rank: {% if user.rank %} {{ user.rank.name }} {% else %} not ranked {% endif %} </h4>
+            <div class="row">
+            <div class="userImageKeaper col-xs-6 col-sm-12  ">
+                {%  if( user.image) %}
+                <img class="img-responsive profileIMG  " src="{{ asset( user.image.getImageAddress() )  }}">
+                    <p> <a href="{{ path('userImageDelete') }}"> Delete photo</a> </p>
+                {% else %}
+                    <img class="img-responsive profileIMG " src="{{ asset('images/anonymous.png') }}">
+                    <p> <a href="{{ path('userImageUnpload') }}"> add <strong>YOUR</strong> photo</a> </p>
+                {% endif %}  </div>
+            <div class="profileMeniu col-xs-6 col-sm-12  ">
+                <p> New reservations:   {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }}</p>
+                <p> New team invites:   {{ render(controller('UserBundle:UserCounts:userNewTeamsCount')) }}</p>
+                <p> Name: {{ user.name }}</p>
+                <p> Last Name: {{ user.lastName }}</p>
+                <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+                <p> Card Id: {{ user.cardId }}</p>
+            </div>
+                </div>
+                <div class="row">
+                    <div class="rankView" >
+                        <h4> Rank: {% if user.rank %} {{ user.rank.name }} {% else %} not ranked {% endif %} </h4>
+                    </div>
+                </div>
             <a href="{{ path('fos_user_profile_edit') }}">edit</a>
 
         </div>

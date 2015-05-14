@@ -4,49 +4,46 @@
 
 {% block body %}
     <div id="alertBox"></div>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4">
-            <input id="UserUsername" hidden value="{{ user.username }}">
-           {% include('@User/Profile/friendTablo.html.twig') %}
-            <input hidden id="friendUsername" value="{{ user.username }}">
-            <div id="challengeOkBox" style="text-align: center"><p>
-               <button id="challengeOk" class="btn btn-success"> <span  style="font-size: 56pt;
-                 color :#00CC00;" class="glyphicon glyphicon-ok"></span></button></p>
+        <div class="row">
+            <div class="col-sm-4">
+                <input id="UserUsername" hidden value="{{ user.username }}">
+                {% include('@User/Profile/friendTablo.html.twig') %}
+                <input hidden id="friendUsername" value="{{ user.username }}">
             </div>
-            <button id="anotherTable" class="btn btn-success " style="display: none;"> Choose another table</button>
-        </div>
-        <div class="col-sm-8">
 
-            <div id="tableListForReservation">
-                <h3> Tables </h3>
-                <table class="table table-hover" >
+            <div class="col-sm-8">
+                <button id="anotherTable" class="btn btn-success " style="display: none;"> Choose another table</button>
+                <div id="tableListForReservations">
+                    <h3> Tables </h3>
+                    <table class="table table-hover" >
 
-                    <tr>
-                        <th>Table name</th>
-                        <th>Table address</th>
-                        <th>Table rank </th>
-                        <th></th>
-                    </tr>
-                    {% for table in tables %}
                         <tr>
-                            <td> {{ table.name }}</td>
-                            <td> {{ table.address }}</td>
-                            <td> {{ table.getTableRate() }}
-                            </td>
-                            <td>
-                                <button id="challengeButton" class="rezervation btn btn-success" value="{{ table.id }}">Choose</button>
-                            </td>
+                            <th>Table name</th>
+                            <th>Table address</th>
+                            <th>Table rank </th>
+                            <th></th>
                         </tr>
-                    {% endfor %}
+                        {% for table in tables %}
+                            <tr>
+                                <td> {{ table.name }}</td>
+                                <td> {{ table.address }}</td>
+                                <td> {{ table.getTableRate() }}
+                                </td>
+                                <td>
+                                    <button id="challengeButton" class="rezervation btn btn-success" value="{{ table.id }}">Choose</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
 
-                </table>
-            </div>
-            <div class="col-sm-8" id="challengeMenu"></div>
-
+                    </table>
+                </div>
+                <div  id="challengeMenu"></div>
+                <div id="challengeOkBox" style="text-align: center"><p>
+                        <button id="challengeOk" class="btn btn-success"> <span  style="font-size: 56pt;
+                 color :#00CC00;" class="glyphicon glyphicon-ok"></span></button></p>
+                </div>
         </div>
     </div>
-</div>
     <script src="{{ asset('bundles/user/js/AlertModal.js') }}"></script>
     <script src="{{ asset('bundles/user/js/userChallenge.js') }}">
     </script>

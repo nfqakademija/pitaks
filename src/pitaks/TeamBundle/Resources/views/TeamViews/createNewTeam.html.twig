@@ -1,7 +1,14 @@
 {% extends "::base.html.twig" %}
-
 {% block title %}Create New Team{% endblock %}
 {% block body %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title" >
+           Create new team
+        </h2>
+    </div>
+    <div class="panel-body" style="color:#000000">
+
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -17,4 +24,9 @@
     </div>
 
     {{ form_end(form) }}
+
+        </div><div>
+        <a href="{{ path('fos_user_profile_show') }}" class="btn btn-success"> Back to profile</a>
+    </div>
+    </div>
 {% endblock %}

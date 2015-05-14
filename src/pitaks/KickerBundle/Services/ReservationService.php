@@ -183,8 +183,10 @@ class ReservationService extends ContainerAware{
         $freeReservations=$this->getEm()->
         getRepository('pitaksKickerBundle:Reservation')->findFreeDateReservations($tableId,$date);
 
-        $registeredReservation =$this->createRegisteredReservation($userId, $friendId, $startDate, $endDate);
+        echo(count($freeReservations));
 
+        $registeredReservation =$this->createRegisteredReservation($userId, $friendId, $startDate, $endDate);
+        $reservation->getId();
         for($i = 0; $i<count($freeReservations); $i++){
             if($reservation->getId() == $freeReservations[$i]->getId())
             {
@@ -216,10 +218,13 @@ class ReservationService extends ContainerAware{
         $freeReservations=$this->getEm()->
         getRepository('pitaksKickerBundle:Reservation')->findFreeDateReservations($tableId,$date);
 
+        echo(count($freeReservations));
         $registeredReservation =$this->createTeamReservation($teamId,$anotherTeamId, $startDate, $endDate);
 
         for($i = 0; $i<count($freeReservations); $i++){
-            if($reservation->getId() == $freeReservations[$i]->getId())
+            /** @var Reservation $rev */
+            $rev = $freeReservations[$i];
+            if($reservation->getId() == $rev->getId())
             {
                 $kiekis = 0;
                 while($kiekis<$step){

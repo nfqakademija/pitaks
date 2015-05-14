@@ -2,7 +2,7 @@
 
 {% block fos_user_content %}
     <div role="tabpanel">
-        <div class="row">
+        <div class="row " style='background: url("../images/mainBar.gif") no-repeat center center fixed'>
             <!-- Nav tabs -->
             <div class="col-sm-4">{% include "FOSUserBundle:Profile:show_content.html.twig" %}
                 <ul class="nav nav-pills nav-stacked" role="tablist">
@@ -22,18 +22,22 @@
             </div>
             <!-- Tab panes -->
             <div class="col-sm-8">
-                <div class="tab-content" style="background-color: rgba(191, 226, 181, 0.37); border-radius: 10px; padding: 20px ">
+                <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="news">
                         <div id="newAcions">
                             <h2>Today's NEWS</h2>
                             {# next rank#}
+                            <div class="nextRankView">
+
                             {% if nextRank %}
-                                next rank :{{ nextRank.name }}
-                                <p> you need to win : {% if sum > 0 %} {{ sum }} more games{% else %} - {% endif %}</p>
-                                <p> you need to score : {% if score > 0 %} {{ score }} more goals{% else %} - {% endif %}</p>
+                                <h4>next rank :{{ nextRank.name }}</h4>
+                                    <h4>  you need to win : {% if sum > 0 %} {{ sum }} more games{% else %} - {% endif %}</h4>
+                                        <h4> you need to score : {% if score > 0 %} {{ score }} more goals{% else %} - {% endif %}</h4>
                             {% else %}
                                 Dude, you are incredible!!!
                             {% endif %}
+
+                            </div>
                             {% if user.getLastLogin() < user.reviews.lastRankUpdate %}
                             <h4> your rank has been changed to {{ user.rank.name}} </h4>
                             {% endif %}
@@ -41,12 +45,12 @@
                             <h4>You have  {{ render(controller('UserBundle:UserCounts:userNewReservationCount')) }} new invite(s) from your last visit  </h4>
                         </div>
                         {{ render(controller('UserBundle:Profile:upcomingUserReservations')) }}
-                        <a id="moreTeams"href="#teams" class="btn bg-primary" data-toggle="tab">more Teams</a>
-                        <a id="moreReservations" href="#home" class="btn bg-primary"  data-toggle="tab" >more Reservations</a>
+                        <a id="moreTeams"href="#teams" class="btn btn-success buttons-Green" data-toggle="tab">more Teams</a>
+                        <a id="moreReservations" href="#home" class="btn btn-success buttons-Green"  data-toggle="tab" >more Reservations</a>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="home">
                         <div class="container-fluid">
-                            <a href="{{ path('userslist') }}" class="btn btn-success">Make reservation </a>
+                            <a href="{{ path('userslist') }}" class="btn btn-success buttons-Green">Make reservation </a>
                             <div id="userUnconfirmedReservationsList"> </div>
                             <h2>Your reservations</h2>
                             <div id="userReservationsList"> </div>
@@ -70,7 +74,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="teams">
                         <div>
-                        <a href="{{ path('userslist') }}" class="btn btn-success">Create a team </a>
+                        <a href="{{ path('userslist') }}" class="btn btn-success buttons-Green">Create a team </a>
                         </div>
                         <h2> Invites to create a team </h2>
                         <div id="userInvitesToCreateATeam"></div>

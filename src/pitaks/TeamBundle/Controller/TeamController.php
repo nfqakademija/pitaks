@@ -91,7 +91,7 @@ class TeamController extends Controller{
         {
             //redirektinsim i kazkur kitur ir koki sms isvesim
             echo "Tokios komandaos neina sudaryt";
-            return $this->redirectToRoute('show_users');
+            return $this->redirectToRoute('fos_user_profile_show');
         }
         else if($form->isValid()) {
             // perform some action, such as saving the task to the database
@@ -197,7 +197,7 @@ class TeamController extends Controller{
     public function deleteTeamAction($teamId,Request $request){
 
         $team = $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($teamId);
-        if (!$team || !$team->getUsers()->contains($this->getUser())) {
+        if (!$team || !$team->getUsers()->contains($this->getUser()) || $team->getConfirmed()) {
             throw $this->createNotFoundException(
                 'No actions for this team' . $teamId
             );
@@ -207,9 +207,10 @@ class TeamController extends Controller{
             ->getForm();
         $form->handleRequest($request);
         if ($form->isValid()) {
+
             $this->getDoctrine()->getManager()->remove($team);
             $this->getDoctrine()->getManager()->flush();
-            return new Response('Team deleted successfully');
+            return $this->redirectToRoute('fos_user_profile_show');
         }
         return $this->render('@pitaksTeam/UserTeamsActionView/deleteTeamActionView', array(
             'form' => $form->createView(),

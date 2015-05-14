@@ -3,10 +3,13 @@
 {% block title %}Pagrindinis{% endblock %}
 
 {% block body %}
-    <h2>
-        {{ table.name }} games
-    </h2>
-
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title" >
+            {{ table.name }} games
+        </h2>
+    </div>
+    <div class="panel-body" style="color:#000000">
 <table class="table">
     <tr>
         <th>Begin date </th>
@@ -35,5 +38,7 @@
 <div class="navigation">
     {{ knp_pagination_render(pagination) }}
 </div>
+        </div>
+    </div>
 {% endblock %}
 

@@ -15,8 +15,10 @@
 
                 <td> <a class="btn btn-default" href="{{ path('userStat', {'username': team['friend'].username}) }}">{{ team['friend'].username}} </a>  </td>
                 <td> {% if team['teamStat'] and team['team'].confirmed %}{{ team['teamStat']['plusMinus']|number_format(2) }} {% else %} not available {% endif %}</td>
+                {% if team['team'].confirmed == false  %}
                 <td> <a class="btn btn-danger" href="{{ path('deleteTeam',{'teamId':team['team'].id}) }}">reject</a>
                 </td>
+                {% endif %}
                 {% if team['team'].confirmed %}
                 <td> <a class="btn btn-success" href="{{ path('teamMenu',{'teamId':team['team'].id}) }}">
                         View

@@ -6,7 +6,14 @@
 {% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
-    <h2>Login form</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title" >
+            Login
+        </h2>
+    </div>
+    <div class="panel-body" style="color:#000000">
     <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <div class="form-group">
@@ -40,4 +47,6 @@
 
     </form>
  <a href="{{ path('fos_user_registration_register') }}"> if you are not a member please register</a>
+    </div>
+</div>
 {% endblock fos_user_content %}

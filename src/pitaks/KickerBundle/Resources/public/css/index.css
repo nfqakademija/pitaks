@@ -150,7 +150,8 @@
   .tableFormat .table-user-photo:hover {
     opacity: 0.9; }
   .tableFormat .player-card {
-    display: block; }
+    display: block;
+    text-align: center; }
 
 .panel-title {
   margin-top: 0;
@@ -202,12 +203,101 @@
     cursor: default; }
 
 .myFooter {
+  padding: 0 20px;
   padding-top: 10px;
   text-align: right;
   color: #969292;
-  margin-top: -30px;
   background-color: #202020;
-  height: 45px;
-  padding: 0 20px; }
+  height: 45px; }
+
+.myModal .failModal {
+  background-color: red; }
+.myModal .defaultModal {
+  background-color: #00AA88; }
+.myModal .successModal {
+  background-color: #87E261; }
+.myModal .modal-header {
+  padding: 10px;
+  border-bottom: none;
+  min-height: 0; }
+.myModal .modal-content {
+  border-radius: 0; }
+
+.myModalBIG .modal-header {
+  font-size: 25pt;
+  color: #FFFDFD;
+  background-color: #262626;
+  padding: 40px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid; }
+  .myModalBIG .modal-header .modal-title {
+    font-size: 22pt; }
+  .myModalBIG .modal-header .close {
+    color: #FFF8F8; }
+.myModalBIG .modal-content {
+  border-radius: 0; }
+.myModalBIG .modal-body {
+  background-color: #F2F2F2; }
+
+.nav-pills li a {
+  border-radius: 0; }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  background-color: #262626;
+  border-radius: 0; }
+
+.buttons-Green, .btn-success {
+  background-color: #2F8F78;
+  border: inherit;
+  border-radius: 0; }
+
+.btn-danger {
+  border: inherit;
+  border-radius: 0; }
+
+.userImageKeaper {
+  text-align: right;
+  background-color: #262626;
+  color: white; }
+  .userImageKeaper .profileIMG {
+    min-width: 100px;
+    margin-right: auto;
+    margin-left: auto; }
+  .userImageKeaper a, .userImageKeaper a:hover, .userImageKeaper a:focus {
+    text-align: right;
+    color: white; }
+
+.nav-pills {
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.profileMeniu {
+  padding-left: 20px; }
+
+.rankView {
+  padding: 10px;
+  text-align: center;
+  background-color: #95FF6C; }
+
+.tab-content {
+  background: #262626 url("../images/mainBar.gif") no-repeat center center;
+  padding: 20px; }
+
+.popover-content img {
+  max-width: 200px;
+  max-height: 200px; }
+
+.nextRankView {
+  color: #969292;
+  padding: 10px;
+  background-color: rgba(38, 38, 38, 0.6); }
+
+@media screen and (max-width: 980px) {
+  .table-score .table > thead > tr > th, .table-score .table > tbody > tr > th, .table-score .table > tfoot > tr > th, .table-score .table > thead > tr > td, .table-score .table > tbody > tr > td, .table-score .table > tfoot > tr > td {
+    font-size: 9pt;
+    padding: 2px; } }
+.profileIMGTeam {
+  max-width: 150px;
+  max-height: 150px; }
 
 /*# sourceMappingURL=index.css.map */

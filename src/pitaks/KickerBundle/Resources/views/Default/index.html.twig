@@ -36,7 +36,7 @@
                                     </a>
                                 {% endif %}
                             </div>
-                            <div id="table-score" class="col-sm-8">
+                            <div id="table-score" class="col-sm-12">
                                 <div class="table-score-name">TOP 5</div>
                                 <div id ="topScored">
                                     {{ render(controller('pitaksKickerBundle:Table:bestPlayersForTable', {'tableId':table.Id})) }}
@@ -66,7 +66,7 @@
         </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade myModalBIG" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -85,9 +85,9 @@
         </div>
     </div>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="myModalBIG  modal fade bs-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
-            <div class="modal-content">
+            <div class="modal-content ">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
@@ -100,8 +100,8 @@
         </div>
     </div>
 
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="myModalBIG  modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -114,9 +114,9 @@
             </div>
         </div>
     </div>
-
 </div>
     </div>
+    <script src="{{ asset('bundles/user/js/AlertModal.js') }}"></script>
     <script>
          $('.calendarClick').click(function(){
              var tableId= $(this).attr('value');
@@ -170,7 +170,7 @@
 
         function refreshTable(){
             $('.refreshInfo').load('{{  path('tableResult',{'tableId': 1}) }}', function(){
-                setTimeout(refreshTable, 10000);
+                setTimeout(refreshTable, 1000000);
             });
         }
     </script>

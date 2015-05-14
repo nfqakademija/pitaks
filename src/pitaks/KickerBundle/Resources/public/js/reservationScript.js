@@ -17,7 +17,7 @@ $('#mygtukas').click(function(){
                 success: function(data){
                     $("#laukas").html("");
                     $("#laukas").html(data);
-                    alert('success');
+
                 },
                 error:function(){
                     $("#laukas").html('There is error while submit');
@@ -46,13 +46,11 @@ $('#timepicker').datetimepicker({
 
 $('#save').click(function(){
         var tableId= $('#timesTable').attr('value');
-        var datele = $('#dayValueFromCalendar').val();
         $.ajax({
             url: Routing.generate('saveReservation'),
             type: "post",
-            data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
+            data: ({dateValue: timeValue, tableId: tableId, startValue: verte, endValue: verteEnd }),
             success: function(data){
-                alert(data);
                 window.location.reload(true);
             },
             error:function(){
@@ -62,13 +60,13 @@ $('#save').click(function(){
 );
 function saveChallenge() {
     $('#challengeOk').click(function () {
+
             var userUsername = $('#UserUsername').val();
             var tableId = $('#timesTable').attr('value');
-            var datele = $('#dayValueFromCalendar').val();
             $.ajax({
                 url: Routing.generate('userChallengeSave', {'username': userUsername }),
                 type: "post",
-                data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
+                data: ({dateValue: timeValue, tableId: tableId, startValue: verte, endValue: verteEnd }),
                 success: function (data) {
                     modalAlert(data,'/profile');
                 },
@@ -82,20 +80,18 @@ saveChallenge();
 
 function saveTeamChallenges() {
     $('#challengeTeamOk').click(function () {
+
             var tableId = $('#timesTable').attr('value');
-            var datele = $('#dayValueFromCalendar').val();
             var myId = $('#myteamId').val();
             var friendId = $('#friendTeamId').val();
             $.ajax({
                 url: Routing.generate('saveTeamChallenge', {'teamId':  myId, 'anotherTeamId': friendId  }),
                 type: "post",
-                data: ({dateValue: datele, tableId: tableId, startValue: verte, endValue: verteEnd }),
+                data: ({dateValue: timeValue, tableId: tableId, startValue: verte, endValue: verteEnd }),
                 success: function (data) {
-                    alert(data);
-                    window.location.reload(true);
+                    modalAlert(data,'/profile');
                 },
                 error: function () {
-                    alert("failure");
                 }
             });
         }
