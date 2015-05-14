@@ -1,0 +1,14 @@
+<table class="table">
+    <tr>
+        <th> Name</th>
+        <th> Win</th>
+        <th> Scored</th>
+    </tr>
+    {% for rank in ranks %}
+    <tr>
+        <td> {{rank.name }}</td>
+        <td> {{ rank.win }}</td>
+        <td> {{ rank.scored }}</td>
+    </tr>
+{% endfor %}
+    </table>

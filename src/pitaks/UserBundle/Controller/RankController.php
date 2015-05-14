@@ -102,4 +102,11 @@ class RankController extends Controller{
         ));
     }
 
+    public function showRanksAction()
+    {
+        $ranks=$this->getDoctrine()->getRepository('UserBundle:Rank')->getOrderedRanksDESC();
+       return $this->render('UserBundle:Ranks:allRanks.html.twig',
+            ['ranks' =>$ranks]);
+    }
+
 }

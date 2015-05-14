@@ -33,4 +33,17 @@ class RankRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+    /**
+     * @return array
+     */
+    public function getOrderedRanksDESC()
+    {
+        $bulder= $this->getQueryBulder();
+        $query = $bulder
+            ->select('ra')
+            ->orderBy('ra.win','DESC')
+            ->addOrderBy('ra.scored','DESC')
+            ->getQuery();
+        return $query->getResult();
+    }
 }

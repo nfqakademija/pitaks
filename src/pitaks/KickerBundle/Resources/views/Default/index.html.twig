@@ -63,6 +63,15 @@
                     {{ include('pitaksRSSFeedBundle:feedEntries:feedsEntriesList.html.twig') }}
                 </div>
             </div>
+            <div class="panel panel-default col-sm-6">
+                <div class="panel-heading">
+                    <h3 class="panel-title">RANKS LIST</h3>
+                </div>
+                <div class="panel-body" style="background-color: white">
+                    {{ render(controller('UserBundle:Rank:showRanks')) }}
+                </div>
+            </div>
+
         </div>
 
     <!-- Modal -->
