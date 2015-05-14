@@ -59,8 +59,12 @@ commonTeamStat:
     defaults: {_controller: pitaksTeamBundle:TeamStats:showAllTeamStatistic}
     options:
                     expose: true
-
-
+#show AnotherTeam
+showAnotherTeam:
+    path: user/teamMenu/{teamId}/show/{anotherTeamId}
+    defaults: {_controller: pitaksTeamBundle:TeamStats:showTeam}
+    options:
+                    expose: true
 #teams search
 teamSearchForm:
     path: user/teamMenu/{teamId}/searchTeams

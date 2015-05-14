@@ -20,7 +20,7 @@ function showResults(){
                     $("#teamChallengeMenu").html(data);
                 },
                 error:function(){
-                    alert("something wrong happends");
+                    console.log("something wrong happends");
                 }
             });
         }

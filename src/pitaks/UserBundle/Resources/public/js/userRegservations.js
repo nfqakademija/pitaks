@@ -9,11 +9,11 @@ $('.removeRegisteredReservation').click(function(){
         type: "post",
         data: ({reservationId: reservationId}),
         success: function(data){
-            alert(data);
+            console.log(data);
             window.location.reload(true);
         },
         error:function(){
-            alert("Where was some errors while deleting");
+            console.log("Where was some errors while deleting");
         }
     });
 });

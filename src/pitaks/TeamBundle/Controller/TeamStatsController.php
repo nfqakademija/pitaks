@@ -40,13 +40,30 @@ class TeamStatsController extends Controller{
         $team= $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($teamId);
         if(!$team)
         {
-            //throws exeption
             return $this->redirectToRoute('fos_user_profile_show');
         }
         else {
             $statistic = $this->get('team_statistic_service')->returnAllTeamStatistic($team);
             return $this->render('pitaksTeamBundle:TeamStatsViews:teamStatsView.html.twig', array(
-                'stats' => $statistic));
+                'stats' => $statistic, 'team'=>$team));
+        }
+    }
+    public function showTeamAction($teamId,$anotherTeamId)
+    {
+        $team= $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($teamId);
+        if(!$team)
+        {
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+        $fteam= $this->getDoctrine()->getRepository('pitaksTeamBundle:Team')->find($anotherTeamId);
+        if(!$fteam)
+        {
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+        else {
+            $statistic = $this->get('team_statistic_service')->returnAllTeamStatistic($fteam);
+            return $this->render('pitaksTeamBundle:TeamViews:showTeam.html.twig', array(
+                'stats' => $statistic, 'team'=>$fteam, 'myTeamId'=>$teamId));
         }
     }
 }

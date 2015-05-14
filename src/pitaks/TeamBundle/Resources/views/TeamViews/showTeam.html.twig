@@ -1,0 +1,53 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Team {{ team.name }}{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title" >
+                    {{ team.name }}
+                    <input id="teamId" hidden value="{{ team.id }}">
+                </h2>
+            </div>
+            <div class="panel-body" style="color:#000000">
+                <p> Created Data: {{ team.registeredDate|date('Y-m-d  h:m:sa')  }}</p>
+                <p> {% for user in team.users %}
+                        {%  if( user.image) %}
+                            <img class="profileIMGTeam" src="{{ asset( user.image.getImageAddress() )  }}">
+                        {% else %}
+                            <img class="profileIMGTeam" src="{{ asset('images/anonymous.png') }}">
+                        {% endif %}
+                        {{ user.username }}
+                    {% endfor %}
+                </p>
+                <td> <a href="{{ path('challengeTeam',{'teamId':myTeamId, 'anotherTeamId': team.id})}}" id="challengeTeamId" class=" btn btn-success" value="{{ team.id }}">Challenge</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <h2>team Stat</h2>
+        <table class="table">
+            <tr>
+                <th>Played</th>
+                <th>Won</th>
+                <th>Lost</th>
+                <th>Scored</th>
+                <th>Missed </th>
+                <th> +- </th>
+            </tr>
+            <tr>
+                <td> {{ stats['gamePlayed'] }}</td>
+                <td> {{ stats['gameWon'] }}</td>
+                <td> {{  stats['gamePlayed']-stats['gameWon']  }}</td>
+                <td> {{ stats['pointsScored']}} </td>
+                <td> {{ stats['pointsMissed']}} </td>
+                <td> {{ stats['plusMinus'] }} </td>
+            </tr>
+        </table>
+    </div>
+</div>
+    {% endblock%}

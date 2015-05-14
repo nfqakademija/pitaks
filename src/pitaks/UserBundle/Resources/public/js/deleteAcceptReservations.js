@@ -3,7 +3,7 @@
  */
 $('.acceptRegisteredReservation').click(function(){
     var reservationId = $(this).attr('value');
-    alert(reservationId);
+    console.log(reservationId);
     $.ajax({
         url:  Routing.generate('userConfirmRegisteredReservation'),
         type: "post",
@@ -12,13 +12,13 @@ $('.acceptRegisteredReservation').click(function(){
             window.location.reload(true);
         },
         error:function(){
-            alert("Where was some errors while accepting");
+            console.log("Where was some errors while accepting");
         }
     });
 });
 $('.removeRegisteredReservation').click(function(){
     var reservationId = $(this).attr('value');
-    alert(reservationId);
+    console.log(reservationId);
     $.ajax({
         url: Routing.generate('userDeleteRegisteredReservation'),
         type: "post",
@@ -27,7 +27,7 @@ $('.removeRegisteredReservation').click(function(){
             window.location.reload(true);
         },
         error:function(){
-            alert("Where was some errors while deleting");
+            console.log("Where was some errors while deleting");
         }
     });
 });

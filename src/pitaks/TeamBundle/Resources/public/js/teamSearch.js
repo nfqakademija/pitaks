@@ -19,7 +19,7 @@ function autocompleteSearch() {
                 });
             },
             error: function () {
-                alert("failure");
+                console.log("failure");
             }
         });
     });
@@ -38,7 +38,7 @@ $('#usernameButton').click(function(){
             $('#userTable').html(data);
         },
         error: function () {
-            alert("failure");
+            console.log("failure");
         }
     });
 });
